@@ -13,6 +13,9 @@
   "env": {
     "browser": true
   },
+  "globals": {
+    "process": true
+  },
   "rules": {
     "react/prop-types": "off",
     "no-console": ["error", { "allow": ["error"] }]

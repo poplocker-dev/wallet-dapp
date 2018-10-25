@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const DirectoryNamedWebpackPlugin = require('directory-named-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: {
@@ -49,6 +50,7 @@ module.exports = {
 		new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       title: 'PopWallet'
-    })
+    }),
+    new Dotenv()
 	]
 };

@@ -24,7 +24,8 @@
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.1",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "web3": "^1.0.0-beta.36"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
@@ -33,6 +34,7 @@
     "babel-loader": "^8.0.4",
     "css-loader": "^1.0.0",
     "directory-named-webpack-plugin": "^4.0.0",
+    "dotenv-webpack": "^1.5.7",
     "eslint": "^5.7.0",
     "eslint-plugin-react": "^7.11.1",
     "html-webpack-plugin": "^3.2.0",
