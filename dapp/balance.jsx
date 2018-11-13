@@ -3,19 +3,19 @@ import { connect } from 'react-redux'
 
 import RpcComponent from './rpc_component'
 
-class Address extends RpcComponent {
+class Balance extends RpcComponent {
   constructor (props) {
     super(props);
-    this.get = 'address';
+    this.get = 'balance';
   }
 
   render () {
     return (
-      <div className="address">
-        { this.props.address }
+      <div className="balance">
+        { this.props.balance }
       </div>
     )
   }
 }
 
-export default connect(({ address }) => ({ address }))(Address);
+export default connect(({ balance }) => ({ balance }))(Balance);
