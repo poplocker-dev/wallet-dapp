@@ -3,7 +3,7 @@ const DirectoryNamedWebpackPlugin = require('directory-named-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 
-module.exports = {
+const config = {
   entry: {
     main: './dapp/wallet.jsx'
   },
@@ -53,4 +53,11 @@ module.exports = {
     }),
     new Dotenv()
 	]
+};
+
+module.exports = (env, argv) => {
+  if (argv.mode === 'development') {
+    config.devtool = 'source-map';
+  }
+  return config;
 };

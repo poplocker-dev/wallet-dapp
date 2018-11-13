@@ -1,16 +1,19 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { setupWeb3 } from 'lib/init'
-import { connected } from 'lib/store/actions'
+import { updateConnection } from 'lib/store/actions'
 
 class Connection extends React.Component {
   constructor (props) {
     super(props);
+    this.state = {};
   }
   
-  componentDidMount () {
+  //hate this...
+  static getDerivedStateFromProps(props) {
     window.web3 = setupWeb3();
-    window.web3.eth.net.isListening().then(r => this.props.dispatch(connected(r)));
+    window.web3.eth.net.isListening().then(r => props.dispatch(updateConnection(r)));
+    return null;
   }
   
   render () { return this.props.children }
