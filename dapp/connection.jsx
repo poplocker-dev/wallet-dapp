@@ -11,7 +11,9 @@ class Connection extends React.Component {
   
   //hate this...
   static getDerivedStateFromProps(props) {
-    window.web3 = setupWeb3();
+    if (!window.web3.eth)
+      window.web3 = setupWeb3();
+
     window.web3.eth.net.isListening().then(r => props.dispatch(updateConnection(r)));
     return null;
   }
