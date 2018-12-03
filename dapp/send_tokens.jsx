@@ -1,11 +1,15 @@
-import React        from 'react'
-import {connect}    from 'react-redux'
-import RpcComponent from './rpc_component'
+import React       from 'react'
+import { connect } from 'react-redux'
+import { rpc }     from 'lib/rpc_calls'
 
-class SendTokens extends RpcComponent {
+class SendTokens extends React.Component {
   constructor(props) {
     super(props);
     this.inputRef = React.createRef();
+  }
+
+  send() {
+    this.props.dispatch(rpc.sendTokens(value));
   }
 
   handleSubmit(e) {

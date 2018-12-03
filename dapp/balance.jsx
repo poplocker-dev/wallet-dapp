@@ -1,8 +1,17 @@
 import React        from 'react'
-import {connect}    from 'react-redux'
-import RpcComponent from './rpc_component'
+import { connect }  from 'react-redux'
+import { rpc }      from 'lib/rpc_calls'
 
-class Balance extends RpcComponent {
+class Balance extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidUpdate () {
+    if (this.props.connected)
+      this.props.dispatch(rpc.getBalance());
+  }
+
   render () {
     return (
       <div className="balance">
@@ -12,4 +21,4 @@ class Balance extends RpcComponent {
   }
 }
 
-export default connect(({ balance }) => ({ balance }))(Balance);
+export default connect(({ balance, connected }) => ({ balance, connected }))(Balance);
