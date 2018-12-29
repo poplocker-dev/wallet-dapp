@@ -7,6 +7,15 @@ class Address extends React.Component {
     super(props);
   }
 
+  dirtyCopy() {
+    var textArea = document.createElement("textarea");
+    textArea.value = this.props.address;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand("copy");
+    textArea.remove();
+  }
+
   componentDidUpdate() {
     if (this.props.connected)
       this.props.dispatch(rpc.getAddress());
@@ -15,6 +24,7 @@ class Address extends React.Component {
     return (
       <div className="address">
         { this.props.address }
+        <button onClick={this.dirtyCopy.bind(this)}>Copy To Clipboard</button>
       </div>
     )
   }
