@@ -3,11 +3,11 @@ import {connect} from 'react-redux'
 
 const History = ({ history }) => (
   <div className="tx-history">
-  { history.map(transaction => {
+  { history.map(transaction =>
     <div className="tx">
       { transaction }
     </div>
-  }) }
+  ) }
   </div>
 )
 
