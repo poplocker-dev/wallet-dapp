@@ -9,6 +9,7 @@ import Address from './address'
 import Balance from './balance'
 import SendTokens from './send_tokens'
 import History from './history'
+import TransactionList from './transaction_list'
 
 ReactDOM.render(
   <Provider store={store}>
@@ -18,6 +19,7 @@ ReactDOM.render(
       <Balance/>
       <SendTokens/>
       <History/>
+      <TransactionList/>
     </Connection>
   </Provider>,
   document.body.appendChild(document.createElement('div')));
