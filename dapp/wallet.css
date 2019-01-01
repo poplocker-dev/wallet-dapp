@@ -21,13 +21,16 @@
   }
 }
 
-
 *, *:before, *:after {
   box-sizing: border-box;
 }
 
 textarea:focus, input:focus {
   outline: none;
+}
+
+body {
+  position: relative;
 }
 
 .view {
@@ -38,5 +41,5 @@ textarea:focus, input:focus {
   font-family: Orkney, Helvetica, Arial, sans-serif;
   overflow: hidden;
   border-radius: 6px;
-  box-shadow: 0px 10px 55px -3px var(--border-color);
+  box-shadow: 0px 10px 55px -3px rgba(0,0,0,0.15);
 }
