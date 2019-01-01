@@ -13,14 +13,22 @@ const config = {
   },
 	module: {
 		rules: [
-			{
-				test: /\.css$/,
-				include: __dirname + 'app',
-				use: [
-					{ loader: 'style-loader' },
-					{ loader: 'css-loader' }
-				]
-			},
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: [
+                require('postcss-nested'),
+                require('cssnano')
+              ]
+            }
+          }
+        ]
+      },
       {
         test: /\.js[x]?$/,
         exclude: /node_modules/,
@@ -28,13 +36,33 @@ const config = {
         use: {
           loader: 'babel-loader'
         }
+      },
+      {
+        test: /\.(gif|png|jpe?g|svg)$/i,
+        use: {
+          loader: 'url-loader',
+          options: { limit: 8000 }
+        }
+      },
+      {
+        test: /\.(woff|woff2)$/,
+        use: {
+          loader: 'url-loader',
+          options: {
+            name: '[name].[ext]',
+            limit: 50000,
+            outputPath: __dirname + '/dist'
+          }
+        }
       }
 		]
   },
 	resolve: {
 		extensions: ['.js', '.jsx'],
     alias: {
-      lib: __dirname + '/lib'
+      lib: __dirname + '/lib',
+      ui: __dirname + '/dapp/ui',
+      assets: __dirname + '/dapp/assets',
     },
     plugins: [
       new DirectoryNamedWebpackPlugin({
