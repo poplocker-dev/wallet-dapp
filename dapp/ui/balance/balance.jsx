@@ -2,6 +2,8 @@ import React        from 'react'
 import { connect }  from 'react-redux'
 import { rpc }      from 'lib/rpc_calls'
 
+import './balance.css'
+
 class Balance extends React.Component {
   constructor(props) {
     super(props);
@@ -14,8 +16,8 @@ class Balance extends React.Component {
 
   render () {
     return (
-      <div className="balance">
-        { this.props.balance }
+      <div className="account-balance">
+        { this.props.balance } ETH
       </div>
     )
   }

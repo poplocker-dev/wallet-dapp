@@ -1,0 +1,29 @@
+.status-bar {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 41px;
+  
+  .indicator {
+    width: 10px;
+    height: 10px;
+    margin-right: 5px;
+    border-radius: 50%;
+  }
+
+  .indicator--connected {
+    background-color: #00F302;
+    border: 2px solid #83F984;
+  }
+
+  .indicator--disconnected {
+    background-color: #e00832;
+    border: 2px solid var(--invalid-color);
+  }
+  
+  .status {
+	  opacity: 0.69;
+    text-transform: capitalize;
+	  line-height: 19px;
+	  letter-spacing: 0.29px;
+  }
+}
