@@ -2,9 +2,9 @@ import React        from 'react'
 import FancyCircles from 'ui/circles'
 import StatusBar    from 'ui/status_bar'
 
-import './views.css'
+import './view.css'
 
-class Views extends React.Component {
+class View extends React.Component {
   render () {
     return (
       <div className="view">
@@ -16,4 +16,4 @@ class Views extends React.Component {
   }
 }
 
-export default Views;
+export default View;
