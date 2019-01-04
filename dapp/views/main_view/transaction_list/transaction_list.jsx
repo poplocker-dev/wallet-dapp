@@ -1,6 +1,9 @@
 import React                 from 'react'
 import { connect }           from 'react-redux'
 import { asyncFetchHistory } from 'lib/store/actions'
+import unit                  from 'ethjs-unit'
+
+import './transaction_list.css'
 
 class TransactionList extends React.Component {
   componentDidMount() {
@@ -21,14 +24,18 @@ class TransactionList extends React.Component {
   list (txs) {
     return txs.map((tx, index) => (
       <div className="tx" key={index}>
-        <div className="address">
-          { this.peer(tx) }
-        </div>
-        <div className="tx-value">
-          { tx.value }
-        </div>
-        <div className="timestamp">
-          { tx.timeStamp }
+        <div className="indicator"/>
+        <div className="tx-info">
+          <div className="tx-info-top">
+            <div className="tx-address">
+              { this.props.address }
+            </div>
+            <div className="tx-value">
+              { unit.fromWei(tx.value, 'ether') } ETH
+            </div>
+          </div>
+          <div className="tx-info-bottom">
+          </div>
         </div>
       </div>
     ));

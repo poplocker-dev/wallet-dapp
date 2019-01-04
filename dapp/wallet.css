@@ -13,6 +13,7 @@
   --std-button-shadow-color: rgba(72,128,255,0.50);
   --std-button-darker-color: #386BE1;
   --std-button-fg: #FFFFFF;
+  --subview-bg: #F6F9FC;
 
   @font-face {
     font-family: Orkney;
@@ -34,7 +35,6 @@ textarea:focus, input:focus {
 }
 
 body {
-  min-height: 100%;
   position: relative;
   overflow: hidden;
   font-size: 14px;
