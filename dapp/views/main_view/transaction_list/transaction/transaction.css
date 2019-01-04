@@ -1,0 +1,50 @@
+.tx {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+  padding: 10px;
+  cursor: pointer;
+  background: #fff;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  
+  .indicator {
+    min-width: 30px;
+    height: 30px;
+    margin-right: 9px;
+    border-radius: 50%;
+    
+    &.indicator--out {
+      border: 1px solid var(--indicator-out-color);
+      background-color: var(--indicator-out-color);
+    }
+
+    &.indicator--in {
+      border: 1px solid var(--indicator-in-color);
+      background-color: var(--indicator-in-color);
+    }
+  }
+
+  .tx-info {
+    width: calc(100% - 40px);
+  }
+  
+  .tx-info-top {
+    display: flex;
+    justify-content: space-between;
+
+    .tx-address {
+      width: auto;
+      max-width: 80%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .tx-value {
+      overflow: hidden;
+      color: var(--value-color);
+      text-overflow: ellipsis;
+    }
+  }
+}

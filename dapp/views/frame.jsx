@@ -1,5 +1,4 @@
 import React        from 'react'
-import FancyCircles from 'ui/circles'
 import StatusBar    from 'ui/status_bar'
 import Balance      from 'ui/balance'
 
@@ -17,7 +16,6 @@ class Frame extends React.Component {
           </div>
           <Balance/>
         </div>
-        <FancyCircles number="8"/>
 
         { this.props.children }
 

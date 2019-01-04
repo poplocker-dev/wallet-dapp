@@ -1,40 +1,12 @@
 .transaction-list {
+  padding: 20px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
   background-color: var(--subview-bg);
-  .tx {
-    display: flex;
-    align-items: center;
-    height: 50px;
-    width: 100%;
-    cursor: pointer;
-    
-    .indicator {
-      min-width: 30px;
-      height: 30px;
-      margin-right: 9px;
-      border-radius: 50%;
-      border: 1px solid blue;
-      background-color: blue;
-    }
 
-    .tx-info {
-      width: calc(100% - 40px);
-    }
-    
-    .tx-info-top {
-      display: flex;
-      justify-content: space-between;
-
-      .tx-address {
-        width: auto;
-        max-width: 80%;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-      
-      .tx-value {
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-    }
+  .title {
+	  font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 20px;
   }
 }
