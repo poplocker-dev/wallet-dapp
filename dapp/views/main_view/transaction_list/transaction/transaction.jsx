@@ -23,6 +23,11 @@ const  peer = (tx, addr) => {
     return tx.from;
 }
 
+const time = (unix) => {
+  const d = new Date(unix * 1000);
+  return `${d.getDay()}-${d.getMonth()}-${d.getFullYear()}`
+}
+
 const Transaction = ({ tx, address }) => (
   <div className="tx">
     <div className={cl(classes(tx, address))}/>
@@ -36,7 +41,7 @@ const Transaction = ({ tx, address }) => (
         </div>
       </div>
       <div className="tx-info-bottom">
-        { tx.timestamp }
+        { time(tx.timeStamp) }
       </div>
     </div>
   </div>
