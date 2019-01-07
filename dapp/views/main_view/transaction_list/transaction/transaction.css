@@ -1,4 +1,8 @@
-.tx {
+.transaction {
+  --indicator-in-color: #34CD65;
+  --indicator-out-color: var(--std-button-darker-color);
+  --value-color: #00942F;
+
   display: flex;
   align-items: center;
   width: 100%;
@@ -9,7 +13,14 @@
   border-radius: 6px;
   margin-bottom: 8px;
   
+  &:hover {
+    position: relative;
+    box-shadow: -1px 7px 19px 5px rgba(0,0,0,0.12);
+    z-index: 2;
+  }
+  
   .indicator {
+    position: relative;
     min-width: 30px;
     height: 30px;
     margin-right: 9px;
@@ -18,30 +29,38 @@
     &.indicator--out {
       border: 1px solid var(--indicator-out-color);
       background-color: var(--indicator-out-color);
+      transform: rotate(180deg);
     }
 
     &.indicator--in {
       border: 1px solid var(--indicator-in-color);
       background-color: var(--indicator-in-color);
     }
+    
+    &:after {
+      position: absolute;
+      top: 25%;
+      left: 28%;
+      content: url('~assets/arrow.svg');
+    }
   }
 
-  .tx-info {
+  .info {
     width: calc(100% - 40px);
   }
   
-  .tx-info-top {
+  .info-top {
     display: flex;
     justify-content: space-between;
 
-    .tx-address {
+    .address {
       width: auto;
       max-width: 80%;
       overflow: hidden;
       text-overflow: ellipsis;
     }
     
-    .tx-value {
+    .value {
       overflow: hidden;
       color: var(--value-color);
       text-overflow: ellipsis;
