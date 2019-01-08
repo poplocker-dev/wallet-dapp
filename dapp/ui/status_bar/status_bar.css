@@ -22,6 +22,7 @@
   
   .status {
 	  opacity: 0.69;
+    font-weight: 600;
     text-transform: capitalize;
 	  line-height: 19px;
 	  letter-spacing: 0.29px;

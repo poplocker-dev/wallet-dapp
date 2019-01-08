@@ -56,7 +56,8 @@
       &:after {
         top: 0;
         bottom: 25%;
-        right: 1.5px;
+        left: 0;
+        right: 1px;
         transform: rotate(180deg);
         content: url('~assets/arrow.svg');
       }

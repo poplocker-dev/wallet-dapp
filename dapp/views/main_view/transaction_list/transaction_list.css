@@ -5,8 +5,12 @@
   background-color: var(--subview-bg);
 
   .title {
-	  font-size: 17px;
+    font-size: 17px;
     font-weight: 600;
     margin-bottom: 20px;
+  }
+
+  .scrollable {
+    max-height: 320px;
   }
 }

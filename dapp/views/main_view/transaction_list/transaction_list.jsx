@@ -22,7 +22,9 @@ class TransactionList extends React.Component {
         <div className="title">
           Transactions
         </div>
-        { this.list(this.props.history) }
+        <div className="scrollable">
+          { this.list(this.props.history) }
+        </div>
       </div>
     )
   }
