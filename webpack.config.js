@@ -11,6 +11,9 @@ const config = {
     path: __dirname + '/build',
     filename: "bundle.js"
   },
+  devServer: {
+    historyApiFallback: true
+  },
 	module: {
 		rules: [
       {

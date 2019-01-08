@@ -8,13 +8,8 @@ class Router extends React.Component {
   }
 
   render () {
-    if (this.props.address.length > 0)
-      return this.props.children;
-    else return (
-      <p>
-        No Address!
-      </p>
-    )
+    if (this.props.address.length == 0)
+
   }
 }
 
