@@ -53,7 +53,7 @@ body {
   &:after {
     position: absolute;
     top: -26px;
-    left: 265px;
+    left: calc(50% - 412px - 235px);
     content: url('~assets/logo.png');
   }
 }
