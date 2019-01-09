@@ -5,9 +5,9 @@ import Button from 'ui/button'
 
 import './action_panel.css'
 
-const SendTokens = ({ handleSend }) => (
+const SendTokens = ({ handleSend, handleReceive }) => (
   <div className="send-tokens">
-    <Button icon="arrow">Receive Money</Button>
+    <Button icon="arrow" onClick={handleReceive.bind(this)}>Receive Money</Button>
     <Button icon="arrow-up" onClick={handleSend.bind(this)}>Send Money</Button>
   </div>
 );
@@ -15,6 +15,10 @@ const SendTokens = ({ handleSend }) => (
 const mapDispatch = (dispatch) => ({
   handleSend: () => {
     dispatch(push('/send'));
+  },
+
+  handleReceive: () => {
+    dispatch(push('/receive'));
   }
 });
 
