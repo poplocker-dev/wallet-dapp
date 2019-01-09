@@ -42,9 +42,18 @@ textarea:focus, input:focus {
 
 body {
   position: relative;
-  overflow: hidden;
   font-size: 14px;
+  height: 100%;
   color: var(--foreground-color);
+  background: url('~assets/background.svg');
+  background-position-x: 50%;
+  background-position-y: -2px;
   background-repeat: no-repeat;
-  background: linear-gradient(145deg, #E8EBF2 0%, #99B8FE 100%);
+  
+  &:after {
+    position: absolute;
+    top: -26px;
+    left: 265px;
+    content: url('~assets/logo.png');
+  }
 }
