@@ -6,6 +6,7 @@
   display: flex;
   align-items: center;
   width: 100%;
+  font-weight: 600;
   height: 50px;
   padding: 10px;
   cursor: pointer;
@@ -65,5 +66,9 @@
       color: var(--value-color);
       text-overflow: ellipsis;
     }
+  }
+
+  .info-bottom {
+    opacity: 0.5;
   }
 }

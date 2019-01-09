@@ -23,10 +23,9 @@ const  peer = (tx, addr) => {
     return tx.from;
 }
 
-// FIXME: dates are fubar
-const time = (unix) => {
-  const d = new Date(unix * 1000);
-  return `${d.getDay()}-${d.getMonth()}-${d.getFullYear()}`
+const time = (utime) => {
+  const date = new Date(utime*1000).toLocaleDateString("en-GB");
+  return date.split('/').join('-');
 }
 
 const Transaction = ({ tx, address }) => (
