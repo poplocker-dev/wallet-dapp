@@ -2,6 +2,7 @@ import React                 from 'react'
 import { connect }           from 'react-redux'
 import { asyncFetchHistory } from 'lib/store/actions'
 import Transaction           from './transaction'
+import Bouncing              from 'ui/bouncing'
 
 import './transaction_list.css'
 
@@ -11,22 +12,33 @@ class TransactionList extends React.Component {
   }
   
   list (txs) {
-    return txs.map((tx, index) => (
-      <Transaction tx={ tx } key={ index }/>
-    ));
-  }
-
-  render () {
     return (
       <div className="transaction-list">
         <div className="title">
           Transactions
         </div>
         <div className="scrollable">
-          { this.list(this.props.history) }
+          { 
+            txs.map((tx, index) => (
+              <Transaction tx={ tx } key={ index }/>
+            ))
+          }
         </div>
       </div>
     )
+  }
+
+  loader () {
+    return (
+      <Bouncing/>
+    )
+  }
+  
+  render () {
+    if (this.props.history != null)
+      return this.list(this.props.history);
+    else
+      return this.loader();
   }
 }
 
