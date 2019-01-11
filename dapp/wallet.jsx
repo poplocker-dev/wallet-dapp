@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router'
 import { ConnectedRouter } from 'connected-react-router'
 import { Provider }        from 'react-redux'
 import { init }            from 'lib/init'
-import AddressGuard              from './router'
+import Connection          from './connection'
 import Frame               from './views/frame'
 import MainView            from './views/main_view'
 
@@ -16,11 +16,14 @@ init((store, history) => {
       <ConnectedRouter history={history}>
 
         <Frame>
-          <AddressGuard>
+          <Connection>
             <Switch>
-              <Route path="/" component={MainView}/>
+              <Route path="/"        component={MainView}/>
+              {/* <Route path="/"        component={TxsPanel}/> */}
+              {/* <Route path="/send"    component={SendPanel}/> */}
+              {/* <Route path="/receive" component={ReceivePanel}/> */}
             </Switch>
-          </AddressGuard>
+          </Connection>
         </Frame>
 
       </ConnectedRouter>
