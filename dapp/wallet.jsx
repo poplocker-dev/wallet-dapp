@@ -7,6 +7,7 @@ import { init }            from 'lib/init'
 import Connection          from './connection'
 import Frame               from './frame'
 import TxsPanel            from './panels/transactions'
+import SendPanel           from './panels/send'
 
 import './wallet.css'
 
@@ -18,8 +19,8 @@ init((store, history) => {
         <Frame>
           <Connection>
             <Switch>
-              <Route path="/" component={TxsPanel}/>
-              {/* <Route path="/send"    component={SendPanel}/> */}
+              <Route exact path="/" component={TxsPanel}/>
+              <Route path="/send" component={SendPanel}/>
               {/* <Route path="/receive" component={ReceivePanel}/> */}
             </Switch>
           </Connection>
