@@ -1,4 +1,5 @@
 .btn {
+
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -6,14 +7,14 @@
   height: 40px;
   border: 0;
   cursor: pointer;
-	color: var(--std-button-fg);
-  background-color: var(--std-button-color);
+	color: var(--button-fg);
+  background-color: var(--button-color);
   border-radius: 20px;
 	font-weight: bold;
   font-size: 13px;
 	line-height: 20px;
   transition: all 0.5s;
-  box-shadow: -2px 9px 30px 0px var(--std-button-shadow-color);
+  box-shadow: -2px 9px 30px 0px var(--button-shadow-color);
 
   .caption {
     flex-basis: 120px;
@@ -23,7 +24,7 @@
     position: relative;
     min-width: 30px;
     min-height: 30px;
-    background-color: var(--std-button-darker-color);
+    background-color: var(--button-darker-color);
     border-radius: 29px;
 
     &:after {
@@ -32,71 +33,80 @@
       right: 0;
       left: 0.1px;
     }
+  }
 
-    &.icon--human {
-      &:after {
-        content: url('~assets/human.svg');
-      }
-    }
-
-    &.icon--tick {
-      &:after {
-        content: url('~assets/tick.svg');
-      }
-    }
-
-    &.icon--arrow {
-      &:after {
-        left: 3.1px;
-        content: url('~assets/arrow.svg');
-      }
-    }
-
-    &.icon--arrow-up {
-      &:after {
-        top: 0;
-        bottom: 25%;
-        left: 0;
-        right: 1px;
-        transform: rotate(180deg);
-        content: url('~assets/arrow.svg');
-      }
+  .icon--human {
+    &:after {
+      content: url('~assets/human.svg');
     }
   }
 
-  &:hover {
-    background-color: var(--std-button-darker-color);
-
-    .icon {
-      transition: all 0.7s;
-      background-color: white;
-
-      &.icon--human {
-        &:after {
-          content: url('~assets/human--alt.svg');
-        }
-      }
-
-      &.icon--tick {
-        &:after {
-          content: url('~assets/tick--alt.svg');
-        }
-      }
-
-      &.icon--arrow {
-        &:after {
-          content: url('~assets/arrow--blue.svg');
-        }
-      }
-
-      &.icon--arrow-up {
-        &:after {
-          transform: rotate(180deg);
-          content: url('~assets/arrow--blue.svg');
-        }
-      }
+  .icon--tick {
+    &:after {
+      content: url('~assets/tick.svg');
     }
   }
+
+  .icon--arrow {
+    &:after {
+      left: 3.1px;
+      content: url('~assets/arrow.svg');
+    }
+  }
+
+  .icon--arrow-up {
+    &:after {
+      top: 0;
+      bottom: 25%;
+      left: 0;
+      right: 1px;
+      transform: rotate(180deg);
+      content: url('~assets/arrow.svg');
+    }
+  }
+}
+
+.btn:hover {
+  background-color: var(--button-darker-color);
+
+  .icon {
+    transition: all 0.7s;
+    background-color: white;
+  }
+
+  .icon--human {
+    &:after {
+      content: url('~assets/human--alt.svg');
+    }
+  }
+
+  .icon--tick {
+    &:after {
+      content: url('~assets/tick--alt.svg');
+    }
+  }
+
+  .icon--arrow {
+    &:after {
+      content: url('~assets/arrow--blue.svg');
+    }
+  }
+
+  .icon--arrow-up {
+    &:after {
+      transform: rotate(180deg);
+      content: url('~assets/arrow--blue.svg');
+    }
+  }
+}
+
+.btn--alt {
+  box-shadow: -2px 9px 30px 0px var(--button-alt-shadow-color);
+  background-color: var(--button-alt-color);
+}
+
+.btn--alt:hover {
+  background-color: var(--button-alt-darker-color);
 }
 
 .btn:disabled,

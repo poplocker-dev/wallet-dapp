@@ -3,11 +3,11 @@ import { connect } from 'react-redux'
 import { push } from 'connected-react-router'
 import Button from 'ui/button'
 
-import './action_panel.css'
+import './send_receive.css'
 
 const SendTokens = ({ handleSend, handleReceive }) => (
   <div className="send-tokens">
-    <Button icon="arrow" onClick={handleReceive.bind(this)}>Receive Money</Button>
+    <Button alt icon="arrow" onClick={handleReceive.bind(this)}>Receive Money</Button>
     <Button icon="arrow-up" onClick={handleSend.bind(this)}>Send Money</Button>
   </div>
 );
