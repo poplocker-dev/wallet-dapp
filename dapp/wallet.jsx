@@ -3,10 +3,9 @@ import ReactDOM     from 'react-dom'
 import { Provider } from 'react-redux'
 import { init }     from 'lib/init'
 
-import Connection   from './connection'
-import Frame        from './frame'
-
-import Views        from 'views'
+import View       from './view'
+import Frame      from './frame'
+import Connection from './connection'
 
 import './wallet.css'
 
@@ -15,7 +14,7 @@ init((store) => {
     <Provider store={store}>
         <Frame>
           <Connection>
-            <Views/>
+            <View/>
           </Connection>
         </Frame>
     </Provider>,

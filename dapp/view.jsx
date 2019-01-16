@@ -5,7 +5,7 @@ import * as _       from 'lodash'
 import Transactions from 'views/transactions'
 import SendTokens   from 'views/send_tokens'
 
-export default class Views extends React.Component {
+export default class View extends React.Component {
   constructor (props) {
     super(props);
 
@@ -17,7 +17,7 @@ export default class Views extends React.Component {
     });
   }
 
-  page (name) {
+  view (name) {
     switch (name) {
 
       case 'transactions':
@@ -36,10 +36,6 @@ export default class Views extends React.Component {
   }
 
   render () {
-    return (
-      <>
-        { this.page(window.R.view) }
-      </>
-    )
+    return this.view(window.R.view);
   }
 }
