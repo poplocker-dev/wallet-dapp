@@ -5,7 +5,7 @@ import './send_receive.css'
 
 const SendReceive = () => (
   <div className="send-tokens">
-    <Button icon="arrow-up" onClick={handleSend}>Send Money</Button>
+    <Button alt="true" icon="arrow" onClick={handleSend}>Send Money</Button>
   </div>
 );
 

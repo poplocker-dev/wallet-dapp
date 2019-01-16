@@ -19,95 +19,83 @@
   .caption {
     flex-basis: 120px;
   }
-
-  .icon {
+  
+  .circle {
     position: relative;
     min-width: 30px;
     min-height: 30px;
-    background-color: var(--button-darker-color);
+    background: var(--button-darker-color);
     border-radius: 29px;
-
-    &:after {
-      position: absolute;
-      top: 25%;
-      right: 0;
-      left: 0.1px;
-    }
   }
-
-  .icon--human {
-    &:after {
-      content: url('~assets/human.svg');
-    }
-  }
-
-  .icon--tick {
-    &:after {
-      content: url('~assets/tick.svg');
-    }
-  }
-
-  .icon--arrow {
-    &:after {
-      left: 3.1px;
-      content: url('~assets/arrow.svg');
-    }
-  }
-
-  .icon--arrow-up {
-    &:after {
-      top: 0;
-      bottom: 25%;
-      left: 0;
-      right: 1px;
-      transform: rotate(180deg);
-      content: url('~assets/arrow.svg');
-    }
-  }
-}
-
-.btn:hover {
-  background-color: var(--button-darker-color);
 
   .icon {
-    transition: all 0.7s;
+    min-width: 30px;
+    min-height: 30px;
+    border-radius: 29px;
     background-color: white;
   }
 
+  .icon--arrow {
+    mask: url(~assets/arrow.svg) center no-repeat;
+    transform: rotate(180deg);
+  }
+
   .icon--human {
-    &:after {
-      content: url('~assets/human--alt.svg');
-    }
+    mask: url(~assets/human.svg) center no-repeat;
   }
 
   .icon--tick {
-    &:after {
-      content: url('~assets/tick--alt.svg');
-    }
-  }
-
-  .icon--arrow {
-    &:after {
-      content: url('~assets/arrow--blue.svg');
-    }
+    mask: url(~assets/tick.svg) center no-repeat;
   }
 
   .icon--arrow-up {
-    &:after {
-      transform: rotate(180deg);
-      content: url('~assets/arrow--blue.svg');
-    }
+    mask: url(~assets/arrow.svg) center no-repeat;
   }
+
 }
 
-.btn--alt {
-  box-shadow: -2px 9px 30px 0px var(--button-alt-shadow-color);
-  background-color: var(--button-alt-color);
-}
+/* .btn:hover { */
+/*   background-color: var(--button-darker-color); */
 
-.btn--alt:hover {
-  background-color: var(--button-alt-darker-color);
-}
+/*   .icon { */
+/*     transition: all 0.7s; */
+/*     background-color: white; */
+/*   } */
+
+/*   .icon--human { */
+/*     &:after { */
+/*       content: url('~assets/human--alt.svg'); */
+/*     } */
+/*   } */
+
+/*   .icon--tick { */
+/*     &:after { */
+/*       content: url('~assets/tick--alt.svg'); */
+/*     } */
+/*   } */
+
+/*   .icon--arrow { */
+/*     &:after { */
+/*       content: url('~assets/arrow--blue.svg'); */
+/*     } */
+/*   } */
+
+/*   .icon--arrow-up { */
+/*     &:after { */
+/*       transform: rotate(180deg); */
+/*       content: url('~assets/arrow--blue.svg'); */
+/*     } */
+/*   } */
+/* } */
+
+/* .btn--alt { */
+/*   box-shadow: -2px 9px 30px 0px var(--button-alt-shadow-color); */
+/*   background-color: var(--button-alt-color); */
+/* } */
+
+/* .btn--alt:hover { */
+/*   background-color: var(--button-alt-darker-color); */
+/* } */
 
 .btn:disabled,
 .btn[disabled] {

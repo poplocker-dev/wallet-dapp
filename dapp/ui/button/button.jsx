@@ -12,7 +12,9 @@ const Button = (props) => (
     <div className="caption">
       { props.children }
     </div>
-    <div className={`icon icon--${props.icon}`}></div>
+    <div className="circle">
+      <div className={`icon icon--${props.icon}`}></div>
+    </div>
   </button>
 );
 

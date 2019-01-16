@@ -22,6 +22,7 @@ const config = {
             loader: 'postcss-loader',
             options: {
               plugins: [
+                require('autoprefixer'),
                 require('postcss-nested'),
                 require('cssnano')
               ]
