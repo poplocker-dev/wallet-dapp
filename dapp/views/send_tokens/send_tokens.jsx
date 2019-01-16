@@ -4,9 +4,9 @@ import { rpc }     from 'lib/rpc_calls'
 import Input from 'ui/input'
 import Button from 'ui/button'
 
-import './send.css'
+import './send_tokens.css'
 
-class SendPanel extends React.Component {
+class SendTokens extends React.Component {
   constructor(props) {
     super(props);
     this.state = { amount: 0, to: null }
@@ -45,4 +45,4 @@ class SendPanel extends React.Component {
   }
 }
 
-export default connect()(SendPanel);
+export default connect()(SendTokens);

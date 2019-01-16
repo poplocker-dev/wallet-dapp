@@ -62,6 +62,7 @@ const config = {
     alias: {
       lib: __dirname + '/lib',
       ui: __dirname + '/dapp/ui',
+      views: __dirname + '/dapp/views',
       assets: __dirname + '/dapp/assets',
     },
     plugins: [
