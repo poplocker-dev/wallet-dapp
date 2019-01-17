@@ -1,17 +1,16 @@
 .btn {
-
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
   width: 161px;
   height: 40px;
+  display: flex;
+  justify-content: space-around;
   border: 0;
+  border-radius: 20px;
   cursor: pointer;
+  align-items: center;
 	color: var(--button-fg);
   background-color: var(--button-color);
-  border-radius: 20px;
-	font-weight: bold;
   font-size: 13px;
+	font-weight: bold;
 	line-height: 20px;
   transition: all 0.5s;
   box-shadow: -2px 9px 30px 0px var(--button-shadow-color);
@@ -19,83 +18,45 @@
   .caption {
     flex-basis: 120px;
   }
-  
-  .circle {
-    position: relative;
-    min-width: 30px;
-    min-height: 30px;
-    background: var(--button-darker-color);
-    border-radius: 29px;
-  }
 
   .icon {
-    min-width: 30px;
-    min-height: 30px;
-    border-radius: 29px;
+    background: var(--button-darker-color);
+  }
+  
+  .glyph {
     background-color: white;
-  }
-
-  .icon--arrow {
-    mask: url(~assets/arrow.svg) center no-repeat;
-    transform: rotate(180deg);
-  }
-
-  .icon--human {
-    mask: url(~assets/human.svg) center no-repeat;
-  }
-
-  .icon--tick {
-    mask: url(~assets/tick.svg) center no-repeat;
-  }
-
-  .icon--arrow-up {
-    mask: url(~assets/arrow.svg) center no-repeat;
-  }
-
+  } 
 }
 
-/* .btn:hover { */
-/*   background-color: var(--button-darker-color); */
+.btn:hover {
+  background-color: var(--button-darker-color);
 
-/*   .icon { */
-/*     transition: all 0.7s; */
-/*     background-color: white; */
-/*   } */
+  .icon {
+    transition: all 0.7s;
+    background-color: white; 
+  }
+  
+  .glyph {
+    background-color: var(--button-darker-color);
+  } 
+}
 
-/*   .icon--human { */
-/*     &:after { */
-/*       content: url('~assets/human--alt.svg'); */
-/*     } */
-/*   } */
+.btn--alt {
+  box-shadow: -2px 9px 30px 0px var(--button-alt-shadow-color);
+  background-color: var(--button-alt-color);
 
-/*   .icon--tick { */
-/*     &:after { */
-/*       content: url('~assets/tick--alt.svg'); */
-/*     } */
-/*   } */
+  .icon {
+    background: var(--button-alt-darker-color);
+  }
+}
 
-/*   .icon--arrow { */
-/*     &:after { */
-/*       content: url('~assets/arrow--blue.svg'); */
-/*     } */
-/*   } */
+.btn--alt:hover {
+  background-color: var(--button-alt-darker-color);
 
-/*   .icon--arrow-up { */
-/*     &:after { */
-/*       transform: rotate(180deg); */
-/*       content: url('~assets/arrow--blue.svg'); */
-/*     } */
-/*   } */
-/* } */
-
-/* .btn--alt { */
-/*   box-shadow: -2px 9px 30px 0px var(--button-alt-shadow-color); */
-/*   background-color: var(--button-alt-color); */
-/* } */
-
-/* .btn--alt:hover { */
-/*   background-color: var(--button-alt-darker-color); */
-/* } */
+  .glyph {
+    background-color: var(--button-alt-darker-color);
+  } 
+}
 
 .btn:disabled,
 .btn[disabled] {

@@ -1,5 +1,7 @@
 import React from 'react'
-import cl from 'classnames'
+import cl    from 'classnames'
+import Icon  from 'ui/icon'
+
 import './button.css'
 
 const classes = (alt) => ({
@@ -12,9 +14,7 @@ const Button = (props) => (
     <div className="caption">
       { props.children }
     </div>
-    <div className="circle">
-      <div className={`icon icon--${props.icon}`}></div>
-    </div>
+    <Icon glyph={props.icon}/>
   </button>
 );
 
