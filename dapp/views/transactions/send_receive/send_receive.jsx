@@ -1,11 +1,11 @@
-import React from 'react'
-import Button from 'ui/button'
+import React      from 'react'
+import { Button } from '@poplocker/react-ui'
 
 import './send_receive.css'
 
 const SendReceive = () => (
   <div className="send-tokens">
-    <Button icon="arrow" onClick={handleSend}>Send Money</Button>
+    <Button icon="arrow-up" onClick={handleSend}>Send Money</Button>
   </div>
 );
 

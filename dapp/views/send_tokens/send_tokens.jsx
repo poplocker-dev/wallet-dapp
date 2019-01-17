@@ -1,8 +1,8 @@
 import React       from 'react'
 import { connect } from 'react-redux'
 import { rpc }     from 'lib/rpc_calls'
-import Input from 'ui/input'
-import Button from 'ui/button'
+import Input       from 'ui/input'
+import { Button }  from '@poplocker/react-ui'
 
 import './send_tokens.css'
 
