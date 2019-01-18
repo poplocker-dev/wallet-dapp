@@ -2,8 +2,8 @@ import React        from 'react'
 import * as R       from 'pro-router/standalone'
 import * as _       from 'lodash'
 
-import Transactions from 'views/transactions'
-import SendTokens   from 'views/send_tokens'
+import Transactions from 'views/transactions_view'
+import SendTokens   from 'views/send_tokens_view'
 
 export default class View extends React.Component {
   constructor (props) {

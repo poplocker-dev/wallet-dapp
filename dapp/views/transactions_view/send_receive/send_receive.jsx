@@ -5,11 +5,12 @@ import './send_receive.css'
 
 const SendReceive = () => (
   <div className="send-tokens">
-    <Button icon="arrow-up" onClick={handleSend}>Send Money</Button>
+    <Button icon="arrow-up" onClick={handleSend}>Send</Button>
   </div>
 );
 
 const handleSend = () => {
+  window.R.write('slidein', true);
   window.R.go(window.R.to_path('send-tokens'));
 }
 

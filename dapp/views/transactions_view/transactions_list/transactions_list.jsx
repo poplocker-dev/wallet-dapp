@@ -4,7 +4,7 @@ import { asyncFetchHistory } from 'lib/store/actions'
 import Transaction           from './transaction'
 import Bouncing              from 'ui/bouncing'
 
-import './transaction_list.css'
+import './transactions_list.css'
 
 class TransactionList extends React.Component {
   componentDidMount() {
@@ -13,7 +13,7 @@ class TransactionList extends React.Component {
   
   list (txs) {
     return (
-      <div className="transaction-list">
+      <div className="transactions-list">
         <div className="title">
           Transactions
         </div>

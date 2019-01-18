@@ -1,11 +1,9 @@
 import React           from 'react'
-import TransactionList from './transaction_list'
+import TransactionList from './transactions_list'
 import SendReceive     from './send_receive'
 
-import './transactions.css'
-
 const Transactions = () => (
-  <div className="tx-panel">
+  <div className="transactions-view">
     <TransactionList/>
     <SendReceive/>
   </div>
