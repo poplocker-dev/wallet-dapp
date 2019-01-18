@@ -79,7 +79,7 @@ const config = {
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
-      title: 'PopWallet'
+      title: 'PopLocker'
     }),
     new Dotenv()
 	]
