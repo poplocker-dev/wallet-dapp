@@ -8,13 +8,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PopWallet/wallet-dapp.git"
+    "url": "git+https://github.com/poplocker-dev/wallet-dapp.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/PopWallet/wallet-dapp/issues"
+    "url": "https://github.com/poplocker-dev/wallet-dapp/issues"
   },
   "dependencies": {
     "classnames": "^2.2.6",
