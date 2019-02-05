@@ -1,12 +1,10 @@
 import React       from 'react'
+import Input       from 'ui/input'
 import { connect } from 'react-redux'
 import { rpc }     from 'lib/rpc_calls'
-import Input       from 'ui/input'
 import { Button }  from '@poplocker/react-ui'
 
-import './send_tokens.css'
-
-class SendTokens extends React.Component {
+class SendForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = { amount: 0, to: null }
@@ -15,7 +13,7 @@ class SendTokens extends React.Component {
   send(to, amount) {
     this.props.dispatch(rpc.sendTokens(to, amount));
   }
-  
+
   handleTo(e) {
     this.setState({ to: e.target.value });
   }
@@ -23,7 +21,7 @@ class SendTokens extends React.Component {
   handleAmount(e) {
     this.setState({ amount: e.target.value });
   }
-  
+
   shouldBeEnabled() {
     return this.state.amount && this.state.to;
   }
@@ -45,4 +43,4 @@ class SendTokens extends React.Component {
   }
 }
 
-export default connect()(SendTokens);
+export default connect()(SendForm);
