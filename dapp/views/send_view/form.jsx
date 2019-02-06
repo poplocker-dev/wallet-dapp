@@ -37,7 +37,7 @@ class SendForm extends React.Component {
       <form className="send-panel" onSubmit={this.handleSubmit.bind(this)}>
         <Input name="to" label="To:" onChange={this.handleTo.bind(this)} value={this.state.address}/>
         <Input name="amount" label="Amount" onChange={this.handleAmount.bind(this)} value={this.state.amount}/>
-        <Button icon="arrow-up" disabled={!this.shouldBeEnabled()}>Send Money</Button>
+        <Button icon="arrow-up" disabled={!this.shouldBeEnabled()}>Send</Button>
       </form>
     )
   }
