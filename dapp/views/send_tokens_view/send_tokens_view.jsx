@@ -4,7 +4,11 @@ import { connect } from 'react-redux'
 import { rpc }     from 'lib/rpc_calls'
 import { Button }  from '@poplocker/react-ui'
 
-class SendForm extends React.Component {
+import { CSSTransition } from 'react-transition-group'
+
+import './send_tokens.css'
+
+class SendView extends React.Component {
   constructor(props) {
     super(props);
     this.state = { amount: 0, to: null }
@@ -34,13 +38,15 @@ class SendForm extends React.Component {
 
   render () {
     return (
-      <form className="send-panel" onSubmit={this.handleSubmit.bind(this)}>
-        <Input name="to" label="To:" onChange={this.handleTo.bind(this)} value={this.state.address}/>
-        <Input name="amount" label="Amount" onChange={this.handleAmount.bind(this)} value={this.state.amount}/>
-        <Button icon="arrow-up" disabled={!this.shouldBeEnabled()}>Send</Button>
-      </form>
+      <CSSTransition timeout={500} classNames="showup" appear={true} in={true}>
+        <form className="send-panel" onSubmit={this.handleSubmit.bind(this)}>
+          <Input name="to" label="To:" onChange={this.handleTo.bind(this)} value={this.state.address}/>
+          <Input name="amount" label="Amount" onChange={this.handleAmount.bind(this)} value={this.state.amount}/>
+          <Button icon="arrow-up" disabled={!this.shouldBeEnabled()}>Send</Button>
+        </form>
+      </CSSTransition>
     )
   }
 }
 
-export default connect()(SendForm);
+export default connect()(SendView);

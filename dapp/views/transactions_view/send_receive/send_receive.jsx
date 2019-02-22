@@ -10,7 +10,6 @@ const SendReceive = () => (
 );
 
 const handleSend = () => {
-  window.R.write('slidein', true);
   window.R.go(window.R.to_path('send-tokens'));
 }
 
