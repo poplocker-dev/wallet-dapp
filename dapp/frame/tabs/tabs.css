@@ -1,0 +1,8 @@
+.tabs {
+  font-size: 17px;
+  font-weight: 600;
+  padding: 20px 20px 0 20px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  background-color: var(--subview-bg);
+}

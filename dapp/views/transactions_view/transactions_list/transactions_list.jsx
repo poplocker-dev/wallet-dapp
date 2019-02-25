@@ -2,7 +2,7 @@ import React                 from 'react'
 import { connect }           from 'react-redux'
 import { asyncFetchHistory } from 'lib/store/actions'
 import Transaction           from './transaction'
-import Bouncing              from 'ui/bouncing'
+import { Bouncing }          from '@poplocker/react-ui'
 
 import './transactions_list.css'
 
@@ -14,9 +14,6 @@ class TransactionList extends React.Component {
   list (txs) {
     return (
       <div className="transactions-list">
-        <div className="title">
-          Transactions
-        </div>
         <div className="scrollable">
           { 
             txs.map((tx, index) => (

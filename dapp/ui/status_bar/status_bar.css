@@ -19,6 +19,11 @@
     background-color: #e00832;
     border: 2px solid var(--invalid-color);
   }
+
+  .indicator--connecting {
+    background-color: #ffd600;
+    border: 2px solid #ffcc35;
+  }
   
   .status {
 	  opacity: 0.69;

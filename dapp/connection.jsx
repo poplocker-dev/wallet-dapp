@@ -1,6 +1,7 @@
-import React       from 'react'
-import { connect } from 'react-redux'
-import { rpc }     from 'lib/rpc_calls'
+import React         from 'react'
+import { connect }   from 'react-redux'
+import { rpc }       from 'lib/rpc_calls'
+import { Bouncing }  from '@poplocker/react-ui'
 
 class Connection extends React.Component {
   componentDidMount() {
@@ -8,8 +9,13 @@ class Connection extends React.Component {
     this.props.dispatch(rpc.isListening());
   }
 
-  render () {
-    if (!this.props.connected)
+  loadOrError () {
+    if (this.props.connection == -1) {
+      return (
+        <Bouncing/>
+      )
+    }
+    if (!this.props.connection)
       return (
         <p>
           No connection!
@@ -23,6 +29,14 @@ class Connection extends React.Component {
       </p>
     )
   }
+
+  render () {
+    return (
+      <div className="connection">
+        { this.loadOrError() }
+      </div>
+    )
+  }
 }
 
-export default connect(({ address, connected }) => ({ address, connected }))(Connection);
+export default connect(({ address, connection }) => ({ address, connection }))(Connection);

@@ -3,6 +3,7 @@ import StatusBar         from 'ui/status_bar'
 import Balance           from 'ui/balance'
 import { CSSTransition } from 'react-transition-group'
 
+import Tabs from './tabs'
 import './frame.css'
 
 class Frame extends React.Component {
@@ -17,6 +18,7 @@ class Frame extends React.Component {
             </div>
             <Balance/>
           </div>
+          <Tabs/>
           { this.props.children }
         </div>
       </CSSTransition>
