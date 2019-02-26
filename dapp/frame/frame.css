@@ -2,6 +2,7 @@
   position: relative;
   margin: 70px auto;
 	max-width: 375px;
+  min-height: 667px;
   font-family: Orkney, Helvetica, Arial, sans-serif;
   overflow: hidden;
   background: #fff;
@@ -23,11 +24,11 @@
 
 .slidein-appear {
   opacity: 0.01;
-  transform: scale(0.7) translateY(70%);
+  transform: scale(0.5) translateY(70%);
 }
 
 .slidein-appear-active {
   opacity: 1;
   transform: scale(1) translateY(0%);
-  transition: all 200ms ease-out;
+  transition: all 300ms ease-out;
 }

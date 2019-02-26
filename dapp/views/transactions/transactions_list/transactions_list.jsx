@@ -1,8 +1,8 @@
-import React                 from 'react'
-import { connect }           from 'react-redux'
-import { asyncFetchHistory } from 'lib/store/actions'
-import Transaction           from './transaction'
-import { Bouncing }          from '@poplocker/react-ui'
+import React                   from 'react'
+import { connect }             from 'react-redux'
+import { asyncFetchHistory }   from 'lib/store/actions'
+import Transaction             from './transaction'
+import { Preloader, Bouncing } from '@poplocker/react-ui'
 
 import './transactions_list.css'
 
@@ -13,29 +13,24 @@ class TransactionList extends React.Component {
   
   list (txs) {
     return (
-      <div className="transactions-list">
-        <div className="scrollable">
-          { 
-            txs.map((tx, index) => (
-              <Transaction tx={ tx } key={ index }/>
-            ))
-          }
-        </div>
-      </div>
+      <Preloader value={txs} loader={Bouncing}>
+        {
+          txs && txs.map((tx, index) => (
+            <Transaction tx={ tx } key={ index }/>
+          ))
+        }
+      </Preloader>
     )
   }
 
-  loader () {
-    return (
-      <Bouncing/>
-    )
-  }
-  
   render () {
-    if (this.props.history != null)
-      return this.list(this.props.history);
-    else
-      return this.loader();
+    return (
+      <div className="transactions-list">
+        <div className="scrollable">
+          { this.list(this.props.history) }
+        </div>
+      </div>
+    )
   }
 }
 

@@ -18,8 +18,10 @@ class Frame extends React.Component {
             </div>
             <Balance/>
           </div>
-          <Tabs/>
-          { this.props.children }
+          <div className="body">
+            <Tabs/>
+            { this.props.children }
+          </div>
         </div>
       </CSSTransition>
     )
