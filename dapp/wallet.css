@@ -29,6 +29,14 @@
     font-weight: 600;
     font-style: normal;
   }
+
+  @font-face {
+    font-family: Orkney;
+    src: url('~assets/orkney_b.woff2') format('woff2'),
+         url('~assets/orkney_b.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+  }
 }
 
 html {
