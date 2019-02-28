@@ -1,6 +1,6 @@
 {
   "parserOptions": {
-    "ecmaVersion": 6,
+    "ecmaVersion": 9,
     "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true
@@ -14,7 +14,8 @@
     "browser": true
   },
   "globals": {
-    "process": true
+    "process": true,
+    "Promise": true
   },
   "rules": {
     "react/prop-types": "off",

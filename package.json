@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Simple Wallet Dapp for Ethereum",
   "scripts": {
-    "dev": "webpack-dev-server --mode development --devtool eval --progress --hot --contentBase ./build",
+    "dev": "webpack-dev-server --mode development --progress --hot --contentBase ./build",
     "build": "webpack --mode production"
   },
   "repository": {
@@ -34,6 +34,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
+    "@babel/plugin-proposal-object-rest-spread": "^7.3.4",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
     "autoprefixer": "^9.4.5",
