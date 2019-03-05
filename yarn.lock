@@ -594,9 +594,9 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
-"@poplocker/react-ui@github:poplocker-dev/react-ui":
+"@poplocker/react-ui@https://github.com/poplocker-dev/react-ui":
   version "1.0.0"
-  resolved "https://codeload.github.com/poplocker-dev/react-ui/tar.gz/74ca334af597e4f772fab073868f503f35ae29ee"
+  resolved "https://github.com/poplocker-dev/react-ui#83937c56408eab41bb2c48d825a5e068ece290d6"
   dependencies:
     classnames "^2.2.6"
     react "^16.7.0"
