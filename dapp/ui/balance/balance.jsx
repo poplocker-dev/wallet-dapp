@@ -1,26 +1,26 @@
-import React        from 'react'
-import { connect }  from 'react-redux'
-import { rpc }      from 'lib/rpc_calls'
+import React         from 'react'
+import { connect }   from 'react-redux'
+import { rpc }       from 'lib/rpc_calls'
+import { Preloader } from '@poplocker/react-ui'
 
 import './balance.css'
 
 class Balance extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   componentDidUpdate () {
-    if (this.props.connected)
+    if (this.props.connection > 0)
       this.props.dispatch(rpc.getBalance());
   }
 
   render () {
     return (
       <div className="account-balance">
-        { this.props.balance } ETH
+        <Preloader value={this.props.balance}>
+          { this.props.balance } ETH
+        </Preloader>
       </div>
     )
   }
 }
 
-export default connect(({ balance, connected }) => ({ balance, connected }))(Balance);
+export default connect(({ balance, connection }) => ({ balance, connection }))(Balance);

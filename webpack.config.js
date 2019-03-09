@@ -11,9 +11,6 @@ const config = {
     path: __dirname + '/build',
     filename: "bundle.js"
   },
-  devServer: {
-    historyApiFallback: true
-  },
 	module: {
 		rules: [
       {
@@ -25,6 +22,7 @@ const config = {
             loader: 'postcss-loader',
             options: {
               plugins: [
+                require('autoprefixer'),
                 require('postcss-nested'),
                 require('cssnano')
               ]
@@ -65,6 +63,7 @@ const config = {
     alias: {
       lib: __dirname + '/lib',
       ui: __dirname + '/dapp/ui',
+      views: __dirname + '/dapp/views',
       assets: __dirname + '/dapp/assets',
     },
     plugins: [

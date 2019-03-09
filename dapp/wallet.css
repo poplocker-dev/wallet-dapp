@@ -5,10 +5,13 @@
   --border-color: #DBDBDB;
   --border-focus-color: #b4b4b4;
   --invalid-color: #FF0054;
-  --std-button-color: #4880FF;
-  --std-button-shadow-color: rgba(72,128,255,0.50);
-  --std-button-darker-color: #386BE1;
-  --std-button-fg: #FFFFFF;
+  --button-color: #4880FF;
+  --button-shadow-color: rgba(72,128,255,0.50);
+  --button-darker-color: #386BE1;
+  --button-fg: #FFFFFF;
+  --button-alt-color: #34CD65;
+  --button-alt-shadow-color: rgba(72,128,255,0.50);
+  --button-alt-darker-color: #20BE53;
   --subview-bg: #F6F9FC;
 
   @font-face {
@@ -24,6 +27,14 @@
     src: url('~assets/orkney_m.woff2') format('woff2'),
          url('~assets/orkney_m.woff') format('woff');
     font-weight: 600;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: Orkney;
+    src: url('~assets/orkney_b.woff2') format('woff2'),
+         url('~assets/orkney_b.woff') format('woff');
+    font-weight: bold;
     font-style: normal;
   }
 }

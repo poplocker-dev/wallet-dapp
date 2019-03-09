@@ -2,6 +2,7 @@
   position: relative;
   margin: 70px auto;
 	max-width: 375px;
+  min-height: 667px;
   font-family: Orkney, Helvetica, Arial, sans-serif;
   overflow: hidden;
   background: #fff;
@@ -16,7 +17,18 @@
       font-weight: 600;
       text-transform: uppercase;
       text-align: center;
-      margin-bottom: 15px;
+      margin-bottom: -7px;
     }
   }
+}
+
+.slidein-appear {
+  opacity: 0;
+  transform: scale(0.2) translateY(50%);
+}
+
+.slidein-appear-active {
+  opacity: 1;
+  transform: scale(1) translateY(0%);
+  transition: all 200ms ease-out;
 }
