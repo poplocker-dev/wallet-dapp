@@ -6,10 +6,12 @@
 	  height: 43px;
     width: 100%;
     padding-left: 13px;
-    padding-right: 61px;
+    padding-right: 13px;
 	  border: 1px solid var(--border-color);
 	  border-radius: 2px;
+    text-align: center;
     font-size: 16px;
+    font-weight: bold;
     line-height: 23px;
 
     &:focus {

@@ -11,6 +11,10 @@
     font-weight: bold;
     margin-bottom: 20px;
   }
+
+  .send-to {
+    font-size: 12px;
+  }
 }
 
 .showup-appear {

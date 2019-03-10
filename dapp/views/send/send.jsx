@@ -6,16 +6,16 @@ import { Button }  from '@poplocker/react-ui'
 
 import { CSSTransition } from 'react-transition-group'
 
-import './send_tokens.css'
+import './send.css'
 
-class SendView extends React.Component {
+class Send extends React.Component {
   constructor(props) {
     super(props);
     this.state = { amount: 0, to: null }
   }
 
   send(to, amount) {
-    this.props.dispatch(rpc.sendTokens(to, amount));
+    this.props.dispatch(rpc.send(to, amount));
   }
 
   handleTo(e) {
@@ -41,13 +41,13 @@ class SendView extends React.Component {
       <CSSTransition timeout={500} classNames="showup" appear={true} in={true}>
         <form className="send-panel" onSubmit={this.handleSubmit.bind(this)}>
           <div className="send-title">Send ETH</div>
-          <Input name="to" label="To:" onChange={this.handleTo.bind(this)} value={this.state.address}/>
+          <Input className="send-to" name="to" label="To" onChange={this.handleTo.bind(this)} value={this.state.address}/>
           <Input name="amount" label="Amount" onChange={this.handleAmount.bind(this)} value={this.state.amount}/>
-          <Button icon="arrow-up" tabIndex={-1} disabled={!this.shouldBeEnabled()}>Send</Button>
+          <Button icon="arrow-up" disabled={!this.shouldBeEnabled()}>Send</Button>
         </form>
       </CSSTransition>
     )
   }
 }
 
-export default connect()(SendView);
+export default connect()(Send);

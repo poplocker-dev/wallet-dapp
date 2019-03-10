@@ -7,6 +7,12 @@ class Connection extends React.Component {
   componentDidMount() {
     this.props.dispatch(rpc.getAddress());
     this.props.dispatch(rpc.isListening());
+    this.timer = setInterval(() => this.updatePoll(), 2000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer);
+    this.timer = null;
   }
 
   loadOrError () {
@@ -28,6 +34,13 @@ class Connection extends React.Component {
         No Address!
       </p>
     )
+  }
+
+  // TODO: move to wallet.jsx
+  updatePoll() {
+    this.props.dispatch(rpc.isListening());
+    this.props.dispatch(rpc.getAddress());
+    this.props.dispatch(rpc.getBalance());
   }
 
   render () {
