@@ -18,8 +18,8 @@
   },
   "dependencies": {
     "@poplocker/react-ui": "https://github.com/poplocker-dev/react-ui",
+    "bignumber.js": "^8.0.2",
     "classnames": "^2.2.6",
-    "ethjs-unit": "^0.1.6",
     "history": "^4.7.2",
     "lodash": "^4.17.11",
     "pro-router": "^4.3.2",

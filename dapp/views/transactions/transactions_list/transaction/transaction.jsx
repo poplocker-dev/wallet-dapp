@@ -1,6 +1,6 @@
 import React         from 'react'
 import { connect }   from 'react-redux'
-import unit          from 'ethjs-unit'
+import { fixedEth }  from 'lib/helpers'
 import { Indicator } from '@poplocker/react-ui'
 
 import './transaction.css'
@@ -15,12 +15,19 @@ const Transaction = ({ tx, address }) => (
           { peer(tx, address) }
         </div>
         <div className="value">
-          { unit.fromWei(tx.value, 'ether') } ETH
+          { fixedEth(tx.value) } ETH
         </div>
 
       </div>
       <div className="info-bottom">
-        { time(tx.timeStamp) }
+
+        <div className="timestamp">
+          { time(tx.timeStamp) }
+        </div>
+        <div className="status">
+          { 'COMPLETE' }
+        </div>
+
       </div>
     </div>
   </div>
@@ -38,8 +45,9 @@ const peer = (tx, addr) => {
 }
 
 const time = (utime) => {
-  const date = new Date(utime*1000).toLocaleDateString("en-GB");
-  return date.split('/').join('-');
+  const date = new Date(utime*1000).toLocaleDateString();
+  const time = new Date(utime*1000).toLocaleTimeString();
+  return date.split('/').join('-') + ' ' + time.toLowerCase();
 }
 
 export default connect(({ address }) => ({ address }))(Transaction);

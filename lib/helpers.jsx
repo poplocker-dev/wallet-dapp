@@ -1,8 +1,9 @@
+import BigNumber from 'bignumber.js'
+
 function fixedEth (wei) {
-  const a = window.web3.utils.toBN(wei);
-  const b = window.web3.utils.toBN(1e13, 10);
-  
-  return a.divRound(b).toNumber(10)/1e5;
+  return BigNumber(wei.toString(10)).dividedBy('1e13')
+    .integerValue(BigNumber.ROUND_CEIL)
+    .dividedBy('1e5').toFixed();
 }
 
 export { fixedEth }

@@ -16,12 +16,20 @@
     position: relative;
     box-shadow: -1px 7px 19px 5px rgba(0,0,0,0.12);
     z-index: 2;
+
+    .address {
+      max-width: 100%;
+    }
+    .value {
+      max-width: 0%;
+    }
   }
 
 }
 
 .info {
   width: calc(100% - 40px);
+  padding-left: 5px;
 }
 
 .info-top {
@@ -30,18 +38,42 @@
 
   .address {
     width: auto;
-    max-width: 80%;
+    max-width: 60%;
     overflow: hidden;
+    white-space: nowrap;
     text-overflow: ellipsis;
   }
   
   .value {
-    overflow: hidden;
     color: var(--value-color);
+    overflow: hidden;
+    white-space: nowrap;
     text-overflow: ellipsis;
   }
 }
 
 .info-bottom {
-  opacity: 0.5;
+  display: flex;
+  justify-content: space-between;
+
+  .timestamp {
+    opacity: 0.5;
+    width: auto;
+    max-width: 60%;
+    padding-top: 2px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .status {
+    color: var(--background-color);
+    background-color: var(--button-color);
+    padding: 3px 12px 0px 12px;
+    border-radius: 10px;
+    font-size: 12px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
 }

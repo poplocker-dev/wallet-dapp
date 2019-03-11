@@ -1,8 +1,11 @@
 .account-balance {
-	font-size: 44px;
-	font-weight: bold;
-	text-align: center;
-  line-height: 2;
-  margin-bottom: 41px;
+  font-size: 44px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 50px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
