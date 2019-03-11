@@ -4,17 +4,25 @@ import QR    from 'qrcode'
 class QRCode extends React.Component {
   constructor (props) {
     super(props);
-    this.cvs = React.createRef();
+    this.canvas = React.createRef();
   }
-  
+
   componentDidMount () {
-    QR.toCanvas(this.cvs.current, this.props.address);
+    this.updateCanvas(this.props.address);
   }
-  
+
+  componentWillUpdate (nextProps) {
+    this.updateCanvas(nextProps.address);
+  }
+
+  updateCanvas (address) {
+    QR.toCanvas(this.canvas.current, address);
+  }
+    
   render () {
     return (
       <div className="qr-code">
-        <canvas ref={this.cvs}/>
+        <canvas ref={this.canvas} title={this.props.address}/>
       </div>
     )
   }
