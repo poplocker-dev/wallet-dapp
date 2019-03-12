@@ -1,7 +1,6 @@
-.send-receive {
+.back-copy {
   display: flex;
   justify-content: space-between;
-  padding: 20px;
 
     .btn {
       width: 47.5%;

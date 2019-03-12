@@ -1,12 +1,11 @@
-import React from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import Transaction from './transaction';
-import { Preloader, Bouncing } from '@poplocker/react-ui';
+import React                               from 'react'
+import { bindActionCreators }              from 'redux'
+import { connect }                         from 'react-redux'
+import Transaction                         from './transaction'
+import { Preloader, Bouncing }             from '@poplocker/react-ui'
+import { updateHistory, upPage, downPage } from 'lib/store/actions'
 
-import { updateHistory, upPage, downPage } from 'lib/store/actions';
-
-import './transactions_list.css';
+import './transactions_list.css'
 
 class TransactionList extends React.Component {
   componentDidMount() {

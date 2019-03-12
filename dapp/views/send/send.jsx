@@ -1,9 +1,8 @@
-import React       from 'react'
-import Input       from 'ui/input'
-import { connect } from 'react-redux'
-import { rpc }     from 'lib/rpc_calls'
-import { Button }  from '@poplocker/react-ui'
-
+import React             from 'react'
+import Input             from 'ui/input'
+import { connect }       from 'react-redux'
+import { rpc }           from 'lib/rpc_calls'
+import { Button }        from '@poplocker/react-ui'
 import { CSSTransition } from 'react-transition-group'
 
 import './send.css'
@@ -30,6 +29,10 @@ class Send extends React.Component {
     return this.state.amount && this.state.to;
   }
 
+  handleBack() {
+    //TODO window.history.back();
+  }
+
   handleSubmit(e) {
     e.preventDefault();
     if (this.shouldBeEnabled)
@@ -43,7 +46,10 @@ class Send extends React.Component {
           <div className="send-title">Send ETH</div>
           <Input className="send-to" name="to" label="To" onChange={this.handleTo.bind(this)} value={this.state.address}/>
           <Input name="amount" label="Amount" onChange={this.handleAmount.bind(this)} value={this.state.amount}/>
-          <Button icon="arrow-up" disabled={!this.shouldBeEnabled()}>Send</Button>
+          <div className="back-send">
+            <Button kind="light" icon="arrow" onClick={this.handleBack()}>Back</Button>
+            <Button icon="arrow-up" disabled={!this.shouldBeEnabled()}>Send</Button>
+          </div>
         </form>
       </CSSTransition>
     )

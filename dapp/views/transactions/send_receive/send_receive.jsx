@@ -5,7 +5,7 @@ import './send_receive.css'
 
 const SendReceive = () => (
   <div className="send-receive">
-    <Button icon="arrow" onClick={handleReceive}>Receive</Button>
+    <Button kind="alt" icon="arrow" onClick={handleReceive}>Receive</Button>
     <Button icon="arrow-up" onClick={handleSend}>Send</Button>
   </div>
 );

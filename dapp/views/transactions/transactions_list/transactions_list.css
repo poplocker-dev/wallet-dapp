@@ -1,6 +1,5 @@
 .transactions-list {
   padding: 20px;
-  background-color: var(--subview-bg);
 
   .title {
     font-size: 17px;
