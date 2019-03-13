@@ -5,6 +5,8 @@ import FancyCircles      from 'ui/circles'
 import { CSSTransition } from 'react-transition-group'
 import Connection        from './connection'
 
+import LockerButton from './locker_button'
+
 import './frame.css'
 
 class Frame extends React.Component {
