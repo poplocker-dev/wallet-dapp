@@ -1,10 +1,12 @@
 import React             from 'react'
 import StatusBar         from 'ui/status_bar'
 import Balance           from 'ui/balance'
-import FancyCircles      from 'ui/circles' 
+import FancyCircles      from 'ui/circles'
 import { CSSTransition } from 'react-transition-group'
 
-import Tabs from './tabs'
+import Tabs         from './tabs'
+import LockerButton from './locker_button'
+
 import './frame.css'
 
 class Frame extends React.Component {
@@ -19,6 +21,7 @@ class Frame extends React.Component {
               Your total balance
             </div>
             <Balance/>
+            <LockerButton/>
           </div>
           <div className="body">
             <Tabs/>
