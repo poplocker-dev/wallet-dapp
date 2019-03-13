@@ -15,25 +15,14 @@ class Connection extends React.Component {
     this.timer = null;
   }
 
-  loadOrError () {
+  loadOrView () {
     if (this.props.connection == -1) {
       return (
         <Bouncing/>
       )
-    }
-    if (!this.props.connection)
-      return (
-        <p>
-          No connection!
-        </p>
-      )
-    else if (this.props.address.length > 0)
+    } else {
       return this.props.children;
-    else return (
-      <p>
-        No Address!
-      </p>
-    )
+    }
   }
 
   // TODO: move to wallet.jsx
@@ -46,7 +35,7 @@ class Connection extends React.Component {
   render () {
     return (
       <div className="connection">
-        { this.loadOrError() }
+        { this.loadOrView() }
       </div>
     )
   }

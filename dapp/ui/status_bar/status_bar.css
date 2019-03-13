@@ -1,7 +1,7 @@
 .status-bar {
   display: flex;
   align-items: baseline;
-  margin-bottom: 23px;
+  margin-bottom: 12px;
   
   .indicator {
     width: 10px;
@@ -13,6 +13,11 @@
   .indicator--connected {
     background-color: #00F302;
     border: 2px solid #83F984;
+  }
+
+  .indicator--no-account {
+    background-color: #ffd600;
+    border: 2px solid #ffcc35;
   }
 
   .indicator--disconnected {

@@ -1,4 +1,5 @@
 .send-panel {
+  height: 392px;
   display: flex;
   flex-direction: column;
   background-color: var(--subview-bg);

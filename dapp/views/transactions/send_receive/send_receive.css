@@ -1,7 +1,7 @@
 .send-receive {
   display: flex;
   justify-content: space-between;
-  padding: 20px;
+  padding: 0 20px 20px 20px;
 
     .btn {
       width: 47.5%;

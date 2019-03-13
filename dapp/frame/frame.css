@@ -1,8 +1,8 @@
 .frame {
   position: relative;
-  margin: 70px auto;
-	max-width: 375px;
-  min-height: 667px;
+  margin: 12px auto;
+  width: 375px;
+  height: 600px;
   font-family: Orkney, Helvetica, Arial, sans-serif;
   overflow: hidden;
   background: #fff;
@@ -17,7 +17,6 @@
       font-weight: 600;
       text-transform: uppercase;
       text-align: center;
-      margin-bottom: -7px;
     }
   }
 }

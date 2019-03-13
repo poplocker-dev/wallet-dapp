@@ -1,14 +1,4 @@
 .transactions-list {
-  padding: 20px;
-
-  .title {
-    font-size: 17px;
-    font-weight: 600;
-    margin-bottom: 20px;
-  }
-
-  .scrollable {
-    max-height: 320px;
-    overflow-y: scroll;
-  }
+  height: 331px;
+  padding: 0 20px 20px 20px;
 }

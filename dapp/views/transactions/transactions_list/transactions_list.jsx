@@ -23,13 +23,15 @@ class TransactionList extends React.Component {
   render() {
     return (
       <div className="transactions-list">
-        <button onClick={this.prev.bind(this)} disabled={this.prevDisabled()}>
-          Prev
-        </button>
         <div className="pageable">{this.list()}</div>
-        <button onClick={this.next.bind(this)} disabled={this.nextDisabled()}>
-          Next
-        </button>
+        <div>
+          <button onClick={this.prev.bind(this)} disabled={this.prevDisabled()}>
+            Prev
+          </button>
+          <button onClick={this.next.bind(this)} disabled={this.nextDisabled()}>
+            Next
+          </button>
+        </div>
       </div>
     );
   }

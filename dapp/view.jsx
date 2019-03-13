@@ -1,10 +1,11 @@
 import React        from 'react'
 import * as R       from 'pro-router/standalone'
 import * as _       from 'lodash'
-
 import Transactions from 'views/transactions'
 import Send         from 'views/send'
 import Receive      from 'views/receive'
+
+import './view.css'
 
 export default class View extends React.Component {
   constructor (props) {
@@ -33,7 +34,7 @@ export default class View extends React.Component {
       default:
         return (
           <div className="not-found">
-            Not Found
+            Page Not Found
           </div>
         )
     }

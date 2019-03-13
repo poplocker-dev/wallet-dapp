@@ -1,0 +1,8 @@
+.not-found {
+  height: 392px;
+  background-color: var(--subview-bg);
+  padding-top: 100px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+}
