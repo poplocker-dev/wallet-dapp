@@ -8,8 +8,7 @@ import './balance.css'
 class Balance extends React.Component {
 
   componentDidUpdate () {
-    if (this.props.connection > 0)
-      this.props.dispatch(rpc.getBalance());
+    this.props.dispatch(rpc.getBalance());
   }
 
   render () {
@@ -23,4 +22,4 @@ class Balance extends React.Component {
   }
 }
 
-export default connect(({ balance, connection }) => ({ balance, connection }))(Balance);
+export default connect(({ balance }) => ({ balance }))(Balance);

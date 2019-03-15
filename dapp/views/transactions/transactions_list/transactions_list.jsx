@@ -13,11 +13,13 @@ class TransactionList extends React.Component {
   }
 
   fetchHistory(page) {
-    return fetch(
-      `${process.env.ETHERSCAN_URL}&address=${this.props.address}&page=${page}`
-    )
-      .then(response => response.json())
-      .then(response => response.result);
+    if (this.props.address && page > 0) {
+      return fetch(
+        `${process.env.ETHERSCAN_URL}&address=${this.props.address}&page=${page}`
+      )
+        .then(response => response.json())
+        .then(response => response.result);
+    } else return Promise.resolve('');
   }
 
   render() {
