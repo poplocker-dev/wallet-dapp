@@ -12,7 +12,7 @@ class Locker extends React.Component {
   render () {
     return (
       <div className="locker-button">
-        <Button>{ this.props.locker.status }</Button>
+        <Button>{ this.props.locker.status || '...' }</Button>
       </div>
     )
   }
