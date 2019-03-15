@@ -16,7 +16,9 @@ class QRCode extends React.Component {
   }
 
   updateCanvas (address) {
-    QR.toCanvas(this.canvas.current, address);
+    if (address) {
+      QR.toCanvas(this.canvas.current, address);
+    }
   }
     
   render () {
