@@ -1,11 +1,12 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { Button } from '@poplocker/react-ui'
-import { rpc } from 'lib/rpc_calls'
+import React                   from 'react'
+import { bindActionCreators }  from 'redux'
+import { connect }             from 'react-redux'
+import { Button }              from '@poplocker/react-ui'
+import { rpc }                 from 'lib/rpc_calls'
 
 class Locker extends React.Component {
   componentDidMount () {
-    this.props.dispatch(rpc.getSmartLockerState());
+    this.props.updateLocker();
   }
 
   render () {
@@ -17,4 +18,9 @@ class Locker extends React.Component {
   }
 }
 
-export default connect(({ locker }) => ({ locker }))(Locker);
+const mapStore = ({ locker }) => ({ locker });
+const mapDispatch = dispatch => ({
+  updateLocker: bindActionCreators(rpc.getSmartLockerState, dispatch),
+});
+
+export default connect(mapStore, mapDispatch)(Locker);
