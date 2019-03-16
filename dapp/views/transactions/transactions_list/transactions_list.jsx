@@ -13,13 +13,10 @@ class TransactionList extends React.Component {
   }
 
   fetchHistory(page) {
-    if (this.props.address && page > 0) {
-      return fetch(
-        `${process.env.ETHERSCAN_URL}&address=${this.props.address}&page=${page}`
-      )
-        .then(response => response.json())
-        .then(response => response.result);
-    } else return Promise.resolve('');
+    return fetch(
+      `${process.env.ETHERSCAN_URL}&address=${this.props.address}&page=${page}`
+    ).then(response => response.json())
+     .then(response => response.result);
   }
 
   render() {
@@ -51,8 +48,8 @@ class TransactionList extends React.Component {
   next() {
     if (this.props.page == this.props.lastPage)
       this.fetchHistory(this.props.page + 1)
-        .then(this.props.updateHistory)
-        .then(this.props.upPage);
+          .then(this.props.updateHistory)
+          .then(this.props.upPage);
     else this.props.upPage();
   }
 
