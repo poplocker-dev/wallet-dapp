@@ -30,7 +30,7 @@ class Send extends React.Component {
   }
 
   handleBack() {
-    //TODO window.history.back();
+    window.history.back();
   }
 
   handleSubmit(e) {
@@ -47,7 +47,7 @@ class Send extends React.Component {
           <Input className="send-to" name="to" label="To" onChange={this.handleTo.bind(this)} value={this.state.address}/>
           <Input name="amount" label="Amount" onChange={this.handleAmount.bind(this)} value={this.state.amount}/>
           <div className="back-send">
-            <Button kind="light" icon="arrow" onClick={this.handleBack()}>Back</Button>
+            <Button type="button" kind="light" icon="arrow" onClick={this.handleBack.bind(this)}>Back</Button>
             <Button icon="arrow-up" disabled={!this.shouldBeEnabled()}>Send</Button>
           </div>
         </form>
