@@ -1,7 +1,7 @@
 import React                   from 'react'
 import { bindActionCreators }  from 'redux'
 import { connect }             from 'react-redux'
-import { Button }              from '@poplocker/react-ui'
+import { LockerButton }        from '@poplocker/react-ui'
 import { rpc }                 from 'lib/rpc_calls'
 
 class Locker extends React.Component {
@@ -11,9 +11,7 @@ class Locker extends React.Component {
 
   render () {
     return (
-      <div className="locker-button">
-        <Button>{ this.props.locker.status || '...' }</Button>
-      </div>
+      <LockerButton {...this.props.locker}/>
     )
   }
 }
