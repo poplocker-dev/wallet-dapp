@@ -15,11 +15,14 @@ const StatusBar = ({ connection, address }) => (
 const status = (connection, address) => {
   switch (connection) {
     case -1:
-      return 'connecting';
+      if (address)
+        return 'connecting';
+      else
+        return 'disconnected';
     case 0:
       return 'disconnected';
     case 1:
-      if (address.length > 0) return 'connected';
+      if (address) return 'connected';
       else return 'no-account'
   }
 }
