@@ -1,49 +1,64 @@
 import React         from 'react'
 import { connect }   from 'react-redux'
 import { rpc }       from 'lib/rpc_calls'
-import { Bouncing, Preloader }  from '@poplocker/react-ui'
+import { Bouncing }  from '@poplocker/react-ui'
 
 class Connection extends React.Component {
   componentDidMount() {
-    if (window.web3.givenProvider) {
-      this.props.dispatch(rpc.getAddress());
-      this.pollForStatus();
-      this.timer = setInterval(() => this.pollForStatus(), 2000);
-    }
+    if (this.extensionInstalled())
+      this.startPolling();
   }
 
   componentWillUnmount() {
     clearInterval(this.timer);
   }
 
+  extensionInstalled () {
+    return !!window.web3.givenProvider;
+  }
+
+  startPolling() {
+    this.pollForStatus();
+    this.timer = setInterval(() => this.pollForStatus(), 2000);
+  }
+
   pollForStatus() {
-    if (this.props.address) {
-      this.props.dispatch(rpc.isListening());
-      this.props.dispatch(rpc.getBalance());
-    }
+    this.props.dispatch(rpc.getAddress());
+    this.props.dispatch(rpc.isListening());
+    this.props.dispatch(rpc.getBalance());
   }
 
   noAddress() {
     return (
       <div className="no-address">
-        No Address!
+        Please generate address.
       </div>
     )
   }
 
-  waitOrNoAddress () {
-    if (this.props.address)
-      return Bouncing;
+  noExtension() {
+    return (
+      <div className="no-address">
+        Please install extension and reload.
+      </div>
+    )
+  }
+
+  failOrWait () {
+    if (!this.extensionInstalled())
+      return this.noExtension();
+    else if (!this.props.address)
+      return this.noAddress();
+    else if (this.props.connection == -1)
+      return (<Bouncing/>)
     else
-      return this.noAddress;
+      return this.props.children;
   }
 
   render () {
     return (
       <div className="connection">
-        <Preloader value={this.props.connection != -1} loader={this.waitOrNoAddress()}>
-          { this.props.children }
-        </Preloader>
+        { this.failOrWait() }
       </div>
     )
   }
