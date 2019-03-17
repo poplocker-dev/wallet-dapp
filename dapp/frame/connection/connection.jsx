@@ -29,25 +29,16 @@ class Connection extends React.Component {
     this.props.dispatch(rpc.getBalance());
   }
 
-  noAddress() {
-    return (
-      <NoAddress/>
-    )
-  }
-
-  noExtension() {
-    return (
-      <NoExtension/>
-    )
-  }
-
   failOrWait () {
     if (!this.extensionInstalled())
-      return this.noExtension();
+      return <NoExtension/>
+
     else if (!this.props.address)
-      return this.noAddress();
+      return <NoAddress/>
+
     else if (this.props.connection == -1)
-      return (<Bouncing/>)
+      return <Bouncing/>
+
     else
       return this.props.children;
   }

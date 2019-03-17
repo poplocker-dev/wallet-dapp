@@ -1,7 +1,7 @@
 import React             from 'react'
 import StatusBar         from 'ui/status_bar'
-import Header            from 'ui/header'
-import FancyCircles      from 'ui/circles'
+import Balance           from 'ui/balance'
+import FancyCircles      from 'ui/circles' 
 import { CSSTransition } from 'react-transition-group'
 import Connection        from './connection'
 
@@ -12,9 +12,9 @@ class Frame extends React.Component {
     return (
       <CSSTransition timeout={500} classNames="slidein" appear={true} in={true}>
         <div className="frame">
+          <FancyCircles number='8'/>
           <StatusBar/>
           <Connection>
-            <FancyCircles number='8'/>
             <Header/>
             <div className="body">
               { this.props.children }

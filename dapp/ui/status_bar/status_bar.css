@@ -1,6 +1,10 @@
 .status-bar {
   display: flex;
   align-items: baseline;
+<<<<<<< HEAD
+=======
+  margin-bottom: 12px;
+>>>>>>> rearange components managed by <Connection>
 
   .indicator {
     width: 10px;
