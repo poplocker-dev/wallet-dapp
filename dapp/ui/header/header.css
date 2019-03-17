@@ -1,0 +1,12 @@
+.header {
+  .balance-info {
+    padding: 14px;
+  }
+
+  .title {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-align: center;
+  }
+}

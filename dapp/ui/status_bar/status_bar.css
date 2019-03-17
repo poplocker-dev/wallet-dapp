@@ -2,7 +2,7 @@
   display: flex;
   align-items: baseline;
   margin-bottom: 12px;
-  
+
   .indicator {
     width: 10px;
     height: 10px;
@@ -29,7 +29,7 @@
     background-color: #ffd600;
     border: 2px solid #ffcc35;
   }
-  
+
   .status {
 	  opacity: 0.69;
     font-weight: 600;

@@ -1,11 +1,9 @@
 import React             from 'react'
 import StatusBar         from 'ui/status_bar'
 import Balance           from 'ui/balance'
-import FancyCircles      from 'ui/circles'
+import FancyCircles      from 'ui/circles' 
 import { CSSTransition } from 'react-transition-group'
-
-import Tabs         from './tabs'
-import LockerButton from './locker_button'
+import Connection        from './connection'
 
 import './frame.css'
 
@@ -14,19 +12,14 @@ class Frame extends React.Component {
     return (
       <CSSTransition timeout={500} classNames="slidein" appear={true} in={true}>
         <div className="frame">
-          <div className="header">
-            <FancyCircles number='8'/>
-            <StatusBar/>
-            <div className="title">
-              Your total balance
+          <FancyCircles number='8'/>
+          <StatusBar/>
+          <Connection>
+            <Header/>
+            <div className="body">
+              { this.props.children }
             </div>
-            <Balance/>
-            <LockerButton/>
-          </div>
-          <div className="body">
-            <Tabs/>
-            { this.props.children }
-          </div>
+          </Connection>
         </div>
       </CSSTransition>
     )
