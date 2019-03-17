@@ -10,7 +10,7 @@ import './send.css'
 class Send extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { amount: 0, to: null }
+    this.state = { amount: '', amountError: '', to: '', toError: '' }
   }
 
   send(to, amount) {
@@ -18,15 +18,30 @@ class Send extends React.Component {
   }
 
   handleTo(e) {
-    this.setState({ to: e.target.value });
+    const to = e.target.value;
+    this.setState({ to: to }, () => {
+      if (!to || window.web3.utils.isAddress(to)) this.setState({ toError: '' });
+      else this.setState({ toError: 'Invalid address' });
+    })
   }
 
   handleAmount(e) {
-    this.setState({ amount: e.target.value });
+    const amount = e.target.value;
+    this.setState({ amount: amount }, () => {
+      try {
+        amount && window.web3.utils.toWei(amount);
+        this.setState({ amountError: '' });
+      } catch {
+        this.setState({ amountError: 'Invalid amount' });
+      }
+    })
   }
 
   shouldBeEnabled() {
-    return this.state.amount && this.state.to;
+    return this.state.amount &&
+           !this.state.amountError &&
+           this.state.to &&
+           !this.state.toError;
   }
 
   handleBack() {
@@ -35,8 +50,10 @@ class Send extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    if (this.shouldBeEnabled)
+    if (this.shouldBeEnabled) {
       this.send(this.state.to, this.state.amount);
+      this.setState({ to: '', amount: '' });
+    }
   }
 
   render () {
@@ -44,8 +61,25 @@ class Send extends React.Component {
       <CSSTransition timeout={500} classNames="showup" appear={true} in={true}>
         <form className="send-panel" onSubmit={this.handleSubmit.bind(this)}>
           <div className="send-title">Send ETH</div>
-          <Input className="send-to" name="to" label="To" onChange={this.handleTo.bind(this)} value={this.state.address}/>
-          <Input name="amount" label="Amount" onChange={this.handleAmount.bind(this)} value={this.state.amount}/>
+
+          <Input className="send-to"
+                 autoComplete="off"
+                 spellCheck="false"
+                 name="to"
+                 label="To"
+                 onChange={this.handleTo.bind(this)}
+                 value={this.state.to}
+                 error={this.state.toError} />
+
+          <Input className="send-amount"
+                 autoComplete="off"
+                 spellCheck="false"
+                 name="amount"
+                 label="Amount"
+                 onChange={this.handleAmount.bind(this)}
+                 value={this.state.amount}
+                 error={this.state.amountError} />
+
           <div className="back-send">
             <Button type="button" kind="light" icon="arrow" onClick={this.handleBack.bind(this)}>Back</Button>
             <Button icon="arrow-up" disabled={!this.shouldBeEnabled()}>Send</Button>
