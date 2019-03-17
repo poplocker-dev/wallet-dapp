@@ -2,6 +2,7 @@
   height: 392px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   background-color: var(--subview-bg);
   padding: 20px;
   transition: all 500ms ease-out;
