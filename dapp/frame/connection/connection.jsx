@@ -1,8 +1,7 @@
-import React                      from 'react'
-import { connect }                from 'react-redux'
-import { rpc }                    from 'lib/rpc_calls'
-import { Bouncing }               from '@poplocker/react-ui'
-import { NoAddress, NoExtension } from './no_connection.jsx'
+import React         from 'react'
+import { connect }   from 'react-redux'
+import { rpc }       from 'lib/rpc_calls'
+import { Bouncing }  from '@poplocker/react-ui'
 
 class Connection extends React.Component {
   componentDidMount() {
@@ -29,16 +28,29 @@ class Connection extends React.Component {
     this.props.dispatch(rpc.getBalance());
   }
 
+  noAddress() {
+    return (
+      <div className="no-address">
+        Please generate address.
+      </div>
+    )
+  }
+
+  noExtension() {
+    return (
+      <div className="no-address">
+        Please install extension and reload.
+      </div>
+    )
+  }
+
   failOrWait () {
     if (!this.extensionInstalled())
-      return <NoExtension/>
-
+      return this.noExtension();
     else if (!this.props.address)
-      return <NoAddress/>
-
+      return this.noAddress();
     else if (this.props.connection == -1)
-      return <Bouncing/>
-
+      return (<Bouncing/>)
     else
       return this.props.children;
   }

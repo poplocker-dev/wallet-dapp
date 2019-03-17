@@ -5,7 +5,6 @@ import { init }     from 'lib/init'
 
 import View       from './view'
 import Frame      from './frame'
-import Connection from './connection'
 
 import './wallet.css'
 
@@ -13,9 +12,7 @@ init((store) => {
   ReactDOM.render(
     <Provider store={store}>
         <Frame>
-          <Connection>
-            <View/>
-          </Connection>
+          <View/>
         </Frame>
     </Provider>,
     document.body.appendChild(document.createElement('div')));
