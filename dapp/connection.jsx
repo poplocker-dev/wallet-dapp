@@ -5,8 +5,11 @@ import { Bouncing, Preloader }  from '@poplocker/react-ui'
 
 class Connection extends React.Component {
   componentDidMount() {
-    this.pollForStatus()
-    this.timer = setInterval(() => this.pollForStatus(), 2000);
+    if (window.web3.givenProvider) {
+      this.props.dispatch(rpc.getAddress());
+      this.pollForStatus();
+      this.timer = setInterval(() => this.pollForStatus(), 2000);
+    }
   }
 
   componentWillUnmount() {
@@ -14,9 +17,10 @@ class Connection extends React.Component {
   }
 
   pollForStatus() {
-    this.props.dispatch(rpc.isListening());
-    this.props.dispatch(rpc.getAddress());
-    this.props.dispatch(rpc.getBalance());
+    if (this.props.address) {
+      this.props.dispatch(rpc.isListening());
+      this.props.dispatch(rpc.getBalance());
+    }
   }
 
   noAddress() {
