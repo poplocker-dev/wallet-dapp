@@ -60,26 +60,26 @@ class Send extends React.Component {
     return (
       <CSSTransition timeout={500} classNames="showup" appear={true} in={true}>
         <form className="send-panel" onSubmit={this.handleSubmit.bind(this)}>
-          <div className="send-title">Send ETH</div>
+          <div>
+            <div className="send-title">Send ETH</div>
+            <Input className="send-to"
+                   autoComplete="off"
+                   spellCheck="false"
+                   name="to"
+                   label="To"
+                   onChange={this.handleTo.bind(this)}
+                   value={this.state.to}
+                   error={this.state.toError} />
 
-          <Input className="send-to"
-                 autoComplete="off"
-                 spellCheck="false"
-                 name="to"
-                 label="To"
-                 onChange={this.handleTo.bind(this)}
-                 value={this.state.to}
-                 error={this.state.toError} />
-
-          <Input className="send-amount"
-                 autoComplete="off"
-                 spellCheck="false"
-                 name="amount"
-                 label="Amount"
-                 onChange={this.handleAmount.bind(this)}
-                 value={this.state.amount}
-                 error={this.state.amountError} />
-
+            <Input className="send-amount"
+                   autoComplete="off"
+                   spellCheck="false"
+                   name="amount"
+                   label="Amount"
+                   onChange={this.handleAmount.bind(this)}
+                   value={this.state.amount}
+                   error={this.state.amountError} />
+          </div>
           <div className="back-send">
             <Button type="button" kind="light" icon="arrow" onClick={this.handleBack.bind(this)}>Back</Button>
             <Button icon="arrow-up" disabled={!this.shouldBeEnabled()}>Send</Button>
