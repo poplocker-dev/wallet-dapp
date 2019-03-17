@@ -1,5 +1,7 @@
 .frame {
   position: relative;
+  display: flex;
+  flex-direction: column;
   margin: 12px auto;
   width: 375px;
   height: 600px;
@@ -8,16 +10,9 @@
   background: #fff;
   border-radius: 10px;
   box-shadow: 0px 10px 55px -3px rgba(0,0,0,0.35);
-  
-  .header {
-    padding: 14px;
 
-    .title {
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-      text-align: center;
-    }
+  .status-bar {
+    padding: 10px;
   }
 }
 
