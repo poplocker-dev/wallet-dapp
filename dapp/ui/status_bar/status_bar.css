@@ -1,7 +1,6 @@
 .status-bar {
   display: flex;
   align-items: baseline;
-  margin-bottom: 12px;
 
   .indicator {
     width: 10px;

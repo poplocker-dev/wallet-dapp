@@ -14,6 +14,10 @@
   .status-bar {
     padding: 10px;
   }
+
+  .body {
+    height: 392px;
+  }
 }
 
 .slidein-appear {
