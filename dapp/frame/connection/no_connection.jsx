@@ -1,14 +1,22 @@
 import React from 'react'
 
+import './no_connection.css'
+
 const NoAddress = () => (
   <div className="no-connection no-address">
-    Please generate account
+    No account detected
+    <br/><br/>
+    Please create an account
   </div>
 );
 
 const NoExtension = () => (
   <div className="no-connection no-extension">
-    Please install extension and reload
+    Not connected to the Ethereum network
+    <br/><br/>
+    Please install
+    <br/>
+    <a href={process.env.POPLOCKER_URL}>PopLocker</a>
   </div>
 );
 
