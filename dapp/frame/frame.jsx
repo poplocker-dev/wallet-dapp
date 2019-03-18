@@ -1,7 +1,7 @@
 import React             from 'react'
 import StatusBar         from 'ui/status_bar'
-import Balance           from 'ui/balance'
-import FancyCircles      from 'ui/circles' 
+import FancyCircles      from 'ui/circles'
+import Header            from 'ui/header'
 import { CSSTransition } from 'react-transition-group'
 import Connection        from './connection'
 

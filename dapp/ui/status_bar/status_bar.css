@@ -1,10 +1,7 @@
 .status-bar {
   display: flex;
   align-items: baseline;
-<<<<<<< HEAD
-=======
   margin-bottom: 12px;
->>>>>>> rearange components managed by <Connection>
 
   .indicator {
     width: 10px;
@@ -34,10 +31,10 @@
   }
 
   .status {
-	  opacity: 0.69;
+    opacity: 0.69;
     font-weight: 600;
     text-transform: capitalize;
-	  line-height: 19px;
-	  letter-spacing: 0.29px;
+    line-height: 19px;
+    letter-spacing: 0.29px;
   }
 }
