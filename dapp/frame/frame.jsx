@@ -12,9 +12,9 @@ class Frame extends React.Component {
     return (
       <CSSTransition timeout={500} classNames="slidein" appear={true} in={true}>
         <div className="frame">
-          <FancyCircles number='8'/>
           <StatusBar/>
           <Connection>
+          <FancyCircles number='8'/>
             <Header/>
             <div className="body">
               { this.props.children }

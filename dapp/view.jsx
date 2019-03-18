@@ -34,7 +34,7 @@ export default class View extends React.Component {
       default:
         return (
           <div className="not-found">
-            Page Not Found
+            Page not found
           </div>
         )
     }
