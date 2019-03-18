@@ -14,7 +14,7 @@ class Frame extends React.Component {
         <div className="frame">
           <StatusBar/>
           <Connection>
-          <FancyCircles number='8'/>
+            <FancyCircles number='8'/>
             <Header/>
             <div className="body">
               { this.props.children }
