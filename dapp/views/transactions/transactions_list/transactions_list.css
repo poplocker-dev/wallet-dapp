@@ -1,4 +1,36 @@
 .transactions-list {
   height: 332px;
   padding: 0 20px 20px 20px;
+
+  .prevNext {
+    display: flex;
+    justify-content: space-between;
+
+    button.visible {
+      visibility: visible;
+    }
+
+    button.hidden {
+      visibility: hidden;
+    }
+  }
+}
+
+.no-transaction {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-weight: 600;
+  height: 50px;
+  padding: 10px;
+  cursor: pointer;
+  background: #fff;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  
+  &:hover {
+    position: relative;
+    box-shadow: -1px 7px 19px 5px rgba(0,0,0,0.12);
+    z-index: 2;
+  }
 }

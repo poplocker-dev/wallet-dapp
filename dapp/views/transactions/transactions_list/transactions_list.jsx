@@ -23,12 +23,12 @@ class TransactionList extends React.Component {
     return (
       <div className="transactions-list">
         <div className="pageable">{this.list()}</div>
-        <div>
-          <button onClick={this.prev.bind(this)} disabled={this.prevDisabled()}>
-            Prev
+        <div className="prevNext">
+          <button className={this.prevDisabled()? "hidden" : "visible"} onClick={this.prev.bind(this)}>
+            &lt;
           </button>
-          <button onClick={this.next.bind(this)} disabled={this.nextDisabled()}>
-            Next
+          <button className={this.nextDisabled()? "hidden" : "visible"} onClick={this.next.bind(this)}>
+            &gt;
           </button>
         </div>
       </div>
@@ -36,13 +36,19 @@ class TransactionList extends React.Component {
   }
 
   list() {
-    return (
-      <Preloader value={this.props.items != null} loader={Bouncing}>
-        {this.visibleTxs(this.props.page).map((tx, index) => (
-          <Transaction tx={tx} key={index} />
-        ))}
-      </Preloader>
-    );
+    if (this.props.items.length)  {
+      return (
+        <Preloader value={this.props.items != null} loader={Bouncing}>
+          {this.visibleTxs(this.props.page).map((tx, index) => (
+            <Transaction tx={tx} key={index} />
+            ))}
+        </Preloader>
+      )
+    } else {
+      return (
+        <div className="no-transaction">There are no transactions yet</div>
+      )
+    }
   }
 
   next() {
