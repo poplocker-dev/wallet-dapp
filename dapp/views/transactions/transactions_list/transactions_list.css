@@ -1,6 +1,9 @@
 .transactions-list {
   height: 332px;
   padding: 0 20px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   .prevNext {
     display: flex;
