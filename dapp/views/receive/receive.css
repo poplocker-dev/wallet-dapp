@@ -16,11 +16,12 @@
     background: var(--background-color);
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
+    padding-left: 10px;
 
     .address {
-      max-width: 67%;
+      max-width: 75%;
       font-size: 14px;
       font-weight: bold;
 
@@ -53,11 +54,11 @@
   }
 
   .link {
-    padding: 7px;
+    padding: 10px;
     background: var(--background-color);
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     text-decoration: none;
     color: inherit;
