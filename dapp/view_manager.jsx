@@ -1,13 +1,15 @@
 import React        from 'react'
 import * as R       from 'pro-router/standalone'
 import * as _       from 'lodash'
+import Tabs         from 'ui/tabs'
 import Transactions from 'views/transactions'
 import Send         from 'views/send'
 import Receive      from 'views/receive'
+import SmartLocker  from 'views/smartlocker'
 
-import './view.css'
+import 'views/views.css'
 
-export default class View extends React.Component {
+export default class ViewManager extends React.Component {
   constructor (props) {
     super(props);
 
@@ -31,6 +33,9 @@ export default class View extends React.Component {
       case 'receive':
         return <Receive/>
 
+      case 'smartlocker':
+        return <SmartLocker/>
+
       default:
         return (
           <div className="not-found">
@@ -41,6 +46,11 @@ export default class View extends React.Component {
   }
 
   render () {
-    return this.view(window.R.view);
+    return (
+      <>
+        <Tabs/>
+        { this.view(window.R.view) }
+      </>
+    )
   }
 }

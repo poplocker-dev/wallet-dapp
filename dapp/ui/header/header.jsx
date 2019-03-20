@@ -1,6 +1,5 @@
-import React   from 'react'
-import Balance from 'ui/balance'
-import Tabs    from './tabs'
+import React        from 'react'
+import Balance      from 'ui/balance'
 import LockerButton from './locker_button'
 
 import './header.css'
@@ -14,7 +13,6 @@ const Header = () => (
       <Balance/>
     </div>
     <LockerButton/>
-    <Tabs/>
   </div>
 );
 
