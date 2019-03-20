@@ -1,4 +1,6 @@
 .tabs {
+  display: flex;
+  justify-content: space-around;
   font-size: 17px;
   font-weight: 600;
   text-align: center;
@@ -6,4 +8,8 @@
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   background-color: var(--subview-bg);
+
+  .tab {
+    cursor: pointer;
+  }
 }

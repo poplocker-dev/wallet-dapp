@@ -15,7 +15,7 @@ export default class ViewManager extends React.Component {
 
     R.init({
       root: 'transactions',
-      views: ['transactions', 'send', 'receive'],
+      views: ['transactions', 'send', 'receive', 'smartlocker'],
       render: () => {this.forceUpdate(); this.render()},
       helpers: _
     });
