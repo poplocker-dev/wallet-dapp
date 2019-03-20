@@ -11,7 +11,7 @@ class Locker extends React.Component {
 
   render () {
     return (
-      <LockerButton {...this.props.locker}/>
+      <LockerButton locker={this.props.locker}/>
     )
   }
 }
