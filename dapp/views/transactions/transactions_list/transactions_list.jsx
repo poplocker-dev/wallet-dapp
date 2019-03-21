@@ -1,22 +1,16 @@
-import React                               from 'react'
-import { bindActionCreators }              from 'redux'
-import { connect }                         from 'react-redux'
-import Transaction                         from './transaction'
-import { Preloader, Bouncing }             from '@poplocker/react-ui'
-import { updateHistory, upPage, downPage } from 'lib/store/actions'
+import React                   from 'react'
+import { bindActionCreators }  from 'redux'
+import { connect }             from 'react-redux'
+import Transaction             from './transaction'
+import { Preloader, Bouncing } from '@poplocker/react-ui'
+import { rpc }                 from 'lib/rpc_calls'
+import { nextPage, prevPage }  from 'lib/store/actions'
 
 import './transactions_list.css'
 
 class TransactionList extends React.Component {
   componentDidMount() {
-    this.fetchHistory(1).then(this.props.updateHistory);
-  }
-
-  fetchHistory(page) {
-    return fetch(
-      `${process.env.ETHERSCAN_URL}&address=${this.props.address}&page=${page}`
-    ).then(response => response.json())
-     .then(response => response.result);
+    this.props.dispatch(rpc.fetchTxHistory());
   }
 
   render() {
@@ -39,7 +33,7 @@ class TransactionList extends React.Component {
     if (this.props.items.length)  {
       return (
         <Preloader value={this.props.items != null} loader={Bouncing}>
-          {this.visibleTxs(this.props.page).map((tx, index) => (
+          {this.visibleItems(this.props.page).map((tx, index) => (
             <Transaction tx={tx} key={index} />
             ))}
         </Preloader>
@@ -52,15 +46,12 @@ class TransactionList extends React.Component {
   }
 
   next() {
-    if (this.props.page == this.props.lastPage)
-      this.fetchHistory(this.props.page + 1)
-          .then(this.props.updateHistory)
-          .then(this.props.upPage);
-    else this.props.upPage();
+    this.props.nextPage();
+    this.props.dispatch(rpc.fetchTxHistory());
   }
 
   prev() {
-    this.props.downPage();
+    this.props.prevPage()
   }
 
   nextDisabled() {
@@ -71,29 +62,28 @@ class TransactionList extends React.Component {
     return this.props.page == 1;
   }
 
-  visibleTxs(page) {
+  visibleItems(page) {
     const { from, to } = this.cursor(page);
     return this.props.items.slice(from, to);
   }
 
   cursor(page) {
-    const from = page == 1 ? 0 : (page - 1) * 4;
-    const to = from + 5;
+    const from = (page - 1) * this.props.pageSize;
+    const to = from + this.props.pageSize;
 
     return { from, to };
   }
 }
 
 const mapDispatch = dispatch => ({
-  updateHistory: bindActionCreators(updateHistory, dispatch),
-  upPage: bindActionCreators(upPage, dispatch),
-  downPage: bindActionCreators(downPage, dispatch)
+  nextPage: bindActionCreators(nextPage, dispatch),
+  prevPage: bindActionCreators(prevPage, dispatch),
+  dispatch
 });
 
-const mapStore = ({ address, history }) => ({
-  address,
-  ...history,
-  items: history.items || []
+const mapStore = ({ txHistory }) => ({
+  ...txHistory,
+  items: txHistory.items || []
 });
 
 export default connect(
