@@ -1,14 +1,14 @@
-import React       from 'react'
-import { connect } from 'react-redux'
+import React        from 'react'
+import { connect }  from 'react-redux'
+import CreateOrLink from './create_or_link'
 
-class SmarLocker extends React.Component {
-  render () {
-    return (
-      <div className="smartlocker-view">
-        Smart Locker View.
-      </div>
-    );
+const SmartLocker = ({ locker }) => {
+  switch (locker.status) {
+    case 'simple':
+      return <CreateOrLink/>
+    default:
+      return (<div>Not implemented</div>);
   }
 }
 
-export default connect()(SmarLocker);
+export default connect(({ locker }) => ({ locker }))(SmartLocker);

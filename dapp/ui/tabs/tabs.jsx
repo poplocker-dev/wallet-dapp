@@ -19,7 +19,7 @@ class Tabs extends React.Component {
         </div>
       <div className={`tab ${this.isCurrent(window.R.view == 'smartlocker')}`}
            onClick={this.handleSmartLockerClick.bind(this)}>
-          SmartLocker
+          Smart Locker
         </div>
       </div>
     );
