@@ -5,7 +5,7 @@ import Transactions from 'views/transactions'
 import Send         from 'views/send'
 import Receive      from 'views/receive'
 
-export default class View extends React.Component {
+class ViewManager extends React.Component {
   constructor (props) {
     super(props);
 
@@ -42,3 +42,5 @@ export default class View extends React.Component {
     return this.view(window.R.view);
   }
 }
+
+export default ViewManager;
