@@ -53,11 +53,7 @@ class Connection extends React.Component {
   }
 
   render () {
-    return (
-      <div className="connection">
-        { this.failOrWait() }
-      </div>
-    )
+    return this.failOrWait();
   }
 }
 

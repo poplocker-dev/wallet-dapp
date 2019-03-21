@@ -5,8 +5,6 @@ import Transactions from 'views/transactions'
 import Send         from 'views/send'
 import Receive      from 'views/receive'
 
-import './view.css'
-
 export default class View extends React.Component {
   constructor (props) {
     super(props);
