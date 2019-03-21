@@ -4,7 +4,7 @@ import QRCode      from './qr_code'
 import BackCopy    from './back_copy'
 import coinbase    from '@poplocker/react-ui/assets/coinbase.svg'
 import shapeshift  from '@poplocker/react-ui/assets/shapeshift.svg'
-import forward     from '@poplocker/react-ui/assets/back.svg'
+import forward     from '@poplocker/react-ui/assets/arrow.svg'
 
 import './receive.css'
 
