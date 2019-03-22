@@ -10,7 +10,77 @@
   .receive-title {
     text-align: center;
     font-size: 20px;
-    margin-bottom: 20px;
+  }
+
+  .address-qrcode {
+    background: var(--background-color);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 10px;
+
+    .address {
+      max-width: 75%;
+      font-size: 14px;
+      font-weight: bold;
+
+      .title {
+        margin-bottom: 5px;
+        color: var(--label-color);
+      }
+
+      .value {
+        font-size: 12px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    }
+
+    &:hover {
+      position: relative;
+      box-shadow: -1px 7px 19px 5px rgba(0,0,0,0.12);
+      z-index: 2;
+
+      .value {
+        overflow: visible;
+      }
+
+      .qr-code {
+        visibility: hidden;
+      }
+    }
+  }
+
+  .link {
+    padding: 10px;
+    background: var(--background-color);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    font-weight: bold;
+
+    .logo {
+      height: 40px;
+    }
+
+    .text {
+      width: 70%;
+    }
+
+    .forward {
+      transform: rotate(-90deg);
+    }
+ 
+    &:hover {
+      position: relative;
+      box-shadow: -1px 7px 19px 5px rgba(0,0,0,0.12);
+      z-index: 2;
+    }
   }
 }
 

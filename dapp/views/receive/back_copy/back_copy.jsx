@@ -3,19 +3,34 @@ import { Button } from '@poplocker/react-ui'
 
 import './back_copy.css'
 
-const BackCopy = () => (
-  <div className="back-copy">
-    <Button kind="light" icon="arrow" onClick={handleBack}>Back</Button>
-    <Button kind="alt" icon="arrow" onClick={handleCopy}>Copy Address</Button>
-  </div>
-);
+class BackCopy extends React.Component {
+  constructor(props) {
+    super(props);
+  }
 
-const handleBack = () => {
-  window.history.back();
-}
+  handleBack() {
+    window.history.back();
+  }
 
-const handleCopy = () => {
-  // TODO:
+  handleCopy() {
+    const text = document.createElement("textarea");
+    text.value = this.props.address;
+
+    document.body.appendChild(text);
+    text.select();
+    document.execCommand("copy");
+
+    document.body.removeChild(text);
+  }
+
+  render () {
+    return (
+      <div className="back-copy">
+        <Button kind="light" icon="back" onClick={this.handleBack.bind(this)}>Back</Button>
+        <Button kind="alt" icon="copy-clipboard" onClick={this.handleCopy.bind(this)}>Copy Address</Button>
+      </div>
+    )
+  }
 }
 
 export default BackCopy;
