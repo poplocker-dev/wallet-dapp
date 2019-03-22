@@ -50,4 +50,4 @@ const time = (utime) => {
   return date.split('/').join('-') + ' ' + time.toLowerCase();
 }
 
-export default connect(({ address }) => ({ address }))(Transaction);
+export default Transaction;
