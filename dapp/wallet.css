@@ -79,3 +79,14 @@ body {
     content: url('~assets/logo.png');
   }
 }
+
+.buttons--2row {
+  display: flex;
+  justify-content: space-between;
+  flex-grow: 1;
+  align-items: flex-end;
+
+    .btn {
+      width: 47.5%;
+    }
+}
