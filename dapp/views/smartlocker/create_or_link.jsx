@@ -2,8 +2,6 @@ import React       from 'react'
 import { connect } from 'react-redux'
 import Input       from 'ui/input'
 
-import './create_or_link.css'
-
 class CreateOrLink extends React.Component {
   constructor (props) {
     super(props);
