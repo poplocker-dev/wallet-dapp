@@ -7,9 +7,7 @@ import Send         from 'views/send'
 import Receive      from 'views/receive'
 import SmartLocker  from 'views/smartlocker'
 
-import 'views/views.css'
-
-export default class ViewManager extends React.Component {
+class ViewManager extends React.Component {
   constructor (props) {
     super(props);
 
@@ -38,7 +36,7 @@ export default class ViewManager extends React.Component {
 
       default:
         return (
-          <div className="not-found">
+          <div className="view not-found">
             Page not found
           </div>
         )
@@ -54,3 +52,5 @@ export default class ViewManager extends React.Component {
     )
   }
 }
+
+export default ViewManager;

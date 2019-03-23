@@ -2,7 +2,6 @@ import React        from 'react'
 import ReactDOM     from 'react-dom'
 import { Provider } from 'react-redux'
 import { init }     from 'lib/init'
-
 import ViewManager  from './view_manager'
 import Frame        from './frame'
 

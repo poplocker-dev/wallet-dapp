@@ -1,4 +1,8 @@
 .header {
+  .balance-info {
+    padding: 9px;
+  }
+
   .title {
     font-size: 12px;
     font-weight: 600;

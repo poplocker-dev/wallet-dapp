@@ -81,7 +81,7 @@ class Send extends React.Component {
                    error={this.state.amountError} />
           </div>
           <div className="back-send">
-            <Button type="button" kind="light" icon="arrow" onClick={this.handleBack.bind(this)}>Back</Button>
+            <Button type="button" kind="light" icon="back" onClick={this.handleBack.bind(this)}>Back</Button>
             <Button icon="arrow-up" disabled={!this.shouldBeEnabled()}>Send</Button>
           </div>
         </form>
