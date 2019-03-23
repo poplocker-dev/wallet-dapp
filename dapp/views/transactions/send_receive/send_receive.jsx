@@ -1,8 +1,6 @@
 import React      from 'react'
 import { Button } from '@poplocker/react-ui'
 
-import './send_receive.css'
-
 const SendReceive = () => (
   <div className="send-receive buttons--2row">
     <Button kind="alt" icon="arrow" onClick={handleReceive}>Receive</Button>
