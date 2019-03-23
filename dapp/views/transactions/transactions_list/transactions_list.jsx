@@ -29,11 +29,14 @@ class TransactionList extends React.Component {
   }
 
   list() {
-    if (this.props.txHistory && this.props.txHistory.length)  {
+    if (this.props.pendingTxs.length || (this.props.txHistory && this.props.txHistory.length))  {
       return (
         <div className="transactions-list">
+          {this.props.pendingTxs.map((tx, index) => (
+            <Transaction tx={tx} address={this.listAddress} status="pending" key={index} />
+          ))}
           {this.props.txHistory.map((tx, index) => (
-            <Transaction tx={tx} address={this.listAddress} key={index} />
+            <Transaction tx={tx} address={this.listAddress} status="complete" key={index} />
           ))}
         </div>
       )
@@ -47,4 +50,4 @@ class TransactionList extends React.Component {
   }
 }
 
-export default connect(({ txHistory, address }) => ({ txHistory, address }))(TransactionList);
+export default connect(({ address, txHistory, pendingTxs }) => ({ address, txHistory, pendingTxs }))(TransactionList);

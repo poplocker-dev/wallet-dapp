@@ -5,7 +5,7 @@ import { Indicator } from '@poplocker/react-ui'
 
 import './transaction.css'
 
-const Transaction = ({ tx, address }) => (
+const Transaction = ({ tx, address, status }) => (
   <div className="transaction">
     <Indicator direction={ isSender(tx, address) ? 'up' : 'down' }/>
     <div className="info">
@@ -24,8 +24,8 @@ const Transaction = ({ tx, address }) => (
         <div className="timestamp">
           { time(tx.timeStamp) }
         </div>
-        <div className="status">
-          { 'COMPLETE' }
+        <div className={`status ${status}`}>
+          {status}
         </div>
 
       </div>
