@@ -31,7 +31,7 @@ class ViewManager extends React.Component {
 
       default:
         return (
-          <div className="not-found">
+          <div className="view not-found">
             Page not found
           </div>
         )
