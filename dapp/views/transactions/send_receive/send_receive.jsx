@@ -2,8 +2,6 @@ import React       from 'react'
 import { connect } from 'react-redux'
 import { Button }  from '@poplocker/react-ui'
 
-import './send_receive.css'
-
 const SendReceive = ({ sendDisabled }) => (
   <div className="send-receive buttons--2row">
     <Button kind="alt" icon="arrow" onClick={handleReceive}>Receive</Button>

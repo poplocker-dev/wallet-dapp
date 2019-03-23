@@ -11,7 +11,7 @@ import './receive.css'
 const Receive = ({ address }) => {
   return (
     <div className="receive-panel">
-      <div className="receive-title">Receive</div>
+      <div className="title">Receive</div>
       <div className="address-qrcode">
         <div className="address">
           <div className="title">

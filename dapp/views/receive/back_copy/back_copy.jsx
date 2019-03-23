@@ -1,8 +1,6 @@
 import React      from 'react'
 import { Button } from '@poplocker/react-ui'
 
-import './back_copy.css'
-
 class BackCopy extends React.Component {
   constructor(props) {
     super(props);
@@ -25,7 +23,7 @@ class BackCopy extends React.Component {
 
   render () {
     return (
-      <div className="back-copy">
+      <div className="back-copy buttons--2row">
         <Button kind="light" icon="back" onClick={this.handleBack.bind(this)}>Back</Button>
         <Button kind="alt" icon="copy-clipboard" onClick={this.handleCopy.bind(this)}>Copy Address</Button>
       </div>
