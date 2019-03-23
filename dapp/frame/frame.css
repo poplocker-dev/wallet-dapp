@@ -2,7 +2,6 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
   margin: 12px auto;
   width: 375px;
   height: 600px;
