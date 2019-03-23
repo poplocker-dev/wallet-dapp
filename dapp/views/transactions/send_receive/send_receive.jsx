@@ -4,7 +4,7 @@ import { Button } from '@poplocker/react-ui'
 import './send_receive.css'
 
 const SendReceive = () => (
-  <div className="send-receive">
+  <div className="send-receive buttons--2row">
     <Button kind="alt" icon="arrow" onClick={handleReceive}>Receive</Button>
     <Button icon="arrow-up" onClick={handleSend}>Send</Button>
   </div>
