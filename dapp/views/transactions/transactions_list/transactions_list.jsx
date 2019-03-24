@@ -24,6 +24,7 @@ class TransactionList extends React.Component {
     return (
       <Preloader value={this.props.txHistory != null} loader={Bouncing}>
         {this.list()}
+        <div className="fade-out"/>
       </Preloader>
     )
   }

@@ -13,6 +13,7 @@
   --button-alt-shadow-color: rgba(72,128,255,0.50);
   --button-alt-darker-color: #20BE53;
   --subview-bg: #F6F9FC;
+  --subview-bg-transparent: rgba(246,249,252,0);
 
   @font-face {
     font-family: Orkney;
