@@ -3,11 +3,17 @@ import { connect } from 'react-redux'
 import { Button }  from '@poplocker/react-ui'
 import Input       from 'ui/input'
 
+import { RegistrarContract } from 'lib/contracts'
+
 import './create_or_link.css'
 
 class CreateOrLink extends React.Component {
   constructor (props) {
     super(props);
+    // TODO: find better place for it
+    // TODO: address of the registrar
+    // should be provided by the extension
+    this.registrar = new RegistrarContract(config.contracts.registrar);
     this.state = { name: '' };
   }
 
@@ -36,8 +42,11 @@ class CreateOrLink extends React.Component {
   }
 
   handleInput (e) {
-    this.setState({ name: e.target.value });
+    this.setState({ name: e.target.value }, () => {
+      // only log for now
+      this.registrar.getAddress(this.state.name).then(console.log);
+    });
   }
 }
 
-export default connect()(CreateOrLink);
+export default connect(({ locker }) => ({ locker }))(CreateOrLink);
