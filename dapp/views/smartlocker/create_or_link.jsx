@@ -29,7 +29,7 @@ class CreateOrLink extends React.Component {
             name="smartlocker-name"
             label="Smart Locker Name:"
             autoFocus={true}
-            size="32"
+            maxLength="32"
             badge={this.state.badge}
             badgeType={this.badgeType(this.state.badge)}
             onChange={this.handleInput.bind(this)}

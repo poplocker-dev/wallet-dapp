@@ -16,6 +16,11 @@
     .input-field .badge--loading {
       top: 18px;
     }
+    .input-field--condensed.input-field--with-badge  {
+      input {
+        padding-right: 48px;
+        font-size: 13px;
+      }
+    }
   }
-
 }
