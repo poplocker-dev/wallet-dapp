@@ -12,5 +12,10 @@
     .input-field {
       margin: 0;
     }
+
+    .input-field .badge--loading {
+      top: 18px;
+    }
   }
+
 }

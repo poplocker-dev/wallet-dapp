@@ -1,6 +1,6 @@
 import React                       from 'react'
 import { connect }                 from 'react-redux'
-import { Button, Input, Bouncing } from '@poplocker/react-ui'
+import { Button, Input, Blipping } from '@poplocker/react-ui'
 import { RegistrarContract }       from 'lib/contracts'
 
 import './create_or_link.css'
@@ -55,16 +55,20 @@ class CreateOrLink extends React.Component {
   }
 
   handleInput (e) {
-    this.setState({ name: e.target.value, badge: '...' }, () => {
-      if (this.state.name) {
+    const name = e.target.value;
+
+    if (name) {
+      this.setState({ name, badge: <Blipping/> }, () => {
         this.registrar.getAddressDebounced(this.state.name).then(addr => {
-          addr ? this.setState({ badge: 'link' }) : this.setState({ badge: 'create' });
+          const badge = (addr) ? 'link' : 'create';
+          if (this.state.name) this.setState({ badge });
         });
-      }
-      else {
-        this.setState({ badge: '' });
-      }
-    });
+      });
+    }
+    else {
+      this.setState({ name, badge: '' });
+    }
+
   }
 }
 
