@@ -1,8 +1,7 @@
 import React             from 'react'
-import Input             from 'ui/input'
 import { connect }       from 'react-redux'
 import { rpc }           from 'lib/rpc_calls'
-import { Button }        from '@poplocker/react-ui'
+import { Button, Input } from '@poplocker/react-ui'
 import { CSSTransition } from 'react-transition-group'
 
 import './send.css'
