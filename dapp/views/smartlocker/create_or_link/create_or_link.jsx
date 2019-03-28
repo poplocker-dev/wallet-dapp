@@ -1,18 +1,19 @@
 import React                       from 'react'
 import { connect }                 from 'react-redux'
+import { bindActionCreators }      from 'redux'
 import { Button, Input, Blipping } from '@poplocker/react-ui'
 import { RegistrarContract }       from 'lib/contracts'
+import { rpc }                     from 'lib/rpc_calls'
 
 import './create_or_link.css'
 
 class CreateOrLink extends React.Component {
   constructor (props) {
     super(props);
-    // TODO: find better place for it
     // TODO: address of the registrar
     // should be provided by the extension
     this.registrar = new RegistrarContract(config.contracts.registrar);
-    this.state = { name: '', badge: '' };
+    this.state = { name: '', badge: '', address: false };
   }
 
   render () {
@@ -37,8 +38,15 @@ class CreateOrLink extends React.Component {
 
         </form>
         <div className="buttons--2row">
-          <Button kind="alt" icon="arrow" disabled={this.disabledFor('link')}>Create Locker</Button>
-          <Button icon="arrow-up" disabled={this.disabledFor('create')}>Link Device</Button>
+          <Button kind="alt" icon="arrow"
+                  disabled={this.disabledFor('link')}>
+            Create Locker
+          </Button>
+          <Button icon="arrow-up"
+                  onClick={this.handleLink.bind(this)}
+                  disabled={this.disabledFor('create')}>
+            Link Device
+          </Button>
         </div>
       </div>
     );
@@ -63,14 +71,20 @@ class CreateOrLink extends React.Component {
     }
   }
 
+  handleLink (e) {
+    e.preventDefault();
+    this.props.setLocker(this.state.address)
+        .then(this.props.updateLocker);
+  }
+
   handleInput (e) {
     const name = e.target.value;
 
     if (name) {
       this.setState({ name, badge: <Blipping/> }, () => {
-        this.registrar.getAddressDebounced(this.state.name).then(addr => {
-          const badge = (addr) ? 'link' : 'create';
-          if (this.state.name) this.setState({ badge });
+        this.registrar.getAddressDebounced(this.state.name).then(address => {
+          const badge = (address) ? 'link' : 'create';
+          if (this.state.name) this.setState({ badge, address });
         });
       });
     }
@@ -81,4 +95,9 @@ class CreateOrLink extends React.Component {
   }
 }
 
-export default connect(({ locker }) => ({ locker }))(CreateOrLink);
+const mapDispatch = dispatch => ({
+  setLocker: bindActionCreators(rpc.setSmartLockerAddress, dispatch),
+  updateLocker: bindActionCreators(rpc.getSmartLockerState, dispatch)
+});
+
+export default connect(({ locker }) => ({ locker }), mapDispatch)(CreateOrLink);
