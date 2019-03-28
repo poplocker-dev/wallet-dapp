@@ -37,10 +37,18 @@ class CreateOrLink extends React.Component {
 
         </form>
         <div className="buttons--2row">
-          <Button kind="alt" icon="arrow">Create Locker</Button>
-          <Button icon="arrow-up">Link Device</Button>
+          <Button kind="alt" icon="arrow" disabled={this.disabledFor('link')}>Create Locker</Button>
+          <Button icon="arrow-up" disabled={this.disabledFor('create')}>Link Device</Button>
         </div>
       </div>
+    );
+  }
+
+  disabledFor(badgeName) {
+    return (
+      this.badgeType(this.state.badge) == 'loading'
+        || this.state.badge == badgeName
+        || !this.state.badge
     );
   }
 
