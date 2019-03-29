@@ -71,8 +71,8 @@ class TransactionList extends React.Component {
   }
 
   cursor(page) {
-    const from = page == 1 ? 0 : (page - 1) * 4;
-    const to = from + 5;
+    const from = page == 1 ? 0 : (page - 1) * 3;
+    const to = from + 4;
 
     return { from, to };
   }
