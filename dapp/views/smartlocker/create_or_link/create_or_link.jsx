@@ -39,6 +39,7 @@ class CreateOrLink extends React.Component {
         </form>
         <div className="buttons--2row">
           <Button kind="alt" icon="arrow"
+                  onClick={this.handleCreate.bind(this)}
                   disabled={this.disabledFor('link')}>
             Create Locker
           </Button>
@@ -71,9 +72,20 @@ class CreateOrLink extends React.Component {
     }
   }
 
+  // TODO: contract interaction is
+  // local, but rpc.setLockerAddress
+  // is not. Clean up this mixup
+  // contracts and rpc should have consistent
+  // interface
   handleLink (e) {
     e.preventDefault();
     this.props.setLocker(this.state.address)
+        .then(this.props.updateLocker);
+  }
+
+  handleCreate (e) {
+    e.preventDefault();
+    this.registrar.createSmartLocker(this.props.balance)
         .then(this.props.updateLocker);
   }
 
@@ -100,4 +112,4 @@ const mapDispatch = dispatch => ({
   updateLocker: bindActionCreators(rpc.getSmartLockerState, dispatch)
 });
 
-export default connect(({ locker }) => ({ locker }), mapDispatch)(CreateOrLink);
+export default connect(({ locker, balance }) => ({ locker, balance }), mapDispatch)(CreateOrLink);
