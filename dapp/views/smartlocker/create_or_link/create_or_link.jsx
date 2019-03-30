@@ -85,7 +85,11 @@ class CreateOrLink extends React.Component {
 
   handleCreate (e) {
     e.preventDefault();
-    this.registrar.createSmartLocker(this.props.balance)
+    const { name } = this.state;
+    const { address, balance } = this.props;
+
+    this.registrar
+        .createSmartLocker(name, address, balance)
         .then(this.props.updateLocker);
   }
 
@@ -107,9 +111,15 @@ class CreateOrLink extends React.Component {
   }
 }
 
+const mapState = ({ locker, balance, address }) => ({
+  locker,
+  balance,
+  address
+});
+
 const mapDispatch = dispatch => ({
   setLocker: bindActionCreators(rpc.setSmartLockerAddress, dispatch),
   updateLocker: bindActionCreators(rpc.getSmartLockerState, dispatch)
 });
 
-export default connect(({ locker, balance }) => ({ locker, balance }), mapDispatch)(CreateOrLink);
+export default connect(mapState, mapDispatch)(CreateOrLink);
