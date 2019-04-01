@@ -16,6 +16,10 @@ class TransactionList extends React.Component {
     this.props.dispatch(rpc.fetchTxHistory());
   }
 
+  listEmpty() {
+    return !this.props.pendingTxs.length && (!this.props.txHistory || !this.props.txHistory.length);
+  }
+
   render() {
     return (
       <Preloader value={this.props.txHistory != null} loader={Bouncing}>
@@ -26,15 +30,11 @@ class TransactionList extends React.Component {
   }
 
   list() {
-    if (this.props.pendingTxs.length || (this.props.txHistory && this.props.txHistory.length))  {
+    if (!this.listEmpty())  {
       return (
         <div className="transactions-list">
-          {this.props.pendingTxs.map((tx, index) => (
-            <Transaction tx={tx} address={this.state.listAddress} status="pending" key={index} />
-          ))}
-          {this.props.txHistory.map((tx, index) => (
-            <Transaction tx={tx} address={this.state.listAddress} status="complete" key={index} />
-          ))}
+          {this.transactions(this.props.pendingTxs, "pending")}
+          {this.transactions(this.props.txHistory, "complete")}
         </div>
       )
     } else {
@@ -44,6 +44,16 @@ class TransactionList extends React.Component {
         </div>
       )
     }
+  }
+
+  transactions(txs, status) {
+    return (
+      <>
+        {txs.map((tx, index) => (
+          <Transaction tx={tx} address={this.state.listAddress} status={status} key={index} />
+        ))}
+      </>
+    )
   }
 }
 
