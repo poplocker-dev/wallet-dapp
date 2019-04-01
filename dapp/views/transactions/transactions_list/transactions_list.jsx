@@ -9,11 +9,7 @@ import './transactions_list.css'
 class TransactionList extends React.Component {
   constructor(props) {
     super(props);
-    this.listAddress = null;
-  }
-
-  componentWillMount() {
-    this.listAddress = this.props.address;
+    this.state = { listAddress: this.props.address }
   }
 
   componentDidMount() {
@@ -34,10 +30,10 @@ class TransactionList extends React.Component {
       return (
         <div className="transactions-list">
           {this.props.pendingTxs.map((tx, index) => (
-            <Transaction tx={tx} address={this.listAddress} status="pending" key={index} />
+            <Transaction tx={tx} address={this.state.listAddress} status="pending" key={index} />
           ))}
           {this.props.txHistory.map((tx, index) => (
-            <Transaction tx={tx} address={this.listAddress} status="complete" key={index} />
+            <Transaction tx={tx} address={this.state.listAddress} status="complete" key={index} />
           ))}
         </div>
       )
