@@ -27,7 +27,6 @@ class Connection extends React.Component {
     this.props.dispatch(rpc.getAddress());
     this.props.dispatch(rpc.isListening());
     this.props.dispatch(rpc.getBalance());
-    this.props.dispatch(rpc.fetchTxHistory());
   }
 
   noAddress() {

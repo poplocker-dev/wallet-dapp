@@ -13,6 +13,19 @@ class TransactionList extends React.Component {
   }
 
   componentDidMount() {
+    this.startPolling();
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
+
+  startPolling() {
+    this.pollForStatus();
+    this.timer = setInterval(() => this.pollForStatus(), 4000);
+  }
+
+  pollForStatus() {
     this.props.dispatch(rpc.fetchTxHistory());
   }
 
