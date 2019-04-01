@@ -9,15 +9,28 @@ import './transactions_list.css'
 class TransactionList extends React.Component {
   constructor(props) {
     super(props);
-    this.listAddress = null;
-  }
-
-  componentWillMount() {
-    this.listAddress = this.props.address;
+    this.state = { listAddress: this.props.address }
   }
 
   componentDidMount() {
+    this.startPolling();
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
+
+  startPolling() {
+    this.pollForStatus();
+    this.timer = setInterval(() => this.pollForStatus(), 4000);
+  }
+
+  pollForStatus() {
     this.props.dispatch(rpc.fetchTxHistory());
+  }
+
+  listEmpty() {
+    return !this.props.pendingTxs.length && (!this.props.txHistory || !this.props.txHistory.length);
   }
 
   render() {
@@ -30,15 +43,11 @@ class TransactionList extends React.Component {
   }
 
   list() {
-    if (this.props.pendingTxs.length || (this.props.txHistory && this.props.txHistory.length))  {
+    if (!this.listEmpty())  {
       return (
         <div className="transactions-list">
-          {this.props.pendingTxs.map((tx, index) => (
-            <Transaction tx={tx} address={this.listAddress} status="pending" key={index} />
-          ))}
-          {this.props.txHistory.map((tx, index) => (
-            <Transaction tx={tx} address={this.listAddress} status="complete" key={index} />
-          ))}
+          {this.transactions(this.props.pendingTxs, "pending")}
+          {this.transactions(this.props.txHistory, "complete")}
         </div>
       )
     } else {
@@ -48,6 +57,16 @@ class TransactionList extends React.Component {
         </div>
       )
     }
+  }
+
+  transactions(txs, status) {
+    return (
+      <>
+        {txs.map((tx, index) => (
+          <Transaction tx={tx} address={this.state.listAddress} status={status} key={index} />
+        ))}
+      </>
+    )
   }
 }
 
