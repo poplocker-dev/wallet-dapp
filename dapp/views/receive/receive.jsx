@@ -23,12 +23,12 @@ const Receive = ({ address }) => {
         </div>
         <QRCode address={address}/>
       </div>
-      <a className="link" href={process.env.COINBASE_URL} target="_blank">
+      <a className="link" href={config.constants.COINBASE_URL} target="_blank">
         <img className="logo" src={coinbase} alt="Coinbase logo"/>
         <div className="text">Buy on Coinbase</div>
         <img className="forward" src={forward} alt="go"/>
       </a>
-      <a className="link" href={process.env.SHAPESHIFT_URL} target="_blank">
+      <a className="link" href={config.constants.SHAPESHIFT_URL} target="_blank">
         <img className="logo" src={shapeshift} alt="Shapeshift logo"/>
         <div className="text">Trade with Shapeshift</div>
         <img className="forward" src={forward} alt="go"/>
