@@ -1,5 +1,5 @@
 .transactions-list {
-  height: 312px;
+  height: 280px;
   padding-right: 7px;
   margin-right: 7px;
   overflow-y: scroll;
@@ -18,7 +18,7 @@
   background: #fff;
   border-radius: 6px;
   margin-bottom: 8px;
-  
+
   &:hover {
     position: relative;
     box-shadow: -1px 7px 19px 5px rgba(0,0,0,0.12);
