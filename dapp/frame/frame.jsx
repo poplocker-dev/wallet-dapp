@@ -13,9 +13,9 @@ class Frame extends React.Component {
       <CSSTransition timeout={500} classNames="slidein" appear={true} in={true}>
         <div className="frame">
           <StatusBar/>
+          <FancyCircles number='8'/>
           <Connection>
             <div className="view">
-              <FancyCircles number='8'/>
               <Header/>
               <div className="subview">
                 { this.props.children }
