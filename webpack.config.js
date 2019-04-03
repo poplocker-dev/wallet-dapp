@@ -1,7 +1,6 @@
 const webpack = require('webpack');
 const DirectoryNamedWebpackPlugin = require('directory-named-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const Dotenv = require('dotenv-webpack');
 
 const config = {
   entry: {
@@ -11,8 +10,8 @@ const config = {
     path: __dirname + '/build',
     filename: "bundle.js"
   },
-	module: {
-		rules: [
+  module: {
+    rules: [
       {
         test: /\.css$/,
         use: [
@@ -24,6 +23,7 @@ const config = {
               plugins: [
                 require('autoprefixer'),
                 require('postcss-nested'),
+                require('postcss-scrollbar'),
                 require('cssnano')
               ]
             }
@@ -56,10 +56,10 @@ const config = {
           }
         }
       }
-		]
+    ]
   },
-	resolve: {
-		extensions: ['.js', '.jsx'],
+  resolve: {
+    extensions: ['.js', '.jsx'],
     alias: {
       lib: __dirname + '/lib',
       ui: __dirname + '/dapp/ui',
@@ -75,14 +75,19 @@ const config = {
         ]
       }),
     ]
-	},
-	plugins: [
-		new webpack.HotModuleReplacementPlugin(),
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
-      title: 'PopLocker'
+      title: 'PopLocker',
+      favicon: __dirname + '/dapp/assets/favicon.png'
     }),
-    new Dotenv()
-	]
+    new webpack.DefinePlugin({
+      config: {
+        constants: JSON.stringify(require(__dirname + '/config/constants.json'))
+      }
+    })
+  ]
 };
 
 module.exports = (env, argv) => {

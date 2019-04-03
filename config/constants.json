@@ -1,0 +1,6 @@
+{
+  "ETHERSCAN_URL": "https://api-ropsten.etherscan.io/api?module=account&sort=desc&action=txlist",
+  "CHAIN_ID": 3,
+  "COINBASE_URL": "https://www.coinbase.com",
+  "SHAPESHIFT_URL": "https://shapeshift.io"
+}

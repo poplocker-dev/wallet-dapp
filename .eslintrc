@@ -14,7 +14,7 @@
     "browser": true
   },
   "globals": {
-    "process": true,
+    "config": true,
     "Promise": true
   },
   "rules": {

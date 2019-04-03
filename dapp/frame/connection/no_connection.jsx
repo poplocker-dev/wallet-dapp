@@ -16,7 +16,7 @@ const NoExtension = () => (
     <br/><br/>
     Please install
     <br/>
-    <a href={process.env.POPLOCKER_URL}>PopLocker</a>
+    <a href={config.constants.POPLOCKER_URL}>PopLocker</a>
   </div>
 );
 

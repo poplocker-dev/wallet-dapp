@@ -24,7 +24,10 @@
       max-width: 0%;
     }
   }
+}
 
+.self {
+  display: none;
 }
 
 .info {
@@ -58,7 +61,6 @@
 
   .timestamp {
     opacity: 0.5;
-    width: auto;
     max-width: 60%;
     padding-top: 2px;
     overflow: hidden;
@@ -67,13 +69,24 @@
   }
 
   .status {
-    color: var(--background-color);
-    background-color: var(--button-color);
     padding: 3px 12px 0px 12px;
     border-radius: 10px;
+    width: 33%;
+    text-align: center;
+    text-transform: uppercase;
     font-size: 12px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+  }
+
+  .complete {
+    color: var(--background-color);
+    background-color: var(--button-color);
+  }
+
+  .pending {
+    color: var(--background-color);
+    background-color: var(--warning-color);
   }
 }

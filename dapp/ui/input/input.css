@@ -21,7 +21,6 @@
 
   .error {
     color: var(--invalid-color);
-    margin-top: 11px;
 
     &::first-letter {
       text-transform: capitalize;

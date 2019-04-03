@@ -5,8 +5,8 @@ import { Indicator } from '@poplocker/react-ui'
 
 import './transaction.css'
 
-const Transaction = ({ tx, address }) => (
-  <div className="transaction">
+const Transaction = ({ tx, address, status }) => (
+  <div className={`transaction ${isSelf(tx)? 'self' : ''}`}>
     <Indicator direction={ isSender(tx, address) ? 'up' : 'down' }/>
     <div className="info">
       <div className="info-top">
@@ -24,8 +24,8 @@ const Transaction = ({ tx, address }) => (
         <div className="timestamp">
           { time(tx.timeStamp) }
         </div>
-        <div className="status">
-          { 'COMPLETE' }
+        <div className={`status ${status}`}>
+          {status}
         </div>
 
       </div>
@@ -35,6 +35,10 @@ const Transaction = ({ tx, address }) => (
 
 const isSender = (tx, addr) => {
   return tx.from.toLowerCase() == addr.toLowerCase();
+}
+
+const isSelf = (tx) => {
+  return tx.from.toLowerCase() == tx.to.toLowerCase();
 }
 
 const peer = (tx, addr) => {
@@ -50,4 +54,4 @@ const time = (utime) => {
   return date.split('/').join('-') + ' ' + time.toLowerCase();
 }
 
-export default connect(({ address }) => ({ address }))(Transaction);
+export default Transaction;
