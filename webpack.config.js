@@ -80,7 +80,8 @@ const config = {
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
-      title: 'PopLocker'
+      title: 'PopLocker',
+      favicon: __dirname + '/dapp/assets/favicon.png'
     }),
     new Dotenv()
 	]
