@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux'
 import { Button }             from '@poplocker/react-ui'
 import { connect }            from 'react-redux'
 import { rpc }                from 'lib/rpc_calls'
+import { flags }              from 'lib/helpers'
 
 class Deploying extends React.Component {
   render () {
@@ -21,6 +22,7 @@ class Deploying extends React.Component {
   }
 
   handleCancel () {
+    flags.creatingLocker = false;
     this.props.setLocker(null).then(this.props.updateLocker);
   }
 }

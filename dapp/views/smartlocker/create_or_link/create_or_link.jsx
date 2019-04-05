@@ -4,6 +4,7 @@ import { bindActionCreators }      from 'redux'
 import { Button, Input, Blipping } from '@poplocker/react-ui'
 import { RegistrarContract }       from 'lib/contracts'
 import { rpc }                     from 'lib/rpc_calls'
+import { flags }                     from 'lib/helpers'
 
 import './create_or_link.css'
 
@@ -89,8 +90,10 @@ class CreateOrLink extends React.Component {
     const { address, balance } = this.props;
 
     this.registrar
-        .createSmartLocker(name, address, balance)
-        .then(this.props.updateLocker);
+        .createSmartLocker(name, address, balance);
+
+    flags.creatingLocker = true;
+    this.props.updateLocker();
   }
 
   handleInput (e) {

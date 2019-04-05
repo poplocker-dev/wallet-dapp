@@ -1,5 +1,6 @@
 import React        from 'react'
 import { connect }  from 'react-redux'
+import { flags } from 'lib/helpers'
 import CreateOrLink from './create_or_link'
 import PendingAuth  from './pending_auth'
 import Deploying    from './deploying'
@@ -7,14 +8,14 @@ import Deploying    from './deploying'
 const SmartLocker = ({ locker }) => {
   switch (locker.status) {
     case 'simple':
-      return <CreateOrLink/>
-    case 'pending':
-      if (locker.name)
-        return <PendingAuth/>
-      else
+      if (flags.creatingLocker)
         return <Deploying/>
+      else
+        return <CreateOrLink/>
+    case 'pending':
+      return <PendingAuth/>
     default:
-      return (<div>Not implemented</div>);
+      return <CreateOrLink/>
   }
 }
 

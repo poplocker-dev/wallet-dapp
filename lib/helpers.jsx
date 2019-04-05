@@ -6,4 +6,18 @@ function fixedEth (wei) {
     .dividedBy('1e5').toFixed();
 }
 
-export { fixedEth }
+const flags = {
+  set creatingLocker (val) {
+    if (val)
+      window.localStorage.setItem('creating_locker_contract', val);
+    else
+      window.localStorage.removeItem('creating_locker_contract');
+    return val;
+  },
+
+  get creatingLocker () {
+    return window.localStorage.getItem('creating_locker_contract');
+  }
+}
+
+export { fixedEth, flags }
