@@ -2,14 +2,40 @@ import React                  from 'react'
 import { bindActionCreators } from 'redux'
 import { Button }             from '@poplocker/react-ui'
 import { connect }            from 'react-redux'
+import { RegistrarContract }       from 'lib/contracts'
 import { rpc }                from 'lib/rpc_calls'
 import { flags }              from 'lib/helpers'
 
 class Deploying extends React.Component {
+  constructor (props) {
+    super(props);
+    // TODO: it could be setup during init
+    // web3 so no duplication, and web3 is
+    // initialized beforehand
+    this.registrar = new RegistrarContract(config.contracts.registrar);
+  }
+
+  componentDidMount () {
+    this.startPolling();
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
+
+  // TODO: create poller helper
+  // with timer queue and stuff
+  // so we don't need to manually
+  // set and unset them
+  startPolling() {
+    this.pollForAddress();
+    this.timer = setInterval(() => this.pollForAddress(), 5000);
+  }
+
   render () {
     return (
       <div className="subview deploying">
-        Deploying contract...
+        { `Deploying ${this.props.name} contract...` }
           <Button tabIndex={-1}
                   type="button"
                   icon="close"
@@ -19,6 +45,17 @@ class Deploying extends React.Component {
           </Button>
       </div>
     );
+  }
+
+  pollForAddress () {
+    this.registrar.getAddress(this.props.name).then(address => {
+      if (address) {
+        flags.creatingLocker = false;
+        return this.props.setLocker(address)
+                   .then(this.props.updateLocker);
+      }
+      else return null;
+    })
   }
 
   handleCancel () {

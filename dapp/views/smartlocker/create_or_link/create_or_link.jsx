@@ -92,7 +92,7 @@ class CreateOrLink extends React.Component {
     this.registrar
         .createSmartLocker(name, address, balance);
 
-    flags.creatingLocker = true;
+    flags.creatingLocker = name;
     this.props.updateLocker();
   }
 
