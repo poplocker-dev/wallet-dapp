@@ -1,6 +1,7 @@
 {
   "ETHERSCAN_URL": "https://api-ropsten.etherscan.io/api?module=account&sort=desc&action=txlist",
   "CHAIN_ID": 3,
+  "POPLOCKER_URL": "https://github.com/poplocker-dev/browser-extension/releases/tag/1.0.0-beta2",
   "COINBASE_URL": "https://www.coinbase.com",
   "SHAPESHIFT_URL": "https://shapeshift.io"
 }
