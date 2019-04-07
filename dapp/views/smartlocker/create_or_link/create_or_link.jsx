@@ -87,10 +87,10 @@ class CreateOrLink extends React.Component {
   handleCreate (e) {
     e.preventDefault();
     const { name } = this.state;
-    const { address, balance } = this.props;
+    const { address } = this.props;
 
     this.registrar
-        .createSmartLocker(name, address, balance);
+        .createSmartLocker(name, address);
 
     flags.creatingLocker = name;
     this.props.updateLocker();
@@ -114,9 +114,8 @@ class CreateOrLink extends React.Component {
   }
 }
 
-const mapState = ({ locker, balance, address }) => ({
+const mapState = ({ locker, address }) => ({
   locker,
-  balance,
   address
 });
 

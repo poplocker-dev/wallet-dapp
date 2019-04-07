@@ -1,9 +1,11 @@
 import React        from 'react'
 import { connect }  from 'react-redux'
 import { flags }    from 'lib/helpers'
+import { Bouncing } from '@poplocker/react-ui'
 import CreateOrLink from './create_or_link'
 import PendingAuth  from './pending_auth'
 import Deploying    from './deploying'
+import Smart    from './smart'
 
 const SmartLocker = ({ locker }) => {
   switch (locker.status) {
@@ -15,9 +17,9 @@ const SmartLocker = ({ locker }) => {
     case 'pending':
       return <PendingAuth/>
     case 'smart':
-      return 'smart'
+      return <Smart/>
     default:
-      return <CreateOrLink/>
+      return <Bouncing/>
   }
 }
 

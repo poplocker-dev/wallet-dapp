@@ -85,7 +85,8 @@ const config = {
     new webpack.DefinePlugin({
       config: {
         contracts: {
-          registrar: JSON.stringify(require(__dirname + '/config/registrar.contract.json'))
+          registrar: JSON.stringify(require(__dirname + '/config/registrar.contract.json')),
+          smartLocker: JSON.stringify(require(__dirname + '/config/smartlocker.contract.json'))
         },
         constants: JSON.stringify(require(__dirname + '/config/constants.json'))
       }
