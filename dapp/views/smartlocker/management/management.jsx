@@ -53,11 +53,10 @@ class Smart extends React.Component {
     this.smartLocker
         .addKey(this.state.key)
         .then(this.props.updateLocker)
-        .catch((e) => { console.log(e); this.setState({ error: 'Invalid address' })});
+        .catch(() => this.setState({ error: 'Invalid address' }));
   }
 
   onlyKeyWarning () {
-    console.log('locker', this.props.locker);
     if (this.props.locker.onlyKey)
       return (
         <div className="only-key-warning">

@@ -5,7 +5,7 @@ import { Bouncing } from '@poplocker/react-ui'
 import CreateOrLink from './create_or_link'
 import PendingAuth  from './pending_auth'
 import Deploying    from './deploying'
-import Management    from './management'
+import Management   from './management'
 
 const SmartLocker = ({ locker }) => {
   switch (locker.status) {
