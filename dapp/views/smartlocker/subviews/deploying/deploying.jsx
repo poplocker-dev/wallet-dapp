@@ -39,7 +39,7 @@ class DeployingSubview extends React.Component {
       <div className="subview deploying-subview">
         <Spinning/>
         <div className="message">
-          { `Deploying ${this.props.name} contract.`}
+          { `Deploying ${this.props.name} contract. `}
           Please sign the transaction and wait to be mined.
         </div>
           <Button tabIndex={-1}

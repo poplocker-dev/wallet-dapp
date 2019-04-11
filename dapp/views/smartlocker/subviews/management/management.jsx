@@ -5,6 +5,8 @@ import { Button, Input }       from '@poplocker/react-ui'
 import { SmartLockerContract } from 'lib/contracts'
 import { rpc }                 from 'lib/rpc_calls'
 
+import './management.css'
+
 class ManagementSubview extends React.Component {
   constructor (props) {
     super(props);
@@ -18,7 +20,7 @@ class ManagementSubview extends React.Component {
 
   render () {
     return (
-      <div className="management-view">
+      <div className="subview management-subview">
         { this.onlyKeyWarning() }
 
         <form onSubmit={this.handleAuth.bind(this)}>
@@ -60,7 +62,12 @@ class ManagementSubview extends React.Component {
     if (this.props.locker.onlyKey)
       return (
         <div className="only-key-warning">
-          Warning, only key
+          <p>
+            You have no other devices connected to your Smart Locker.
+          </p>
+          <p>
+            Link another device for backup and recovery purposes.
+          </p>
         </div>
       )
     else
