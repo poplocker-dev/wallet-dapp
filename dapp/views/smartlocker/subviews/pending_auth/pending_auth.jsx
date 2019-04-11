@@ -4,7 +4,7 @@ import { Button }             from '@poplocker/react-ui'
 import { connect }            from 'react-redux'
 import { rpc }                from 'lib/rpc_calls'
 
-class PendingAuth extends React.Component {
+class PendingAuthSubview extends React.Component {
   render () {
     return (
       <div className="subview pending-auth">
@@ -30,4 +30,4 @@ const mapDispatch = dispatch => ({
   updateLocker: bindActionCreators(rpc.getSmartLockerState, dispatch)
 });
 
-export default connect(({ locker }) => ({ locker }), mapDispatch)(PendingAuth);
+export default connect(({ locker }) => ({ locker }), mapDispatch)(PendingAuthSubview);

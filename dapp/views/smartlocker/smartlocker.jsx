@@ -2,22 +2,23 @@ import React        from 'react'
 import { connect }  from 'react-redux'
 import { flags }    from 'lib/helpers'
 import { Bouncing } from '@poplocker/react-ui'
-import CreateOrLink from './create_or_link'
-import PendingAuth  from './pending_auth'
-import Deploying    from './deploying'
-import Management   from './management'
+
+import CreateOrLinkSubview from './subviews/create_or_link'
+import PendingSubview      from './subviews/pending_auth'
+import DeployingSubview    from './subviews/deploying'
+import ManagementSubview   from './subviews/management'
 
 const SmartLocker = ({ locker }) => {
   switch (locker.status) {
     case 'simple':
       if (flags.creatingLocker)
-        return <Deploying name={flags.creatingLocker}/>
+        return <DeployingSubview name={flags.creatingLocker}/>
       else
-        return <CreateOrLink/>
+        return <CreateOrLinkSubview/>
     case 'pending':
-      return <PendingAuth/>
+      return <PendingSubview/>
     case 'smart':
-      return <Management/>
+      return <ManagementSubview/>
     default:
       return <Bouncing/>
   }

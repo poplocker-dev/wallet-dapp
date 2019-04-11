@@ -2,11 +2,11 @@ import React                  from 'react'
 import { bindActionCreators } from 'redux'
 import { Button }             from '@poplocker/react-ui'
 import { connect }            from 'react-redux'
-import { RegistrarContract }       from 'lib/contracts'
+import { RegistrarContract }  from 'lib/contracts'
 import { rpc }                from 'lib/rpc_calls'
 import { flags }              from 'lib/helpers'
 
-class Deploying extends React.Component {
+class DeployingSubview extends React.Component {
   constructor (props) {
     super(props);
     // TODO: it could be setup during init
@@ -69,4 +69,4 @@ const mapDispatch = dispatch => ({
   updateLocker: bindActionCreators(rpc.getSmartLockerState, dispatch)
 });
 
-export default connect(({ locker }) => ({ locker }), mapDispatch)(Deploying);
+export default connect(({ locker }) => ({ locker }), mapDispatch)(DeployingSubview);

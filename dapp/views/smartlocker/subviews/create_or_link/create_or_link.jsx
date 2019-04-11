@@ -8,7 +8,7 @@ import { flags }                     from 'lib/helpers'
 
 import './create_or_link.css'
 
-class CreateOrLink extends React.Component {
+class CreateOrLinkSubview extends React.Component {
   constructor (props) {
     super(props);
     // TODO: address of the registrar
@@ -124,4 +124,4 @@ const mapDispatch = dispatch => ({
   updateLocker: bindActionCreators(rpc.getSmartLockerState, dispatch)
 });
 
-export default connect(mapState, mapDispatch)(CreateOrLink);
+export default connect(mapState, mapDispatch)(CreateOrLinkSubview);

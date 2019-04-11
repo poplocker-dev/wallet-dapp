@@ -5,7 +5,7 @@ import { Button, Input }       from '@poplocker/react-ui'
 import { SmartLockerContract } from 'lib/contracts'
 import { rpc }                 from 'lib/rpc_calls'
 
-class Smart extends React.Component {
+class ManagementSubview extends React.Component {
   constructor (props) {
     super(props);
 
@@ -18,7 +18,7 @@ class Smart extends React.Component {
 
   render () {
     return (
-      <div className="subview smart-view">
+      <div className="management-view">
         { this.onlyKeyWarning() }
 
         <form onSubmit={this.handleAuth.bind(this)}>
@@ -72,4 +72,4 @@ const mapDispatch = dispatch => ({
   updateLocker: bindActionCreators(rpc.getSmartLockerState, dispatch)
 });
 
-export default connect(({ locker, address }) => ({ locker, address }), mapDispatch)(Smart);
+export default connect(({ locker, address }) => ({ locker, address }), mapDispatch)(ManagementSubview);
