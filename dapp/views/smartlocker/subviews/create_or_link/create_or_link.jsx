@@ -19,7 +19,7 @@ class CreateOrLinkSubview extends React.Component {
 
   render () {
     return (
-      <div className="subview create-or-link">
+      <div className="subview create-or-link-subview">
         <div className="title">
           Connect Your Device
         </div>

@@ -1,0 +1,21 @@
+.deploying-subview {
+  padding: 20px;
+  width: 100%;
+  align-items: center;
+  background: var(--subview-bg);
+
+  .message {
+    flex-grow: 1;
+    padding-top: 50px;
+    text-align: center;
+  }
+
+  .spinning {
+    width: 45%;
+    height: 45%;
+  }
+
+  .btn {
+    width: 40%;
+  }
+}

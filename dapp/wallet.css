@@ -1,17 +1,6 @@
 :root {
   --foreground-color: #353A41;
   --background-color: #FFFFFF;
-  --label-color: #4880FF;
-  --border-color: #DBDBDB;
-  --border-focus-color: #b4b4b4;
-  --invalid-color: #FF0054;
-  --button-color: #4880FF;
-  --button-shadow-color: rgba(72,128,255,0.50);
-  --button-darker-color: #386BE1;
-  --button-fg: #FFFFFF;
-  --button-alt-color: #34CD65;
-  --button-alt-shadow-color: rgba(72,128,255,0.50);
-  --button-alt-darker-color: #20BE53;
   --subview-bg: #F6F9FC;
   --subview-bg-transparent: rgba(246,249,252,0);
 
