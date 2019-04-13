@@ -18,6 +18,29 @@ class ManagementSubview extends React.Component {
     this.smartLocker = new SmartLockerContract({ abi, address });
   }
 
+  componentDidMount () {
+    if (this.props.locker.onlyKey)
+      this.startPolling();
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
+
+  componentDidUpdate() {
+    if (!this.props.locker.onlyKey)
+      clearInterval(this.timer);
+  }
+
+  startPolling() {
+    this.pollForKeys();
+    this.timer = setInterval(() => this.pollForKeys(), 5000);
+  }
+
+  pollForKeys () {
+    this.props.updateLocker();
+  }
+
   render () {
     return (
       <div className="subview management-subview">
@@ -52,6 +75,7 @@ class ManagementSubview extends React.Component {
   }
 
   handleAuth () {
+    this.setState({ key: '', error: '' });
     this.smartLocker
         .addKey(this.state.key)
         .then(this.props.updateLocker)
