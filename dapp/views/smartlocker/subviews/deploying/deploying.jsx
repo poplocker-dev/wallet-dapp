@@ -1,12 +1,10 @@
 import React                  from 'react'
 import { bindActionCreators } from 'redux'
-import { Button, Spinning }   from '@poplocker/react-ui'
 import { connect }            from 'react-redux'
 import { RegistrarContract }  from 'lib/contracts'
 import { rpc }                from 'lib/rpc_calls'
 import { flags }              from 'lib/helpers'
-
-import './deploying.css'
+import Waiting                from '../waiting'
 
 class DeployingSubview extends React.Component {
   constructor (props) {
@@ -36,21 +34,13 @@ class DeployingSubview extends React.Component {
 
   render () {
     return (
-      <div className="subview deploying-subview">
-        <Spinning/>
-        <div className="message">
-          { `Deploying ${this.props.name} contract. `}
-          Please sign the transaction and wait to be mined.
-        </div>
-          <Button tabIndex={-1}
-                  type="button"
-                  icon="close"
-                  kind="reject"
-                  onClick={this.handleCancel.bind(this)}>
-            Cancel
-          </Button>
-      </div>
+      <Waiting message={this.message()}
+               onCancel={this.handleCancel.bind(this)}/>
     );
+  }
+
+  message () {
+    return `Deploying ${this.props.name} contract. Please sign the transaction and wait to be mined.`
   }
 
   pollForAddress () {

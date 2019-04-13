@@ -1,22 +1,35 @@
 import React                  from 'react'
 import { bindActionCreators } from 'redux'
-import { Button }             from '@poplocker/react-ui'
 import { connect }            from 'react-redux'
 import { rpc }                from 'lib/rpc_calls'
+import Waiting                from '../waiting'
 
 class PendingAuthSubview extends React.Component {
+  componentDidMount () {
+    this.startPolling();
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
+
+  // TODO: create poller helper
+  // with timer queue and stuff
+  // so we don't need to manually
+  // set and unset them
+  startPolling() {
+    this.pollForStatus();
+    this.timer = setInterval(this.pollForStatus.bind(this), 5000);
+  }
+
+  pollForStatus () {
+    this.props.updateLocker();
+  }
+
   render () {
     return (
-      <div className="subview pending-auth">
-        Pending Authorization
-          <Button tabIndex={-1}
-                  type="button"
-                  icon="close"
-                  kind="reject"
-                  onClick={this.handleCancel.bind(this)}>
-            Cancel
-          </Button>
-      </div>
+      <Waiting message='Pending Authorization'
+               onCancel={this.handleCancel.bind(this)}/>
     );
   }
 
