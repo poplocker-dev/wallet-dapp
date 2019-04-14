@@ -65,4 +65,4 @@ const mapDispatch = dispatch => ({
   updateLocker: bindActionCreators(rpc.getSmartLockerState, dispatch)
 });
 
-export default connect(({ locker }) => ({ locker }), mapDispatch)(DeployingSubview);
+export default connect(mapDispatch)(DeployingSubview);
