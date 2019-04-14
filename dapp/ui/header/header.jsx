@@ -1,6 +1,6 @@
-import React        from 'react'
-import Balance      from 'ui/balance'
-import LockerButton from './locker_button'
+import React   from 'react'
+import Balance from 'ui/balance'
+import Locker  from './locker'
 
 import './header.css'
 
@@ -12,7 +12,7 @@ const Header = () => (
       </div>
       <Balance/>
     </div>
-    <LockerButton/>
+    <Locker/>
   </div>
 );
 
