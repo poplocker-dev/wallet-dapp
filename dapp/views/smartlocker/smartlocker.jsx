@@ -7,6 +7,7 @@ import CreateOrLinkSubview from './subviews/create_or_link'
 import PendingSubview      from './subviews/pending_auth'
 import DeployingSubview    from './subviews/deploying'
 import ManagementSubview   from './subviews/management'
+import InvalidSubview      from './subviews/invalid'
 
 import './smartlocker.css'
 
@@ -21,6 +22,9 @@ const SmartLocker = ({ locker }) => {
       return <PendingSubview/>
     case 'smart':
       return <ManagementSubview/>
+    case 'invalid':
+    case 'error':
+      return <InvalidSubview/>
     default:
       return (
         <div className="loading-subview">
