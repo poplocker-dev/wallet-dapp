@@ -16,7 +16,7 @@ class DeployingSubview extends React.Component {
     const { abi } = config.contracts.registrar;
     const { address } = props.locker.registrar;
 
-    this.registrar = new RegistrarContract({ abi, address });
+    this.registrar = new RegistrarContract(abi, address);
   }
 
   componentDidMount () {

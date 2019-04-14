@@ -15,7 +15,7 @@ class ManagementSubview extends React.Component {
     const { address } = this.props;
 
     this.state = { key: '', error: '' };
-    this.smartLocker = new SmartLockerContract({ abi, address });
+    this.smartLocker = new SmartLockerContract(abi, address);
   }
 
   componentDidMount () {
