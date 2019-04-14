@@ -22,7 +22,11 @@ const SmartLocker = ({ locker }) => {
     case 'smart':
       return <ManagementSubview/>
     default:
-      return <Bouncing class="bouncing"/>
+      return (
+        <div className="loading-subview">
+          <Bouncing/>
+        </div>
+      )
   }
 }
 
