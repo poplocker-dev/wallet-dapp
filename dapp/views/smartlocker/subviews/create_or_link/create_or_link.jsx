@@ -25,7 +25,7 @@ class CreateOrLinkSubview extends React.Component {
         <div className="title">
           Connect Your Device
         </div>
-        <form >
+        <form onSubmit={this.handleSubmit.bind(this)}>
 
           <Input
             autoComplete="off"
@@ -113,6 +113,16 @@ class CreateOrLinkSubview extends React.Component {
       this.setState({ name, badge: '' });
     }
 
+  }
+
+  handleSubmit (e) {
+    if (this.disabledFor('create')) {
+      this.handleCreate(e);
+    } else if (this.disabledFor('link')) {
+      this.handleLink(e);
+    } else {
+      e.preventDefault();
+    }
   }
 }
 

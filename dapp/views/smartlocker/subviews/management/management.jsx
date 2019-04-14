@@ -74,7 +74,8 @@ class ManagementSubview extends React.Component {
     this.setState({ key: e.target.value });
   }
 
-  handleAuth () {
+  handleAuth (e) {
+    e.preventDefault();
     this.setState({ key: '', error: '' });
     this.smartLocker
         .addKey(this.state.key)
