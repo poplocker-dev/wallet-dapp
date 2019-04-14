@@ -15,7 +15,7 @@ class ManagementSubview extends React.Component {
     const { address } = this.props;
 
     this.state = { key: '', error: '' };
-    this.smartLocker = new SmartLockerContract({ abi, address });
+    this.smartLocker = new SmartLockerContract(abi, address);
   }
 
   componentDidMount () {
@@ -74,7 +74,8 @@ class ManagementSubview extends React.Component {
     this.setState({ key: e.target.value });
   }
 
-  handleAuth () {
+  handleAuth (e) {
+    e.preventDefault();
     this.setState({ key: '', error: '' });
     this.smartLocker
         .addKey(this.state.key)
