@@ -9,10 +9,14 @@ import Waiting                from '../waiting'
 class DeployingSubview extends React.Component {
   constructor (props) {
     super(props);
+
     // TODO: it could be setup during init
     // web3 so no duplication, and web3 is
     // initialized beforehand
-    this.registrar = new RegistrarContract(config.contracts.registrar);
+    const { abi } = config.contracts.registrar;
+    const { address } = props.locker.registrar;
+
+    this.registrar = new RegistrarContract({ abi, address });
   }
 
   componentDidMount () {
@@ -65,4 +69,4 @@ const mapDispatch = dispatch => ({
   updateLocker: bindActionCreators(rpc.getSmartLockerState, dispatch)
 });
 
-export default connect(mapDispatch)(DeployingSubview);
+export default connect(({ locker }) => ({ locker }), mapDispatch)(DeployingSubview);

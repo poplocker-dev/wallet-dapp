@@ -43,4 +43,4 @@ const mapDispatch = dispatch => ({
   updateLocker: bindActionCreators(rpc.getSmartLockerState, dispatch)
 });
 
-export default connect(mapDispatch)(PendingAuthSubview);
+export default connect(null, mapDispatch)(PendingAuthSubview);
