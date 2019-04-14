@@ -4,16 +4,18 @@ import { bindActionCreators }      from 'redux'
 import { Button, Input, Blipping } from '@poplocker/react-ui'
 import { RegistrarContract }       from 'lib/contracts'
 import { rpc }                     from 'lib/rpc_calls'
-import { flags }                     from 'lib/helpers'
+import { flags }                   from 'lib/helpers'
 
 import './create_or_link.css'
 
 class CreateOrLinkSubview extends React.Component {
   constructor (props) {
     super(props);
-    // TODO: address of the registrar
-    // should be provided by the extension
-    this.registrar = new RegistrarContract(config.contracts.registrar);
+
+    const { abi } = config.contracts.registrar;
+    const { address } = props.locker.registrar;
+
+    this.registrar = new RegistrarContract(abi, address);
     this.state = { name: '', badge: '', address: false };
   }
 
@@ -23,7 +25,7 @@ class CreateOrLinkSubview extends React.Component {
         <div className="title">
           Connect Your Device
         </div>
-        <form >
+        <form onSubmit={this.handleSubmit.bind(this)}>
 
           <Input
             autoComplete="off"
@@ -111,6 +113,16 @@ class CreateOrLinkSubview extends React.Component {
       this.setState({ name, badge: '' });
     }
 
+  }
+
+  handleSubmit (e) {
+    if (this.disabledFor('create')) {
+      this.handleCreate(e);
+    } else if (this.disabledFor('link')) {
+      this.handleLink(e);
+    } else {
+      e.preventDefault();
+    }
   }
 }
 
