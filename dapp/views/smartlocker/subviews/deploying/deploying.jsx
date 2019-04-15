@@ -44,7 +44,7 @@ class DeployingSubview extends React.Component {
   }
 
   message () {
-    return `Deploying ${this.props.name} contract. Please sign the transaction and wait to be mined.`
+    return `Authorize the transaction and then wait for your Smart Locker to be created`
   }
 
   pollForAddress () {

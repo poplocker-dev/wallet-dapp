@@ -28,7 +28,7 @@ class PendingAuthSubview extends React.Component {
 
   render () {
     return (
-      <Waiting message='Pending Authorization'
+      <Waiting message='Pending authorization from an already linked device'
                onCancel={this.handleCancel.bind(this)}/>
     );
   }
