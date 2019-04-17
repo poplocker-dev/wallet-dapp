@@ -116,9 +116,9 @@ class CreateOrLinkSubview extends React.Component {
   }
 
   handleSubmit (e) {
-    if (this.disabledFor('create')) {
+    if (!this.disabledFor('link')) {
       this.handleCreate(e);
-    } else if (this.disabledFor('link')) {
+    } else if (!this.disabledFor('create')) {
       this.handleLink(e);
     } else {
       e.preventDefault();
