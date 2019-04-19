@@ -4,6 +4,7 @@ import { connect }             from 'react-redux'
 import { Button, Input }       from '@poplocker/react-ui'
 import { SmartLockerContract } from 'lib/contracts'
 import { rpc }                 from 'lib/rpc_calls'
+import { addPendingTx }        from 'lib/store/actions'
 
 import './management.css'
 
@@ -79,7 +80,7 @@ class ManagementSubview extends React.Component {
     this.setState({ key: '', error: '' });
     this.smartLocker
         .addKey(this.state.key)
-        .then(this.props.updateLocker)
+        .then(this.props.addPendingTx)
         .catch(() => this.setState({ error: 'Invalid address' }));
   }
 
@@ -101,7 +102,8 @@ class ManagementSubview extends React.Component {
 }
 
 const mapDispatch = dispatch => ({
-  updateLocker: bindActionCreators(rpc.getSmartLockerState, dispatch)
+  updateLocker: bindActionCreators(rpc.getSmartLockerState, dispatch),
+  addPendingTx : bindActionCreators(addPendingTx, dispatch)
 });
 
 export default connect(({ locker, address }) => ({ locker, address }), mapDispatch)(ManagementSubview);

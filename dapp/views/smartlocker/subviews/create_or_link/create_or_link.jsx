@@ -4,6 +4,7 @@ import { bindActionCreators }      from 'redux'
 import { Button, Input, Blipping } from '@poplocker/react-ui'
 import { RegistrarContract }       from 'lib/contracts'
 import { rpc }                     from 'lib/rpc_calls'
+import { addPendingTx }            from 'lib/store/actions'
 import { flags }                   from 'lib/helpers'
 
 import './create_or_link.css'
@@ -91,8 +92,8 @@ class CreateOrLinkSubview extends React.Component {
     const { name } = this.state;
     const { address } = this.props;
 
-    this.registrar
-        .createSmartLocker(name, address);
+    this.registrar.createSmartLocker(name, address)
+        .then(this.props.addPendingTx);
 
     flags.creatingLocker = name;
     this.props.updateLocker();
@@ -133,7 +134,8 @@ const mapState = ({ locker, address }) => ({
 
 const mapDispatch = dispatch => ({
   setLocker: bindActionCreators(rpc.setSmartLockerAddress, dispatch),
-  updateLocker: bindActionCreators(rpc.getSmartLockerState, dispatch)
+  updateLocker: bindActionCreators(rpc.getSmartLockerState, dispatch),
+  addPendingTx : bindActionCreators(addPendingTx, dispatch)
 });
 
 export default connect(mapState, mapDispatch)(CreateOrLinkSubview);

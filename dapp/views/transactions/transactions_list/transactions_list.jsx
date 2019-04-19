@@ -9,10 +9,14 @@ import './transactions_list.css'
 class TransactionList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { listAddress: this.props.address }
+    this.state = {
+      listAddress: props.address,
+      listIsSmartLocker: false
+    }
   }
 
   componentDidMount() {
+    this.setState({ listIsSmartLocker: this.props.locker.status == 'smart' || this.props.locker.status == 'pending' });
     this.startPolling();
   }
 
@@ -63,11 +67,18 @@ class TransactionList extends React.Component {
     return (
       <>
         {txs.map((tx, index) => (
-          <Transaction tx={tx} address={this.state.listAddress} status={status} key={index} />
+          <Transaction
+            tx={tx}
+            address={this.state.listAddress}
+            isSmartLocker={this.state.listIsSmartLocker}
+            status={status}
+            key={index} />
         ))}
       </>
     )
   }
 }
 
-export default connect(({ address, txHistory, pendingTxs }) => ({ address, txHistory, pendingTxs }))(TransactionList);
+const mapStore = ({ address, locker, txHistory, pendingTxs }) => ({ address, locker, txHistory, pendingTxs });
+
+export default connect(mapStore)(TransactionList);
