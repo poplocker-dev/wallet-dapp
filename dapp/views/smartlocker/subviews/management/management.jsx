@@ -1,9 +1,7 @@
 import React                   from 'react'
-import { bindActionCreators }  from 'redux'
 import { connect }             from 'react-redux'
 import { Button, Input }       from '@poplocker/react-ui'
 import { SmartLockerContract } from 'lib/contracts'
-import { rpc }                 from 'lib/rpc_calls'
 
 import './management.css'
 
@@ -16,29 +14,6 @@ class ManagementSubview extends React.Component {
 
     this.state = { key: '', error: '' };
     this.smartLocker = new SmartLockerContract(abi, address);
-  }
-
-  componentDidMount () {
-    if (this.props.locker.onlyKey)
-      this.startPolling();
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.timer);
-  }
-
-  componentDidUpdate() {
-    if (!this.props.locker.onlyKey)
-      clearInterval(this.timer);
-  }
-
-  startPolling() {
-    this.pollForKeys();
-    this.timer = setInterval(() => this.pollForKeys(), 5000);
-  }
-
-  pollForKeys () {
-    this.props.updateLocker();
   }
 
   render () {
@@ -79,7 +54,6 @@ class ManagementSubview extends React.Component {
     this.setState({ key: '', error: '' });
     this.smartLocker
         .addKey(this.state.key)
-        .then(this.props.updateLocker)
         .catch(() => this.setState({ error: 'Invalid address' }));
   }
 
@@ -100,8 +74,4 @@ class ManagementSubview extends React.Component {
   }
 }
 
-const mapDispatch = dispatch => ({
-  updateLocker: bindActionCreators(rpc.getSmartLockerState, dispatch)
-});
-
-export default connect(({ locker, address }) => ({ locker, address }), mapDispatch)(ManagementSubview);
+export default connect(({ locker, address }) => ({ locker, address }))(ManagementSubview);

@@ -1,41 +1,11 @@
 import React                  from 'react'
 import { bindActionCreators } from 'redux'
 import { connect }            from 'react-redux'
-import { RegistrarContract }  from 'lib/contracts'
 import { rpc }                from 'lib/rpc_calls'
 import { flags }              from 'lib/helpers'
 import Waiting                from '../waiting'
 
 class DeployingSubview extends React.Component {
-  constructor (props) {
-    super(props);
-
-    // TODO: it could be setup during init
-    // web3 so no duplication, and web3 is
-    // initialized beforehand
-    const { abi } = config.contracts.registrar;
-    const { address } = props.locker.registrar;
-
-    this.registrar = new RegistrarContract(abi, address);
-  }
-
-  componentDidMount () {
-    this.startPolling();
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.timer);
-  }
-
-  // TODO: create poller helper
-  // with timer queue and stuff
-  // so we don't need to manually
-  // set and unset them
-  startPolling() {
-    this.pollForAddress();
-    this.timer = setInterval(() => this.pollForAddress(), 5000);
-  }
-
   render () {
     return (
       <Waiting message={this.message()}
@@ -44,18 +14,7 @@ class DeployingSubview extends React.Component {
   }
 
   message () {
-    return `Authorize the transaction and then wait for your Smart Locker to be created`
-  }
-
-  pollForAddress () {
-    this.registrar.getAddress(this.props.name).then(address => {
-      if (address) {
-        flags.creatingLocker = false;
-        return this.props.setLocker(address)
-                   .then(this.props.updateLocker);
-      }
-      else return null;
-    })
+    return 'Authorize the transaction and then wait for your Smart Locker to be created';
   }
 
   handleCancel () {
