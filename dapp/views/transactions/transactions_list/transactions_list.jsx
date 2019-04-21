@@ -7,17 +7,8 @@ import { rpc }                 from 'lib/rpc_calls'
 import './transactions_list.css'
 
 class TransactionList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      listAddress: props.address,
-      listIsSmartLocker: false
-    }
-  }
-
   componentDidMount() {
-    this.setState({ listIsSmartLocker: this.props.locker.status == 'smart' || this.props.locker.status == 'pending' });
-    this.startPolling();
+    setTimeout(() => this.startPolling(), 1000);
   }
 
   componentWillUnmount() {
@@ -69,8 +60,8 @@ class TransactionList extends React.Component {
         {txs.map((tx, index) => (
           <Transaction
             tx={tx}
-            address={this.state.listAddress}
-            isSmartLocker={this.state.listIsSmartLocker}
+            address={this.props.txListAddress.address}
+            isSmartLocker={this.props.txListAddress.isSmartLocker}
             status={status}
             key={index} />
         ))}
@@ -79,6 +70,6 @@ class TransactionList extends React.Component {
   }
 }
 
-const mapStore = ({ address, locker, txHistory, pendingTxs }) => ({ address, locker, txHistory, pendingTxs });
+const mapStore = ({ txHistory, pendingTxs, txListAddress }) => ({ txHistory, pendingTxs, txListAddress });
 
 export default connect(mapStore)(TransactionList);
