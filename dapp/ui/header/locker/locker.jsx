@@ -26,7 +26,7 @@ class Locker extends React.Component {
     this.props.updateLocker();
 
     const creating = flags.creatingLocker;
-    if (creating) {
+    if (creating && this.props.locker.status) {
 
       if (!this.registrar) {
         const { abi } = config.contracts.registrar;
