@@ -16,7 +16,12 @@ class CreateOrLinkSubview extends React.Component {
     const { address } = props.locker.registrar;
 
     this.registrar = new RegistrarContract(abi, address);
-    this.state = { name: '', badge: '', address: false };
+    this.state = {
+      lockerName: '',
+      deviceName: '',
+      badge: '',
+      address: false
+    };
   }
 
   render () {
@@ -36,8 +41,17 @@ class CreateOrLinkSubview extends React.Component {
             maxLength="32"
             badge={this.state.badge}
             badgeType={this.badgeType(this.state.badge)}
-            onChange={this.handleInput.bind(this)}
-            value={this.state.name} />
+            onChange={this.handleLockerName.bind(this)}
+            value={this.state.lockerName} />
+
+          <Input
+            autoComplete="off"
+            spellCheck="false"
+            name="smartlocker-device"
+            label="Device Name:"
+            maxLength="32"
+            onChange={this.handleDeviceName.bind(this)}
+            value={this.state.deviceName} />
 
         </form>
         <div className="buttons--2row">
@@ -88,31 +102,34 @@ class CreateOrLinkSubview extends React.Component {
 
   handleCreate (e) {
     e.preventDefault();
-    const { name } = this.state;
+    const { lockerName, deviceName } = this.state;
     const { address } = this.props;
 
     this.registrar
-        .createSmartLocker(name, address);
+        .createSmartLocker(lockerName, deviceName, address);
 
-    flags.creatingLocker = name;
+    flags.creatingLocker = lockerName;
     this.props.updateLocker();
   }
 
-  handleInput (e) {
-    const name = e.target.value;
+  handleLockerName (e) {
+    const lockerName = e.target.value;
 
-    if (name) {
-      this.setState({ name, badge: <Blipping/> }, () => {
-        this.registrar.getAddressDebounced(this.state.name).then(address => {
+    if (lockerName) {
+      this.setState({ lockerName, badge: <Blipping/> }, () => {
+        this.registrar.getAddressDebounced(this.state.lockerName).then(address => {
           const badge = (address) ? 'link' : 'create';
-          if (this.state.name) this.setState({ badge, address });
+          if (this.state.lockerName) this.setState({ badge, address });
         });
       });
     }
     else {
-      this.setState({ name, badge: '' });
+      this.setState({ lockerName, badge: '' });
     }
+  }
 
+  handleDeviceName (e) {
+    this.setState({ deviceName: e.target.value });
   }
 
   handleSubmit (e) {
