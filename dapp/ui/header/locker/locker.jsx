@@ -45,10 +45,17 @@ class Locker extends React.Component {
   }
 
   render () {
+    if (!this.props.locker.status == 'error')
+      return this.lockerButton();
+    else
+      return null;
+  }
+
+  lockerButton () {
     return (
-      <LockerButton locker={this.props.locker}
-                    creating={flags.creatingLocker}
-                    onClick={this.handleClick.bind(this)}/>
+        <LockerButton locker={this.props.locker}
+                      creating={flags.creatingLocker}
+                      onClick={this.handleClick.bind(this)}/>
     )
   }
 
