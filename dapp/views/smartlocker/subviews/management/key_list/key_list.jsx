@@ -10,7 +10,7 @@ class KeyList extends React.Component {
 
   componentDidMount () {
     this.fetchKeyNames().then(keyNames => {
-      this.setState({ keyNames })
+      this.setState({ keyNames: keyNames.filter(key => key.length > 0) });
     });
   }
 
@@ -20,7 +20,7 @@ class KeyList extends React.Component {
 
   fetchKeyNames () {
     return this.fetchKeys().then(keys => {
-      return Promise.all(keys.map(item => this.props.contract.getKeyName(item)))
+      return Promise.all(keys.map(item => this.props.contract.getKeyName(item)));
     });
   }
 
