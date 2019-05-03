@@ -3,18 +3,6 @@
   justify-conten: space-between;
   background: var(--subview-bg);
 
-  .only-key-warning {
-    display: flex;
-    flex-grow: 2;
-    flex-direction: column;
-    justify-content: center;
-    padding: 10px;
-    text-align: center;
-    border: 1px solid #dc3664;
-    border-radius: 2px;
-    margin-bottom: 20px;
-  }
-
   .btn {
     width: 50%;
     margin: auto;

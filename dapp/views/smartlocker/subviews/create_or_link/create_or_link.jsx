@@ -50,6 +50,7 @@ class CreateOrLinkSubview extends React.Component {
             name="smartlocker-device"
             label="Device Name:"
             maxLength="32"
+            disabled={this.state.badge == 'link'}
             onChange={this.handleDeviceName.bind(this)}
             value={this.state.deviceName} />
 
