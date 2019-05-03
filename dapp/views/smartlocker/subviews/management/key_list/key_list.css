@@ -5,6 +5,14 @@
   padding: 10px;
 }
 
+.key-list {
+  flex-basis: 200px;
+  margin-bottom: 20px;
+  overflow-y: scroll;
+  scrollbar-color: #4880ff #f6f9fc;
+  scrollbar-width: thin;
+}
+
 .only-key-warning {
   justify-content: center;
   text-align: center;
