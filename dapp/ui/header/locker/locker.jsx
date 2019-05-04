@@ -18,12 +18,12 @@ class Locker extends React.Component {
   }
 
   startPolling() {
-    this.pollForStatus();
+    this.pollForStatus(true);
     this.timer = setInterval(() => this.pollForStatus(), 2000);
   }
 
-  pollForStatus() {
-    this.props.updateLocker();
+  pollForStatus(initial=false) {
+    this.props.updateLocker(initial);
 
     const creating = flags.creatingLocker;
     if (creating && this.props.locker.status) {

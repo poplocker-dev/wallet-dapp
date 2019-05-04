@@ -17,7 +17,7 @@ class TransactionList extends React.Component {
 
   startPolling() {
     this.pollForStatus();
-    this.timer = setInterval(() => this.pollForStatus(), 5000);
+    this.timer = setInterval(() => this.pollForStatus(), 4000);
   }
 
   pollForStatus() {
