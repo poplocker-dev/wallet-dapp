@@ -46,9 +46,9 @@ class Locker extends React.Component {
 
   render () {
     return (
-      <LockerButton locker={this.props.locker}
-                    creating={flags.creatingLocker}
-                    onClick={this.handleClick.bind(this)}/>
+        <LockerButton locker={this.props.locker}
+                      creating={flags.creatingLocker}
+                      onClick={this.handleClick.bind(this)}/>
     )
   }
 

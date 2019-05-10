@@ -2,6 +2,7 @@ import React                   from 'react'
 import { connect }             from 'react-redux'
 import { bindActionCreators }  from 'redux'
 import { Button, Input }       from '@poplocker/react-ui'
+import KeyList                 from './key_list'
 import { SmartLockerContract } from 'lib/contracts'
 import { rpc }                 from 'lib/rpc_calls'
 import { addPendingTx }        from 'lib/store/actions'
@@ -22,7 +23,9 @@ class ManagementSubview extends React.Component {
   render () {
     return (
       <div className="subview management-subview">
-        { this.onlyKeyWarning() }
+
+        <KeyList contract={this.smartLocker}
+                 locker={this.props.locker}/>
 
         <form onSubmit={this.handleAuth.bind(this)}>
           <Input
@@ -30,7 +33,7 @@ class ManagementSubview extends React.Component {
             spellCheck="false"
             label="Device Address:"
             autoFocus={true}
-            onChange={this.handleInput.bind(this)}
+            onChange={this.handleKeyInput.bind(this)}
             error={this.state.error}
             value={this.state.key} />
 
@@ -47,34 +50,18 @@ class ManagementSubview extends React.Component {
     );
   }
 
-  handleInput (e) {
+  handleKeyInput (e) {
     this.setState({ error: '' });
     this.setState({ key: e.target.value });
   }
 
   handleAuth (e) {
     e.preventDefault();
-    this.setState({ key: '', error: '' });
     this.smartLocker
-        .addKey(this.state.key)
+        .addKey(this.state.key, `Device-${this.state.key.slice(0,4)}`)
         .then(this.props.addPendingTx)
-        .catch(() => this.setState({ error: 'Invalid address' }));
-  }
-
-  onlyKeyWarning () {
-    if (this.props.locker.onlyKey)
-      return (
-        <div className="only-key-warning">
-          <p>
-            You have no other devices connected to your Smart Locker.
-          </p>
-          <p>
-            Link another device for backup and recovery purposes.
-          </p>
-        </div>
-      )
-    else
-      return null;
+        .catch(console.error);
+    this.setState({ key: '', error: '' });
   }
 }
 

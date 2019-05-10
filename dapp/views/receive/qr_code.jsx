@@ -20,7 +20,7 @@ class QRCode extends React.Component {
       QR.toCanvas(this.canvas.current, address, {scale: 2});
     }
   }
-    
+
   render () {
     return (
       <div className="qr-code">
