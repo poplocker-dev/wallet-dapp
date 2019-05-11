@@ -5,6 +5,7 @@ import { Button, Input, Blipping } from '@poplocker/react-ui'
 import { RegistrarContract }       from 'lib/contracts'
 import { rpc }                     from 'lib/rpc_calls'
 import { flags }                   from 'lib/helpers'
+import { toast }                   from 'react-toastify'
 
 import './create_or_link.css'
 
@@ -97,12 +98,17 @@ class CreateOrLinkSubview extends React.Component {
   // interface
   handleLink (e) {
     e.preventDefault();
+
     this.props.setLocker(this.state.address)
         .then(this.props.updateLocker);
+
+    if (!window.web3.utils.toBN(this.props.balance).isZero())
+      toast.warning('TODO: You have funds in local account!');
   }
 
   handleCreate (e) {
     e.preventDefault();
+
     const { lockerName, deviceName } = this.state;
     const { address } = this.props;
 
@@ -144,9 +150,10 @@ class CreateOrLinkSubview extends React.Component {
   }
 }
 
-const mapState = ({ locker, address }) => ({
+const mapState = ({ locker, address, balance }) => ({
   locker,
-  address
+  address,
+  balance
 });
 
 const mapDispatch = dispatch => ({

@@ -1,8 +1,9 @@
-import React                   from 'react'
-import { connect }             from 'react-redux'
-import { Button, Input }       from '@poplocker/react-ui'
-import { SmartLockerContract } from 'lib/contracts'
-import KeyList                 from './key_list'
+import React                         from 'react'
+import { connect }                   from 'react-redux'
+import { Button, Input }             from '@poplocker/react-ui'
+import { SmartLockerContract }       from 'lib/contracts'
+import { showSendTransactionToasts } from 'lib/helpers'
+import KeyList                       from './key_list'
 
 import './management.css'
 
@@ -58,6 +59,7 @@ class ManagementSubview extends React.Component {
         .addKey(this.state.key, `Device-${this.state.key.slice(0,4)}`)
         .catch(console.error);
     this.setState({ key: '', error: '' });
+    showSendTransactionToasts();
   }
 }
 
