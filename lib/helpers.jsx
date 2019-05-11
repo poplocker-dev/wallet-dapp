@@ -23,7 +23,7 @@ const flags = {
 
 function showSendTransactionToasts(amount, balance) {
   toast.info('Now authorize the transaction in your browser');
-  if (new window.web3.utils.BN(balance).lt(new window.web3.utils.BN(amount)))
+  if (window.web3.utils.toBN(balance).lt(window.web3.utils.toBN(amount)))
     toast.warning('You need to add funds to your account', { delay: 1000 });
 }
 
