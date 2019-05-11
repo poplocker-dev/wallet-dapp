@@ -1,11 +1,11 @@
-import React                       from 'react'
-import { connect }                 from 'react-redux'
-import { bindActionCreators }      from 'redux'
-import { Button, Input, Blipping } from '@poplocker/react-ui'
-import { RegistrarContract }       from 'lib/contracts'
-import { rpc }                     from 'lib/rpc_calls'
-import { flags }                   from 'lib/helpers'
-import { toast }                   from 'react-toastify'
+import React                                from 'react'
+import { connect }                          from 'react-redux'
+import { bindActionCreators }               from 'redux'
+import { Button, Input, Blipping }          from '@poplocker/react-ui'
+import { RegistrarContract }                from 'lib/contracts'
+import { rpc }                              from 'lib/rpc_calls'
+import { flags, showSendTransactionToasts } from 'lib/helpers'
+import { toast }                            from 'react-toastify'
 
 import './create_or_link.css'
 
@@ -103,7 +103,7 @@ class CreateOrLinkSubview extends React.Component {
         .then(this.props.updateLocker);
 
     if (!window.web3.utils.toBN(this.props.balance).isZero())
-      toast.warning('TODO: You have funds in local account!');
+      toast.warning('While linked you will lose access to funds in your local account');
   }
 
   handleCreate (e) {
@@ -117,6 +117,8 @@ class CreateOrLinkSubview extends React.Component {
 
     flags.creatingLocker = lockerName;
     this.props.updateLocker();
+
+    showSendTransactionToasts(this.props.balance);
   }
 
   handleLockerName (e) {

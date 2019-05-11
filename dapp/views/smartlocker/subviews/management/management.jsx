@@ -59,8 +59,8 @@ class ManagementSubview extends React.Component {
         .addKey(this.state.key, `Device-${this.state.key.slice(0,4)}`)
         .catch(console.error);
     this.setState({ key: '', error: '' });
-    showSendTransactionToasts();
+    showSendTransactionToasts(this.props.balance);
   }
 }
 
-export default connect(({ locker, address }) => ({ locker, address }))(ManagementSubview);
+export default connect(({ locker, address, balance }) => ({ locker, address, balance }))(ManagementSubview);
