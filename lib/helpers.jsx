@@ -7,7 +7,7 @@ function fixedEth (wei) {
     .dividedBy('1e5').toFixed();
 }
 
-function showSendTransactionToasts(amount, balance) {
+function showSendTransactionToasts(balance, amount="1") {
   toast.info('Now authorize the transaction in your browser');
   if (window.web3.utils.toBN(balance).lt(window.web3.utils.toBN(amount)))
     toast.warning('You need to add funds to your account', { delay: 1000 });

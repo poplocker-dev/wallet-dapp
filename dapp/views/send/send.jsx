@@ -53,7 +53,7 @@ class Send extends React.Component {
     if (this.shouldBeEnabled) {
       this.send(this.state.to, this.state.amount);
       this.setState({ to: '', amount: '' });
-      showSendTransactionToasts(window.web3.utils.toWei(this.state.amount), this.props.balance);
+      showSendTransactionToasts(this.props.balance, window.web3.utils.toWei(this.state.amount));
     }
   }
 
