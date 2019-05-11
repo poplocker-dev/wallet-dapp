@@ -1,9 +1,10 @@
-import React             from 'react'
-import Input             from 'ui/input'
-import { connect }       from 'react-redux'
-import { rpc }           from 'lib/rpc_calls'
-import { Button }        from '@poplocker/react-ui'
-import { CSSTransition } from 'react-transition-group'
+import React                         from 'react'
+import Input                         from 'ui/input'
+import { connect }                   from 'react-redux'
+import { rpc }                       from 'lib/rpc_calls'
+import { showSendTransactionToasts } from 'lib/helpers'
+import { Button }                    from '@poplocker/react-ui'
+import { CSSTransition }             from 'react-transition-group'
 
 import './send.css'
 
@@ -53,6 +54,7 @@ class Send extends React.Component {
     if (this.shouldBeEnabled) {
       this.send(this.state.to, this.state.amount);
       this.setState({ to: '', amount: '' });
+      showSendTransactionToasts(window.web3.utils.toWei(this.state.amount), this.props.balance);
     }
   }
 
@@ -90,4 +92,4 @@ class Send extends React.Component {
   }
 }
 
-export default connect()(Send);
+export default connect(({ balance }) => ({ balance }))(Send);

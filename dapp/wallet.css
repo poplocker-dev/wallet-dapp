@@ -5,6 +5,7 @@
   --border-color: #DBDBDB;
   --border-focus-color: #b4b4b4;
   --invalid-color: #FF0054;
+  --warning-color: #f5a623;
   --button-color: #4880FF;
   --button-shadow-color: rgba(72,128,255,0.50);
   --button-darker-color: #386BE1;
@@ -81,6 +82,26 @@ body {
     top: 510px;
     left: calc(50% + 350px);
     content: url('~assets/logo.png');
+  }
+
+  .toast-container {
+    width: auto;
+    opacity: 0.8;
+
+    .toast {
+      min-height: 48px;
+      xbackground: var(--label-color);
+      color: #FFFFFF;
+      border-radius: 10px; 
+    }
+
+    .toast-body {
+      padding: 0px 20px 0px 20px;
+    }
+
+    .Toastify__toast--warning {
+      background: var(--warning-color);
+    }
   }
 }
 

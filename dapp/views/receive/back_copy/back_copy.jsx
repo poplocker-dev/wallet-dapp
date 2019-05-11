@@ -1,5 +1,6 @@
 import React      from 'react'
 import { Button } from '@poplocker/react-ui'
+import { toast }  from 'react-toastify'
 
 class BackCopy extends React.Component {
   constructor(props) {
@@ -19,6 +20,8 @@ class BackCopy extends React.Component {
     document.execCommand("copy");
 
     document.body.removeChild(text);
+
+    toast.info('Address copied to clipboard');
   }
 
   render () {
