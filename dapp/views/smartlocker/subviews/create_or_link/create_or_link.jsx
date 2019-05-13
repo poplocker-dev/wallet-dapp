@@ -72,7 +72,7 @@ class CreateOrLinkSubview extends React.Component {
     );
   }
 
-  disabledFor(badgeName) {
+  disabledFor (badgeName) {
     return (
       this.badgeType(this.state.badge) == 'loading'
         || this.state.badge == badgeName
