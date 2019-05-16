@@ -3,7 +3,7 @@ import './checkbox.css'
 
 const Checkbox = (props) => (
   <label {...props}>
-    <input className="checkbox" type="checkbox"/>
+    <input className="checkbox" type="checkbox" checked={props.checked}/>
     {props.label}
   </label>
 )
