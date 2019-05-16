@@ -2,8 +2,8 @@ import React   from 'react'
 import './checkbox.css'
 
 const Checkbox = (props) => (
-  <label {...props}>
-    <input className="checkbox" type="checkbox" checked={props.checked}/>
+  <label className={props.className}>
+    <input {...props} className="checkbox" type="checkbox" />
     {props.label}
   </label>
 )
