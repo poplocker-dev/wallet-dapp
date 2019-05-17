@@ -5,8 +5,8 @@ import { Indicator } from '@poplocker/react-ui'
 
 import './transaction.css'
 
-const Transaction = ({ tx, address, status }) => (
-  <div className={`transaction ${isSelf(tx)? 'self' : ''}`}>
+const Transaction = ({ tx, address, isSmartLocker, status }) => (
+  <div className={`transaction ${isSelf(tx, isSmartLocker)? 'self' : ''}`}>
     <Indicator direction={ isSender(tx, address) ? 'up' : 'down' }/>
     <div className="info">
       <div className="info-top">
@@ -37,8 +37,8 @@ const isSender = (tx, addr) => {
   return tx.from.toLowerCase() == addr.toLowerCase();
 }
 
-const isSelf = (tx) => {
-  return tx.from.toLowerCase() == tx.to.toLowerCase();
+const isSelf = (tx, isSmartLocker) => {
+  return (tx.from.toLowerCase() == tx.to.toLowerCase()) && !isSmartLocker;
 }
 
 const peer = (tx, addr) => {

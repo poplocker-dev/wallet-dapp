@@ -5,6 +5,7 @@ import { Button, Input, Blipping }          from '@poplocker/react-ui'
 import { RegistrarContract }                from 'lib/contracts'
 import { rpc }                              from 'lib/rpc_calls'
 import { flags, showSendTransactionToasts } from 'lib/helpers'
+import { addPendingTx }                     from 'lib/store/actions'
 import { toast }                            from 'react-toastify'
 
 import './create_or_link.css'
@@ -112,8 +113,8 @@ class CreateOrLinkSubview extends React.Component {
     const { lockerName, deviceName } = this.state;
     const { address } = this.props;
 
-    this.registrar
-        .createSmartLocker(lockerName, deviceName, address);
+    this.registrar.createSmartLocker(lockerName, deviceName, address)
+        .then(this.props.addPendingTx);
 
     flags.creatingLocker = lockerName;
     this.props.updateLocker();
@@ -160,7 +161,8 @@ const mapState = ({ locker, address, balance }) => ({
 
 const mapDispatch = dispatch => ({
   setLocker: bindActionCreators(rpc.setSmartLockerAddress, dispatch),
-  updateLocker: bindActionCreators(rpc.getSmartLockerState, dispatch)
+  updateLocker: bindActionCreators(rpc.getSmartLockerState, dispatch),
+  addPendingTx : bindActionCreators(addPendingTx, dispatch)
 });
 
 export default connect(mapState, mapDispatch)(CreateOrLinkSubview);
