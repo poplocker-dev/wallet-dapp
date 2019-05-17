@@ -13,8 +13,10 @@
     margin-bottom: 20px;
   }
 
-  .send-to {
-    font-size: 12px;
+  .input-field--condensed {
+    input {
+      font-size: 12px;
+    }
   }
 
   .back-send {

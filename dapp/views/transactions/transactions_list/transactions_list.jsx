@@ -2,11 +2,17 @@ import React                   from 'react'
 import { connect }             from 'react-redux'
 import Transaction             from './transaction'
 import { Preloader, Bouncing } from '@poplocker/react-ui'
+import { RegistrarContract }   from 'lib/contracts'
 import { rpc }                 from 'lib/rpc_calls'
 
 import './transactions_list.css'
 
 class TransactionList extends React.Component {
+  constructor (props) {
+    super(props);
+    this.createRegistrar();
+  }
+
   componentDidMount() {
     setTimeout(() => this.startPolling(), 1000);
   }
@@ -22,6 +28,18 @@ class TransactionList extends React.Component {
 
   pollForStatus() {
     this.props.dispatch(rpc.fetchTxHistory());
+  }
+
+  componentDidUpdate() {
+    this.createRegistrar();
+  }
+
+  createRegistrar() {
+    if (!this.registrar && this.props.locker.registrar) {
+      const { abi } = config.contracts.registrar;
+      const { address } = this.props.locker.registrar;
+      this.registrar = new RegistrarContract(abi, address);
+    }
   }
 
   listEmpty() {
@@ -60,8 +78,8 @@ class TransactionList extends React.Component {
         {txs.map((tx, index) => (
           <Transaction
             tx={tx}
-            address={this.props.txListAddress.address}
-            isSmartLocker={this.props.txListAddress.isSmartLocker}
+            txListAddress={this.props.txListAddress}
+            registrar={this.registrar}
             status={status}
             key={index} />
         ))}
@@ -70,6 +88,11 @@ class TransactionList extends React.Component {
   }
 }
 
-const mapStore = ({ txHistory, pendingTxs, txListAddress }) => ({ txHistory, pendingTxs, txListAddress });
+const mapStore = ({ txHistory, pendingTxs, txListAddress, locker }) => ({
+  txHistory,
+  pendingTxs,
+  txListAddress,
+  locker
+});
 
 export default connect(mapStore)(TransactionList);
