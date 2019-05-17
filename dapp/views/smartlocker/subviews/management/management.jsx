@@ -1,8 +1,11 @@
-import React                   from 'react'
-import { connect }             from 'react-redux'
-import { Button, Input }       from '@poplocker/react-ui'
-import { SmartLockerContract } from 'lib/contracts'
-import KeyList                 from './key_list'
+import React                         from 'react'
+import { connect }                   from 'react-redux'
+import { bindActionCreators }        from 'redux'
+import KeyList                       from './key_list'
+import { Button, Input }             from '@poplocker/react-ui'
+import { SmartLockerContract }       from 'lib/contracts'
+import { showSendTransactionToasts } from 'lib/helpers'
+import { addPendingTx }              from 'lib/store/actions'
 
 import './management.css'
 
@@ -56,9 +59,21 @@ class ManagementSubview extends React.Component {
     e.preventDefault();
     this.smartLocker
         .addKey(this.state.key, `Device-${this.state.key.slice(0,4)}`)
+        .then(this.props.addPendingTx)
         .catch(console.error);
     this.setState({ key: '', error: '' });
+    showSendTransactionToasts(this.props.balance);
   }
 }
 
-export default connect(({ locker, address }) => ({ locker, address }))(ManagementSubview);
+const mapState = ({ locker, address, balance }) => ({
+  locker,
+  address,
+  balance
+});
+
+const mapDispatch = dispatch => ({
+  addPendingTx : bindActionCreators(addPendingTx, dispatch)
+});
+
+export default connect(mapState, mapDispatch)(ManagementSubview);

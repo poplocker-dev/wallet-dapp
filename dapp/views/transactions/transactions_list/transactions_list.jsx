@@ -7,13 +7,8 @@ import { rpc }                 from 'lib/rpc_calls'
 import './transactions_list.css'
 
 class TransactionList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { listAddress: this.props.address }
-  }
-
   componentDidMount() {
-    this.startPolling();
+    setTimeout(() => this.startPolling(), 1000);
   }
 
   componentWillUnmount() {
@@ -63,11 +58,18 @@ class TransactionList extends React.Component {
     return (
       <>
         {txs.map((tx, index) => (
-          <Transaction tx={tx} address={this.state.listAddress} status={status} key={index} />
+          <Transaction
+            tx={tx}
+            address={this.props.txListAddress.address}
+            isSmartLocker={this.props.txListAddress.isSmartLocker}
+            status={status}
+            key={index} />
         ))}
       </>
     )
   }
 }
 
-export default connect(({ address, txHistory, pendingTxs }) => ({ address, txHistory, pendingTxs }))(TransactionList);
+const mapStore = ({ txHistory, pendingTxs, txListAddress }) => ({ txHistory, pendingTxs, txListAddress });
+
+export default connect(mapStore)(TransactionList);
