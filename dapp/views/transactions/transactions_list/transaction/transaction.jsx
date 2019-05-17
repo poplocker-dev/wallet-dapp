@@ -15,7 +15,7 @@ const Transaction = ({ tx, address, isSmartLocker, status }) => (
           { peer(tx, address) }
         </div>
         <div className="value">
-          { fixedEth(tx.value) } ETH
+          { tx.sendAll? 'All' : fixedEth(tx.value) } ETH
         </div>
 
       </div>
