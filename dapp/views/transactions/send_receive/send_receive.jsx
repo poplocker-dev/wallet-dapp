@@ -1,13 +1,12 @@
 import React       from 'react'
-import { connect } from 'react-redux'
 import { Button }  from '@poplocker/react-ui'
 
 import './send_receive.css'
 
-const SendReceive = ({ sendDisabled }) => (
+const SendReceive = () => (
   <div className="send-receive buttons--2row">
     <Button kind="alt" icon="arrow" onClick={handleReceive}>Receive</Button>
-    <Button icon="arrow-up" onClick={handleSend} disabled={sendDisabled}>Send</Button>
+    <Button icon="arrow-up" onClick={handleSend}>Send</Button>
   </div>
 );
 
@@ -19,8 +18,4 @@ const handleSend = () => {
   window.R.go(window.R.to_path('send'));
 }
 
-const mapStore = ({ locker }) => ({
-  sendDisabled: locker.status == 'pending'
-});
-
-export default connect(mapStore)(SendReceive);
+export default SendReceive;
