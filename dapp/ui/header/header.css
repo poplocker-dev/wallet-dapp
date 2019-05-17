@@ -1,4 +1,6 @@
 .header {
+  z-index: 2;
+
   .balance-info {
     padding: 9px;
   }

@@ -1,17 +1,6 @@
 :root {
   --foreground-color: #353A41;
   --background-color: #FFFFFF;
-  --label-color: #4880FF;
-  --border-color: #DBDBDB;
-  --border-focus-color: #b4b4b4;
-  --invalid-color: #FF0054;
-  --button-color: #4880FF;
-  --button-shadow-color: rgba(72,128,255,0.50);
-  --button-darker-color: #386BE1;
-  --button-fg: #FFFFFF;
-  --button-alt-color: #34CD65;
-  --button-alt-shadow-color: rgba(72,128,255,0.50);
-  --button-alt-darker-color: #20BE53;
   --subview-bg: #F6F9FC;
   --subview-bg-transparent: rgba(246,249,252,0);
 
@@ -82,15 +71,24 @@ body {
     left: calc(50% + 350px);
     content: url('~assets/logo.png');
   }
-}
 
-.buttons--2row {
-  display: flex;
-  justify-content: space-between;
-  flex-grow: 1;
-  align-items: flex-end;
+  .toast-container {
+    width: auto;
+    opacity: 0.8;
 
-    .btn {
-      width: 47.5%;
+    .toast {
+      min-height: 48px;
+      xbackground: var(--label-color);
+      color: #FFFFFF;
+      border-radius: 10px; 
     }
+
+    .toast-body {
+      padding: 0px 20px 0px 20px;
+    }
+
+    .Toastify__toast--warning {
+      background: var(--warning-color);
+    }
+  }
 }
