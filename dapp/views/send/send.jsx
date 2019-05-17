@@ -1,9 +1,10 @@
-import React                 from 'react'
-import { connect }           from 'react-redux'
-import { RegistrarContract } from 'lib/contracts'
-import { rpc }               from 'lib/rpc_calls'
-import { Button, Input }     from '@poplocker/react-ui'
-import { CSSTransition }     from 'react-transition-group'
+import React                         from 'react'
+import { connect }                   from 'react-redux'
+import { RegistrarContract }         from 'lib/contracts'
+import { rpc }                       from 'lib/rpc_calls'
+import { showSendTransactionToasts } from 'lib/helpers'
+import { Button, Input }             from '@poplocker/react-ui'
+import { CSSTransition }             from 'react-transition-group'
 
 import './send.css'
 
@@ -75,6 +76,7 @@ class Send extends React.Component {
     if (this.shouldBeEnabled) {
       this.send(this.state.lockerAddress || this.state.to, this.state.amount);
       this.setState({ to: '', amount: '', lockerAddress: false });
+      showSendTransactionToasts(this.props.balance, window.web3.utils.toWei(this.state.amount));
     }
   }
 
@@ -112,4 +114,4 @@ class Send extends React.Component {
   }
 }
 
-export default connect(({ locker }) => ({ locker }))(Send);
+export default connect(({ locker, balance }) => ({ locker, balance }))(Send);

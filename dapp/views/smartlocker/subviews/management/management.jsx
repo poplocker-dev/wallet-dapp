@@ -1,11 +1,11 @@
-import React                   from 'react'
-import { connect }             from 'react-redux'
-import { bindActionCreators }  from 'redux'
-import { Button, Input }       from '@poplocker/react-ui'
-import KeyList                 from './key_list'
-import { SmartLockerContract } from 'lib/contracts'
-import { rpc }                 from 'lib/rpc_calls'
-import { addPendingTx }        from 'lib/store/actions'
+import React                         from 'react'
+import { connect }                   from 'react-redux'
+import { bindActionCreators }        from 'redux'
+import KeyList                       from './key_list'
+import { Button, Input }             from '@poplocker/react-ui'
+import { SmartLockerContract }       from 'lib/contracts'
+import { showSendTransactionToasts } from 'lib/helpers'
+import { addPendingTx }              from 'lib/store/actions'
 
 import './management.css'
 
@@ -62,12 +62,14 @@ class ManagementSubview extends React.Component {
         .then(this.props.addPendingTx)
         .catch(console.error);
     this.setState({ key: '', error: '' });
+    showSendTransactionToasts(this.props.balance);
   }
 }
 
-const mapState = ({ locker, address }) => ({
+const mapState = ({ locker, address, balance }) => ({
   locker,
-  address
+  address,
+  balance
 });
 
 const mapDispatch = dispatch => ({
