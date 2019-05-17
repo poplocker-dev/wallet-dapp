@@ -40,9 +40,7 @@ class Send extends React.Component {
 
   handleSendAll(e) {
     const sendAll = e.target.checked;
-    this.setState({ sendAll }, () => {
-      this.setState({ amount: '', amountError: '' });
-    })
+    this.setState({ sendAll, amount: '', amountError: '' });
   }
 
   shouldBeEnabled() {
