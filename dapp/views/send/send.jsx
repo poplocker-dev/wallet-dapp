@@ -1,6 +1,7 @@
 import React                         from 'react'
 import Checkbox                      from 'ui/checkbox'
 import { connect }                   from 'react-redux'
+import { RegistrarContract }         from 'lib/contracts'
 import { rpc }                       from 'lib/rpc_calls'
 import { showSendTransactionToasts } from 'lib/helpers'
 import { Button, Input }             from '@poplocker/react-ui'
@@ -11,7 +12,20 @@ import './send.css'
 class Send extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { amount: '', amountError: '', to: '', toError: '', sendAll: false }
+    this.createRegistrar();
+    this.state = { amount: '', amountError: '', to: '', toError: '', lockerAddress: false, sendAll: false }
+  }
+
+  componentDidUpdate() {
+    this.createRegistrar();
+  }
+
+  createRegistrar() {
+    if (!this.registrar && this.props.locker.registrar) {
+      const { abi } = config.contracts.registrar;
+      const { address } = this.props.locker.registrar;
+      this.registrar = new RegistrarContract(abi, address);
+    }
   }
 
   send(to, amount, sendAll) {
@@ -20,15 +34,24 @@ class Send extends React.Component {
 
   handleTo(e) {
     const to = e.target.value;
-    this.setState({ to: to }, () => {
+    this.setState({ to }, () => {
+
       if (!to || window.web3.utils.isAddress(to)) this.setState({ toError: '' });
-      else this.setState({ toError: 'Invalid address' });
+      else this.setState({ toError: 'Invalid address or Smart Locker name' });
+
+      if (to && this.registrar) {
+        this.registrar.getAddressDebounced(to).then(lockerAddress => {
+          if (lockerAddress) this.setState({ toError: '' });
+          this.setState({ lockerAddress });
+        });
+      }      
+
     })
   }
 
   handleAmount(e) {
     const amount = e.target.value;
-    this.setState({ amount: amount }, () => {
+    this.setState({ amount }, () => {
       try {
         if (!amount || window.web3.utils.toWei(amount) >= 0)
           this.setState({ amountError: '' });
@@ -58,12 +81,12 @@ class Send extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     if (this.shouldBeEnabled) {
-      this.send(this.state.to, this.state.amount, this.state.sendAll);
+      this.send(this.state.lockerAddress || this.state.to, this.state.amount, this.state.sendAll);
       showSendTransactionToasts(
         this.props.balance, 
         this.state.sendAll ? undefined : window.web3.utils.toWei(this.state.amount)
       );
-      this.setState({ to: '', amount: '', sendAll: false });
+      this.setState({ to: '', amount: '', lockerAddress: false, sendAll: false });
     }
   }
 
@@ -107,4 +130,4 @@ class Send extends React.Component {
   }
 }
 
-export default connect(({ balance }) => ({ balance }))(Send);
+export default connect(({ locker, balance }) => ({ locker, balance }))(Send);
