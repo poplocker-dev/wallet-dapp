@@ -6,8 +6,8 @@ import { Indicator } from '@poplocker/react-ui'
 import './transaction.css'
 
 const Transaction = ({ tx, address, status }) => (
-  <div className={`transaction ${isSelf(tx)? 'self' : ''}`}>
-    <Indicator direction={ isSender(tx, address) ? 'up' : 'down' }/>
+  <div className="transaction">
+    <Indicator direction={ getIndicator(tx, address, status) }/>
     <div className="info">
       <div className="info-top">
 
@@ -24,8 +24,8 @@ const Transaction = ({ tx, address, status }) => (
         <div className="timestamp">
           { time(tx.timeStamp) }
         </div>
-        <div className={`status ${status}`}>
-          {status}
+        <div className={`status ${getStatus(tx, status)}`}>
+          { getStatus(tx, status) }
         </div>
 
       </div>
@@ -33,19 +33,28 @@ const Transaction = ({ tx, address, status }) => (
   </div>
 );
 
+const getIndicator = (tx, addr, status) => {
+  return isError(tx) ? 'error' : isSelf(tx, status) ? 'self' : isSender(tx, addr) ? 'up' : 'down';
+}
+
+const getStatus = (tx, status) => {
+  return isError(tx) ? 'error' : isSelf(tx, status) ? 'self' : status;
+}
+
+const isError = (tx) => {
+  return tx.isError && tx.isError != 0;
+}
+
 const isSender = (tx, addr) => {
   return tx.from.toLowerCase() == addr.toLowerCase();
 }
 
-const isSelf = (tx) => {
-  return tx.from.toLowerCase() == tx.to.toLowerCase();
+const isSelf = (tx, status) => {
+  return tx.from.toLowerCase() == tx.to.toLowerCase() && status != 'pending';
 }
 
 const peer = (tx, addr) => {
-  if (isSender(tx, addr))
-    return tx.to
-  else
-    return tx.from;
+  return isSender(tx, addr) ? tx.to : tx.from;
 }
 
 const time = (utime) => {
