@@ -27,8 +27,8 @@ class Transaction extends React.Component {
 
   render () {
     return (
-      <div className={`transaction ${this.isSelf(this.props.tx, this.props.txListAddress.isSmartLocker)? 'self' : ''}`}>
-        <Indicator direction={ this.isSender(this.props.tx, this.props.txListAddress.address) ? 'up' : 'down' }/>
+      <div className="transaction">
+        <Indicator direction={ getIndicator(this.props.tx, this.props.txListAddress.address, this.props.status) }/>
         <div className="info">
           <div className="info-top">
 
@@ -47,8 +47,8 @@ class Transaction extends React.Component {
             <div className="timestamp">
               { this.time(this.props.tx.timeStamp) }
             </div>
-            <div className={`status ${this.props.status}`}>
-              {this.props.status}
+            <div className={`status ${getStatus(this.props.tx, this.props.status)}`}>
+              { getStatus(this.props.tx, this.props.status) }
             </div>
 
           </div>
@@ -57,12 +57,24 @@ class Transaction extends React.Component {
     );
   }
 
+  getIndicator (tx, addr, status) {
+    return isError(tx) ? 'error' : isSelf(tx, status) ? 'self' : isSender(tx, addr) ? 'up' : 'down';
+  }
+
+  getStatus (tx, status) {
+    return isError(tx) ? 'error' : isSelf(tx, status) ? 'self' : status;
+  }
+
+  isError (tx) {
+    return tx.isError && tx.isError != 0;
+  }
+
   isSender (tx, addr) {
     return tx.from.toLowerCase() == addr.toLowerCase();
   }
 
   isSelf (tx, isSmartLocker) {
-    return (tx.from.toLowerCase() == tx.to.toLowerCase()) && !isSmartLocker;
+    return tx.from.toLowerCase() == tx.to.toLowerCase() && status != 'pending';
   }
 
   isLongAddress (addr) {
@@ -70,10 +82,7 @@ class Transaction extends React.Component {
   }
 
   peer (tx, addr) {
-    if (this.isSender(tx, addr))
-      return tx.to;
-    else
-      return tx.from;
+    return isSender(tx, addr) ? tx.to : tx.from;
   }
 
   time (utime) {
