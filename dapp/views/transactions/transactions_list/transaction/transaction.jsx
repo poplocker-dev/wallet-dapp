@@ -28,7 +28,7 @@ class Transaction extends React.Component {
   render () {
     return (
       <div className="transaction">
-        <Indicator direction={ getIndicator(this.props.tx, this.props.txListAddress.address, this.props.status) }/>
+        <Indicator direction={ this.getIndicator(this.props.tx, this.props.txListAddress.address, this.props.status) }/>
         <div className="info">
           <div className="info-top">
 
@@ -47,8 +47,8 @@ class Transaction extends React.Component {
             <div className="timestamp">
               { this.time(this.props.tx.timeStamp) }
             </div>
-            <div className={`status ${getStatus(this.props.tx, this.props.status)}`}>
-              { getStatus(this.props.tx, this.props.status) }
+            <div className={`status ${this.getStatus(this.props.tx, this.props.status)}`}>
+              { this.getStatus(this.props.tx, this.props.status) }
             </div>
 
           </div>
@@ -58,11 +58,11 @@ class Transaction extends React.Component {
   }
 
   getIndicator (tx, addr, status) {
-    return isError(tx) ? 'error' : isSelf(tx, status) ? 'self' : isSender(tx, addr) ? 'up' : 'down';
+    return this.isError(tx) ? 'error' : this.isSelf(tx, status) ? 'self' : this.isSender(tx, addr) ? 'up' : 'down';
   }
 
   getStatus (tx, status) {
-    return isError(tx) ? 'error' : isSelf(tx, status) ? 'self' : status;
+    return this.isError(tx) ? 'error' : this.isSelf(tx, status) ? 'self' : status;
   }
 
   isError (tx) {
@@ -73,7 +73,7 @@ class Transaction extends React.Component {
     return tx.from.toLowerCase() == addr.toLowerCase();
   }
 
-  isSelf (tx, isSmartLocker) {
+  isSelf (tx, status) {
     return tx.from.toLowerCase() == tx.to.toLowerCase() && status != 'pending';
   }
 
@@ -82,7 +82,7 @@ class Transaction extends React.Component {
   }
 
   peer (tx, addr) {
-    return isSender(tx, addr) ? tx.to : tx.from;
+    return this.isSender(tx, addr) ? tx.to : tx.from;
   }
 
   time (utime) {
