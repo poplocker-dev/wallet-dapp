@@ -12,7 +12,7 @@ const Transaction = ({ tx, address, status }) => (
       <div className="info-top">
 
         <div className="address">
-          { peer(tx, address) }
+          { peer(tx, address) || "Contract Deployment" }
         </div>
         <div className="value">
           { fixedEth(tx.value) } ETH
