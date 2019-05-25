@@ -8,6 +8,9 @@ class Transaction extends React.Component {
   constructor (props) {
     super(props);
     this.state = { address: null };
+  }
+
+  componentDidMount() {
     this.resolveAddress();
   }
 
@@ -16,7 +19,7 @@ class Transaction extends React.Component {
   }
 
   async resolveAddress() {
-    let address = this.peer(this.props.tx, this.props.txListAddress.address);
+    let address = this.peer(this.props.tx, this.props.referenceAddress);
     if (address && this.props.registrar) {
       address = await this.props.registrar.resolveName(address);
     } else {
@@ -28,7 +31,7 @@ class Transaction extends React.Component {
   render () {
     return (
       <div className="transaction">
-        <Indicator direction={ this.getIndicator(this.props.tx, this.props.txListAddress.address, this.props.status) }/>
+        <Indicator direction={ this.getIndicator(this.props.tx, this.props.referenceAddress, this.props.status) }/>
         <div className="info">
           <div className="info-top">
 
