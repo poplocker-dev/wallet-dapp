@@ -14,7 +14,7 @@ class TransactionList extends React.Component {
   }
 
   componentDidMount() {
-    this.startPolling();
+    setTimeout(() => this.startPolling(), 1000);
   }
 
   componentWillUnmount() {
