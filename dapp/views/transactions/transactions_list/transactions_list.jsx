@@ -43,12 +43,12 @@ class TransactionList extends React.Component {
   }
 
   listEmpty() {
-    return !this.props.pendingTxs.length && (!this.props.txHistory || !this.props.txHistory.length);
+    return !this.props.pendingTxs.transactions.length && (!this.props.txHistory.transactions || !this.props.txHistory.transactions.length);
   }
 
   render() {
     return (
-      <Preloader value={this.props.txHistory != null} loader={Bouncing}>
+      <Preloader value={this.props.txHistory.transactions != null} loader={Bouncing}>
         {this.list()}
         <div className="fade-out"/>
       </Preloader>
@@ -75,10 +75,10 @@ class TransactionList extends React.Component {
   transactions(txs, status) {
     return (
       <>
-        {txs.map((tx, index) => (
+        {txs.transactions.map((tx, index) => (
           <Transaction
             tx={tx}
-            txListAddress={this.props.txListAddress}
+            referenceAddress={txs.referenceAddress}
             registrar={this.registrar}
             status={status}
             key={index} />
@@ -88,10 +88,9 @@ class TransactionList extends React.Component {
   }
 }
 
-const mapStore = ({ txHistory, pendingTxs, txListAddress, locker }) => ({
+const mapStore = ({ txHistory, pendingTxs, locker }) => ({
   txHistory,
   pendingTxs,
-  txListAddress,
   locker
 });
 

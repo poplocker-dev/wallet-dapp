@@ -8,6 +8,9 @@ class Transaction extends React.Component {
   constructor (props) {
     super(props);
     this.state = { address: null };
+  }
+
+  componentDidMount() {
     this.resolveAddress();
   }
 
@@ -16,7 +19,7 @@ class Transaction extends React.Component {
   }
 
   async resolveAddress() {
-    let address = this.peer(this.props.tx, this.props.txListAddress.address);
+    let address = this.peer(this.props.tx, this.props.referenceAddress);
     if (address && this.props.registrar) {
       address = await this.props.registrar.resolveName(address);
     } else {
@@ -27,8 +30,8 @@ class Transaction extends React.Component {
 
   render () {
     return (
-      <div className={`transaction ${this.isSelf(this.props.tx, this.props.txListAddress.isSmartLocker)? 'self' : ''}`}>
-        <Indicator direction={ this.isSender(this.props.tx, this.props.txListAddress.address) ? 'up' : 'down' }/>
+      <div className="transaction">
+        <Indicator direction={ this.getIndicator(this.props.tx, this.props.referenceAddress, this.props.status) }/>
         <div className="info">
           <div className="info-top">
 
@@ -47,8 +50,8 @@ class Transaction extends React.Component {
             <div className="timestamp">
               { this.time(this.props.tx.timeStamp) }
             </div>
-            <div className={`status ${this.props.status}`}>
-              {this.props.status}
+            <div className={`status ${this.getStatus(this.props.tx, this.props.status)}`}>
+              { this.getStatus(this.props.tx, this.props.status) }
             </div>
 
           </div>
@@ -57,12 +60,24 @@ class Transaction extends React.Component {
     );
   }
 
+  getIndicator (tx, addr, status) {
+    return this.isError(tx) ? 'error' : this.isSelf(tx, status) ? 'self' : this.isSender(tx, addr) ? 'up' : 'down';
+  }
+
+  getStatus (tx, status) {
+    return this.isError(tx) ? 'error' : this.isSelf(tx, status) ? 'self' : status;
+  }
+
+  isError (tx) {
+    return tx.isError && tx.isError != 0;
+  }
+
   isSender (tx, addr) {
     return tx.from.toLowerCase() == addr.toLowerCase();
   }
 
-  isSelf (tx, isSmartLocker) {
-    return (tx.from.toLowerCase() == tx.to.toLowerCase()) && !isSmartLocker;
+  isSelf (tx, status) {
+    return tx.from.toLowerCase() == tx.to.toLowerCase() && status != 'pending';
   }
 
   isLongAddress (addr) {
@@ -70,10 +85,7 @@ class Transaction extends React.Component {
   }
 
   peer (tx, addr) {
-    if (this.isSender(tx, addr))
-      return tx.to;
-    else
-      return tx.from;
+    return this.isSender(tx, addr) ? tx.to : tx.from;
   }
 
   time (utime) {
