@@ -3,6 +3,7 @@ import { connect }                   from 'react-redux'
 import { bindActionCreators }        from 'redux'
 import KeyList                       from './key_list'
 import { Button, Input }             from '@poplocker/react-ui'
+import devices                       from 'assets/devices.svg'
 import { SmartLockerContract }       from 'lib/contracts'
 import { showSendTransactionToasts } from 'lib/helpers'
 import { addPendingTx }              from 'lib/store/actions'
@@ -20,14 +21,55 @@ class ManagementSubview extends React.Component {
     this.smartLocker = new SmartLockerContract(abi, address);
   }
 
+  keyList() {
+    if (this.props.locker.onlyKey) {
+      return this.onlyKeyWarning();
+    } else {
+      return (
+        <KeyList smartLocker={this.smartLocker} />
+      )
+    }
+  }
+
+  buttons() {
+    if (this.props.locker.onlyKey) {
+      return null;
+    } else {
+      return (        
+        <div className="buttons--2row buttons">
+          <Button kind="alt" icon="arrow">
+            todo1
+          </Button>
+          <Button icon="arrow-up">
+            todo2
+          </Button>
+        </div>
+      )
+    }
+  }
+
+  onlyKeyWarning () {
+    return (
+      <div className="only-key">
+        <img alt="Devices" src={devices} />
+        <div className="only-key-warning">
+          <p>
+            You have no other devices connected to your Smart Locker.
+          </p>
+          <p>
+            Link another device for backup and recovery purposes.
+          </p>
+        </div>
+      </div>
+    )
+  }
+
   render () {
     return (
       <div className="subview management-subview">
-
-        <KeyList contract={this.smartLocker}
-                 locker={this.props.locker}/>
-
-        <form onSubmit={this.handleAuth.bind(this)}>
+        { this.keyList() }
+        { this.buttons() }
+        <form className="todo-form" onSubmit={this.handleAuth.bind(this)}>
           <Input
             autoComplete="off"
             spellCheck="false"
@@ -45,10 +87,9 @@ class ManagementSubview extends React.Component {
             Authorize
           </Button>
         </form>
-
       </div>
-    );
-  }
+    )
+  }    
 
   handleKeyInput (e) {
     this.setState({ error: '' });

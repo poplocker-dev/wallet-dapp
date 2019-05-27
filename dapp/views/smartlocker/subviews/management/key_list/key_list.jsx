@@ -1,4 +1,4 @@
-import React        from 'react'
+import React from 'react'
 
 import './key_list.css'
 
@@ -15,12 +15,12 @@ class KeyList extends React.Component {
   }
 
   fetchKeys () {
-    return this.props.contract.getKeyList()
+    return this.props.smartLocker.getKeyList()
   }
 
   fetchKeyNames () {
     return this.fetchKeys().then(keys => {
-      return Promise.all(keys.map(item => this.props.contract.getKeyName(item)));
+      return Promise.all(keys.map(item => this.props.smartLocker.getKeyName(item)));
     });
   }
 
@@ -47,31 +47,15 @@ class KeyList extends React.Component {
     }
   }
 
-  onlyKeyWarning () {
-    return (
-      <div className="only-key-warning">
-        <p>
-          You have no other devices connected to your Smart Locker.
-        </p>
-        <p>
-          Link another device for backup and recovery purposes.
-        </p>
-      </div>
-    )
-  }
-
   render () {
-    if (this.props.locker.onlyKey)
-      {
-        return this.onlyKeyWarning();
-      }
-    else {
-      return (
+    return (
+      <div>
         <div className="key-list">
           { this.list() }
         </div>
-      )
-    }
+        <div className="fade-out"/>
+      </div>
+    )
   }
 }
 
