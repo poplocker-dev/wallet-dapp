@@ -41,7 +41,7 @@ class Transaction extends React.Component {
               </Preloader>
             </div>
             <div className={`value ${this.isLongAddress(this.state.address)? 'value-contract' : ''}`}>
-              { fixedEth(this.props.tx.value) } ETH
+              { this.props.tx.sendAll? 'All' : fixedEth(this.props.tx.value) } ETH
             </div>
 
           </div>

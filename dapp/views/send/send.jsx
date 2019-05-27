@@ -1,4 +1,5 @@
 import React                         from 'react'
+import Checkbox                      from 'ui/checkbox'
 import { connect }                   from 'react-redux'
 import { RegistrarContract }         from 'lib/contracts'
 import { rpc }                       from 'lib/rpc_calls'
@@ -12,7 +13,7 @@ class Send extends React.Component {
   constructor(props) {
     super(props);
     this.createRegistrar();
-    this.state = { amount: '', amountError: '', to: '', toError: '', lockerAddress: false }
+    this.state = { amount: '', amountError: '', to: '', toError: '', lockerAddress: false, sendAll: false }
   }
 
   componentDidUpdate() {
@@ -27,8 +28,8 @@ class Send extends React.Component {
     }
   }
 
-  send(to, amount) {
-    this.props.dispatch(rpc.send(to, amount));
+  send(to, amount, sendAll) {
+    this.props.dispatch(rpc.send(to, amount, sendAll));
   }
 
   handleTo(e) {
@@ -52,16 +53,22 @@ class Send extends React.Component {
     const amount = e.target.value;
     this.setState({ amount }, () => {
       try {
-        amount && window.web3.utils.toWei(amount);
-        this.setState({ amountError: '' });
+        if (!amount || window.web3.utils.toWei(amount) >= 0)
+          this.setState({ amountError: '' });
+        else throw -1;
       } catch {
         this.setState({ amountError: 'Invalid amount' });
       }
     })
   }
 
+  handleSendAll(e) {
+    const sendAll = e.target.checked;
+    this.setState({ sendAll, amount: '', amountError: '' });
+  }
+
   shouldBeEnabled() {
-    return this.state.amount &&
+    return (this.state.amount || this.state.sendAll) &&
            !this.state.amountError &&
            this.state.to &&
            !this.state.toError;
@@ -74,9 +81,12 @@ class Send extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     if (this.shouldBeEnabled) {
-      this.send(this.state.lockerAddress || this.state.to, this.state.amount);
-      this.setState({ to: '', amount: '', lockerAddress: false });
-      showSendTransactionToasts(this.props.balance, window.web3.utils.toWei(this.state.amount));
+      this.send(this.state.lockerAddress || this.state.to, this.state.amount, this.state.sendAll);
+      showSendTransactionToasts(
+        this.props.balance, 
+        this.state.sendAll ? undefined : window.web3.utils.toWei(this.state.amount)
+      );
+      this.setState({ to: '', amount: '', lockerAddress: false, sendAll: false });
     }
   }
 
@@ -100,9 +110,15 @@ class Send extends React.Component {
                    spellCheck="false"
                    name="amount"
                    label="Amount"
+                   disabled={this.state.sendAll}
                    onChange={this.handleAmount.bind(this)}
                    value={this.state.amount}
                    error={this.state.amountError} />
+
+            <Checkbox className="send-all"
+                      label="Send All"
+                      onChange={this.handleSendAll.bind(this)}
+                      checked={this.state.sendAll} />
           </div>
           <div className="back-send">
             <Button type="button" kind="light" icon="back" onClick={this.handleBack.bind(this)}>Back</Button>
