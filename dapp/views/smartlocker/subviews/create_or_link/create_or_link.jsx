@@ -34,10 +34,9 @@ class CreateOrLinkSubview extends React.Component {
         </div>
         <form onSubmit={this.handleSubmit.bind(this)}>
 
-          <Input
+          <Input className="name"
             autoComplete="off"
             spellCheck="false"
-            name="smartlocker-name"
             label="Smart Locker Name:"
             autoFocus={true}
             maxLength="32"
@@ -46,29 +45,27 @@ class CreateOrLinkSubview extends React.Component {
             onChange={this.handleLockerName.bind(this)}
             value={this.state.lockerName} />
 
-          <Input
+          <Input className="device"
             autoComplete="off"
             spellCheck="false"
-            name="smartlocker-device"
             label="Device Name:"
             maxLength="32"
-            disabled={this.state.badge == 'link'}
             onChange={this.handleDeviceName.bind(this)}
             value={this.state.deviceName} />
 
+          <div className="buttons--2row">
+            <Button kind="alt" icon="arrow"
+                    type={this.disabledFor('link')? 'button' : 'submit'}
+                    disabled={this.disabledFor('link') || !this.state.deviceName}>
+              Create Locker
+            </Button>
+            <Button icon="arrow-up"
+                    type={this.disabledFor('create')? 'button' : 'submit'}
+                    disabled={this.disabledFor('create') || !this.state.deviceName}>
+              Link Device
+            </Button>
+          </div>
         </form>
-        <div className="buttons--2row">
-          <Button kind="alt" icon="arrow"
-                  onClick={this.handleCreate.bind(this)}
-                  disabled={this.disabledFor('link')}>
-            Create Locker
-          </Button>
-          <Button icon="arrow-up"
-                  onClick={this.handleLink.bind(this)}
-                  disabled={this.disabledFor('create')}>
-            Link Device
-          </Button>
-        </div>
       </div>
     );
   }
