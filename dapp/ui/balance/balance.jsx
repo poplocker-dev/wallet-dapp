@@ -9,7 +9,7 @@ import './balance.css'
 class Balance extends React.Component {
 
   componentDidUpdate () {
-    this.props.dispatch(rpc.getBalance());
+    this.props.dispatch(rpc.getBalance(this.props.address));
   }
 
   render () {
@@ -23,4 +23,4 @@ class Balance extends React.Component {
   }
 }
 
-export default connect(({ balance }) => ({ balance }))(Balance);
+export default connect(({ balance, address }) => ({ balance, address }))(Balance);

@@ -26,7 +26,7 @@ class Connection extends React.Component {
   pollForStatus() {
     this.props.dispatch(rpc.getAddress());
     this.props.dispatch(rpc.isListening());
-    this.props.dispatch(rpc.getBalance());
+    this.props.dispatch(rpc.getBalance(this.props.address));
   }
 
   failOrWait () {
