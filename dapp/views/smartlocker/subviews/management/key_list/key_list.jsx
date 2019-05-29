@@ -1,48 +1,47 @@
 import React from 'react'
+import Key   from './key'
 
 import './key_list.css'
 
 class KeyList extends React.Component {
   constructor (props) {
     super(props);
-    this.state = { keyNames: [] };
+    this.state = { keys: [] };
   }
 
-  componentDidMount () {
-    this.fetchKeyNames().then(keyNames => {
-      this.setState({ keyNames: keyNames.filter(key => key.length > 0) });
-    });
+  async componentDidMount () {
+    const keys = await this.fetchKeys();
+    this.setState({ keys });
+      //this.setState({ keys: keys.filter(key => key.name.length > 0) });
+    //});
+  }
+
+  fetchKeyList () {
+    // TODO: remove null keys
+    return this.props.smartLocker.getKeyList();
   }
 
   fetchKeys () {
-    return this.props.smartLocker.getKeyList()
-  }
-
-  fetchKeyNames () {
-    return this.fetchKeys().then(keys => {
-      return Promise.all(keys.map(item => this.props.smartLocker.getKeyName(item)));
-    });
+    return this.fetchKeyList()
+               .then(keyList => {
+                 return Promise.all(keyList.map(item => this.props.smartLocker.getKey(item)))
+                   .then(keys => keys.map((item, index) => ({ address: keyList[index], name: item })))
+               });
   }
 
   list () {
-    if (this.state.keyNames.length == 0)
+    // TODO: loading should not be a Key
+    if (this.state.keys.length == 0)
       return (
-       <div className="key-list-item key-list-item--loading">
-         Loading devices...
-       </div>
+       <Key name="Loading devices..." />
       )
     else {
-      return this.state.keyNames.map(name => (
-        <div key={name} className="key-list-item key-list-item">
-          <div className="key-list-item-indicator--authorized">
-          </div>
-          <div className="key-list-item-name">
-            { name }
-          </div>
-          <div className="key-list-item-badge--authorized">
-            Authorized
-          </div>
-        </div>
+      return this.state.keys.map((key, index) => (
+        <Key address={key.address}
+             name={key.name}
+             selectedKey={this.props.selectedKey}
+             handleSelect={this.props.handleSelect}
+             key={index} />
       ))
     }
   }

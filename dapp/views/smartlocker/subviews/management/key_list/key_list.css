@@ -7,46 +7,10 @@
   scrollbar-width: thin;
 }
 
-.key-list-item {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  font-weight: 600;
+.fade-out {
+  background: linear-gradient(var(--subview-bg-transparent) 0%, var(--subview-bg) 90%);
+  position: relative;
+  top: -25px;
+  margin: -25px 20px -25px 0px;
   height: 50px;
-  padding: 10px;
-  cursor: pointer;
-  background: #fff;
-  border-radius: 6px;
-  margin-bottom: 8px;
-
-  &:hover {
-    position: relative;
-    box-shadow: -1px 7px 19px 5px rgba(0,0,0,0.12);
-    z-index: 2;
-  }
-}
-
-.key-list-item-name {
-  flex-grow: 2;
-  padding-left: 10px;
-  tex-overflow: ellipsis;
-}
-
-.key-list-item-indicator--authorized {
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  background-color: #1AB44B;
-}
-
-.key-list-item-badge--authorized {
-  border-radius: 6px;
-  height: 19px;
-  width: 75px;
-  color: white;
-  font-size: 10px;
-  font-weight: 600;
-  line-height: 19px;
-  text-align: center;
-  background-color: #1AB44B;
 }

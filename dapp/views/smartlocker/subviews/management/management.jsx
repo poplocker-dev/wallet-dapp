@@ -17,7 +17,7 @@ class ManagementSubview extends React.Component {
     const { abi } = config.contracts.smartLocker;
     const { address } = this.props;
 
-    this.state = { key: '', error: '' };
+    this.state = { selectedKey: null, key: '', error: '' };
     this.smartLocker = new SmartLockerContract(abi, address);
   }
 
@@ -26,7 +26,9 @@ class ManagementSubview extends React.Component {
       return this.onlyKeyWarning();
     } else {
       return (
-        <KeyList smartLocker={this.smartLocker} />
+        <KeyList smartLocker={this.smartLocker}
+                 selectedKey={this.state.selectedKey}
+                 handleSelect={this.handleSelect.bind(this)} />
       )
     }
   }
@@ -34,14 +36,25 @@ class ManagementSubview extends React.Component {
   buttons() {
     if (this.props.locker.onlyKey) {
       return null;
-    } else {
+    } else if (false) { // TODO: pending keys here
       return (        
         <div className="buttons--2row buttons">
-          <Button kind="alt" icon="arrow">
-            todo1
+          <Button kind="reject" icon="close">
+            Reject Device
           </Button>
-          <Button icon="arrow-up">
-            todo2
+          <Button kind="alt" icon="tick">
+            Authorize Device
+          </Button>
+        </div>
+      )
+    } else {
+      return (        
+        <div className="buttons--1row buttons">
+          <Button kind="reject"
+                  icon="close"
+                  disabled={!this.state.selectedKey}
+                  onClick={this.removeKey.bind(this)}>
+            Remove Device
           </Button>
         </div>
       )
@@ -90,6 +103,17 @@ class ManagementSubview extends React.Component {
       </div>
     )
   }    
+
+  handleSelect (e, address) {
+    e.preventDefault();
+    this.setState( {selectedKey: address });
+  }
+
+  removeKey () {
+    this.smartLocker.removeKey(this.state.selectedKey);
+    this.setState({ selectedKey: null });
+    showSendTransactionToasts(this.props.balance);
+  }
 
   handleKeyInput (e) {
     this.setState({ error: '' });
