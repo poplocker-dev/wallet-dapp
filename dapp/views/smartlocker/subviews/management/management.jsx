@@ -6,7 +6,7 @@ import { Button, Input }             from '@poplocker/react-ui'
 import devices                       from 'assets/devices.svg'
 import { SmartLockerContract }       from 'lib/contracts'
 import { showSendTransactionToasts } from 'lib/helpers'
-import { addPendingTx }              from 'lib/store/actions'
+import { selectAuthorizedKey }       from 'lib/store/actions'
 
 import './management.css'
 
@@ -15,10 +15,12 @@ class ManagementSubview extends React.Component {
     super(props);
 
     const { abi } = config.contracts.smartLocker;
-    const { address } = this.props;
+    const { smartLockerAddress } = this.props.locker;
 
-    this.state = { selectedKey: null, key: '', error: '' };
-    this.smartLocker = new SmartLockerContract(abi, address);
+    this.smartLocker = new SmartLockerContract(abi, smartLockerAddress);
+
+    // TODO: remove
+    this.state = { key: '', error: '' };
   }
 
   keyList() {
@@ -26,9 +28,8 @@ class ManagementSubview extends React.Component {
       return this.onlyKeyWarning();
     } else {
       return (
-        <KeyList smartLocker={this.smartLocker}
-                 selectedKey={this.state.selectedKey}
-                 handleSelect={this.handleSelect.bind(this)} />
+        // TODO: after removing auth form, push smartlocker down to keyList
+        <KeyList smartLocker={this.smartLocker}/>
       )
     }
   }
@@ -36,7 +37,7 @@ class ManagementSubview extends React.Component {
   buttons() {
     if (this.props.locker.onlyKey) {
       return null;
-    } else if (false) { // TODO: pending keys here
+    } else if (this.props.selectedKey.pending) {
       return (        
         <div className="buttons--2row buttons">
           <Button kind="reject" icon="close">
@@ -52,7 +53,7 @@ class ManagementSubview extends React.Component {
         <div className="buttons--1row buttons">
           <Button kind="reject"
                   icon="close"
-                  disabled={!this.state.selectedKey}
+                  disabled={!this.shouldRemoveBeEnabled()}
                   onClick={this.removeKey.bind(this)}>
             Remove Device
           </Button>
@@ -82,7 +83,7 @@ class ManagementSubview extends React.Component {
       <div className="subview management-subview">
         { this.keyList() }
         { this.buttons() }
-        <form className="todo-form" onSubmit={this.handleAuth.bind(this)}>
+        <form className="todo-remove-me" onSubmit={this.handleAuth.bind(this)}>
           <Input
             autoComplete="off"
             spellCheck="false"
@@ -104,22 +105,23 @@ class ManagementSubview extends React.Component {
     )
   }    
 
-  handleSelect (e, address) {
-    e.preventDefault();
-    this.setState( {selectedKey: address });
+  shouldRemoveBeEnabled() {
+    return this.props.selectedKey.authorized && this.props.selectedKey.authorized != this.props.locker.deviceAddress;
   }
 
   removeKey () {
-    this.smartLocker.removeKey(this.state.selectedKey);
-    this.setState({ selectedKey: null });
+    this.smartLocker.removeKey(this.props.selectedKey.authorized);
+    this.props.selectAuthorizedKey(null);
     showSendTransactionToasts(this.props.balance);
   }
 
+  // TODO: remove
   handleKeyInput (e) {
     this.setState({ error: '' });
     this.setState({ key: e.target.value });
   }
 
+  // TODO: remove
   handleAuth (e) {
     e.preventDefault();
     this.smartLocker
@@ -129,14 +131,14 @@ class ManagementSubview extends React.Component {
   }
 }
 
-const mapState = ({ locker, address, balance }) => ({
+const mapState = ({ locker, balance, keys }) => ({
   locker,
-  address,
-  balance
+  balance,
+  selectedKey: keys.selectedKey
 });
 
 const mapDispatch = dispatch => ({
-  addPendingTx : bindActionCreators(addPendingTx, dispatch)
+  selectAuthorizedKey : bindActionCreators(selectAuthorizedKey, dispatch),
 });
 
 export default connect(mapState, mapDispatch)(ManagementSubview);

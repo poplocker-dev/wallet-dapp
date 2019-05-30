@@ -1,49 +1,76 @@
-import React from 'react'
-import Key   from './key'
+import React                    from 'react'
+import { connect }              from 'react-redux'
+import { bindActionCreators }   from 'redux'
+import Key                      from './key'
+import { updateAuthorizedKeys } from 'lib/store/actions'
 
 import './key_list.css'
 
 class KeyList extends React.Component {
-  constructor (props) {
-    super(props);
-    this.state = { keys: [] };
+  componentDidMount () {
+    this.startPolling();
   }
 
-  async componentDidMount () {
-    const keys = await this.fetchKeys();
-    this.setState({ keys });
-      //this.setState({ keys: keys.filter(key => key.name.length > 0) });
-    //});
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
+
+  startPolling() {
+    this.pollForStatus();
+    this.timer = setInterval(() => this.pollForStatus(), 4000);
+  }
+
+  pollForStatus() {
+    this.fetchKeys()
+        .then(this.props.updateAuthorizedKeys);
   }
 
   fetchKeyList () {
-    // TODO: remove null keys
-    return this.props.smartLocker.getKeyList();
+    return this.props.smartLocker.getKeyList()
+                                 .then(keyList => keyList.filter(item => item > 0));
   }
 
   fetchKeys () {
     return this.fetchKeyList()
                .then(keyList => {
                  return Promise.all(keyList.map(item => this.props.smartLocker.getKey(item)))
-                   .then(keys => keys.map((item, index) => ({ address: keyList[index], name: item })))
+                               .then(keys => keys.map((item, index) => ({ address: keyList[index], name: item })))
                });
   }
 
+  keysEmpty () {
+    return !(this.props.keys.authorizedKeys.length + this.props.keys.pendingKeys.length);
+  }
+
+  keys (keys, status) {
+    return (
+      <>
+        {keys.map((key, index) => (
+          <Key address={key.address}
+               name={key.name}
+               status={status == 'authorized' && key.address == this.props.deviceAddress? 'device' : status}
+               key={index} />
+        ))}
+      </>
+    )
+  }
+
   list () {
-    // TODO: loading should not be a Key
-    if (this.state.keys.length == 0)
+    // TODO: use authorized keys as pending for testing for now
+    // should be -> {this.keys(this.props.keys.pendingKeys, "pending")}
+    if (this.keysEmpty())
       return (
-       <Key name="Loading devices..." />
+        <div className="key-loading">
+          Loading devices...
+        </div>
       )
-    else {
-      return this.state.keys.map((key, index) => (
-        <Key address={key.address}
-             name={key.name}
-             selectedKey={this.props.selectedKey}
-             handleSelect={this.props.handleSelect}
-             key={index} />
-      ))
-    }
+    else
+      return (
+        <>
+          {this.keys(this.props.keys.authorizedKeys, "pending")}
+          {this.keys(this.props.keys.authorizedKeys, "authorized")}
+        </>
+      )
   }
 
   render () {
@@ -58,4 +85,13 @@ class KeyList extends React.Component {
   }
 }
 
-export default KeyList;
+const mapState = ({ locker, keys }) => ({
+  deviceAddress: locker.deviceAddress,
+  keys
+});
+
+const mapDispatch = dispatch => ({
+  updateAuthorizedKeys : bindActionCreators(updateAuthorizedKeys, dispatch)
+});
+
+export default connect(mapState, mapDispatch)(KeyList);

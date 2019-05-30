@@ -37,7 +37,7 @@
 
 .key-indicator--authorized {
   .glyph {
-    background-color: #fff;
+    background-color: var(--background-color);
   }
 
   .icon {
@@ -45,10 +45,29 @@
   }
 }
 
-.key-badge--authorized {
-  color: var(--background-color);
-  background: var(--button-alt-darker-color);
+.key-indicator--device {
+  .glyph {
+    background-color: var(--foreground-color);
+  }
+
+  .icon {
+    background: var(--subview-bg);
+  }
+}
+
+.key-indicator--pending {
+  .glyph {
+    background-color: var(--background-color);
+  }
+
+  .icon {
+    background: var(--warning-color);
+  }
+}
+
+.key-badge {
   padding: 4px 12px 0px 12px;
+  width: 32%;
   border-radius: 10px;
   text-align: center;
   text-transform: uppercase;
@@ -56,4 +75,19 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+.key-badge--authorized {
+  color: var(--background-color);
+  background: var(--button-alt-darker-color);
+}
+
+.key-badge--device {
+  color: var(--foreground-color);
+  background: var(--subview-bg);
+}
+
+.key-badge--pending {
+  color: var(--background-color);
+  background: var(--warning-color);
 }
