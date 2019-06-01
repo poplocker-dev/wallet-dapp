@@ -1,7 +1,7 @@
 {
   "name": "wallet-dapp",
   "version": "0.0.1",
-  "description": "Simple Wallet Dapp for Ethereum",
+  "description": "Wallet DApp for PopLocker",
   "scripts": {
     "dev": "webpack-dev-server --mode development --progress --hot --contentBase ./build",
     "build": "webpack --mode production"
@@ -27,6 +27,7 @@
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-redux": "^5.0.7",
+    "react-toastify": "^5.1.0",
     "react-transition-group": "^2.5.3",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
@@ -50,7 +51,6 @@
     "postcss-loader": "^3.0.0",
     "postcss-nested": "^4.1.1",
     "postcss-scrollbar": "^0.3.0",
-    "react-toastify": "^5.1.0",
     "style-loader": "^0.23.1",
     "url-loader": "^1.1.2",
     "webpack": "^4.22.0",
