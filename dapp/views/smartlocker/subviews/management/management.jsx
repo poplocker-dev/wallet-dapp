@@ -28,7 +28,7 @@ class ManagementSubview extends React.Component {
       return this.onlyKeyWarning();
     } else {
       return (
-        // TODO: after removing auth form, push smartlocker down to keyList
+        // TODO: after removing auth form, push smartlocker down to keyList?
         <KeyList smartLocker={this.smartLocker}/>
       )
     }
