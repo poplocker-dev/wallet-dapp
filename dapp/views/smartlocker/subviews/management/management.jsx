@@ -2,11 +2,14 @@ import React                         from 'react'
 import { connect }                   from 'react-redux'
 import { bindActionCreators }        from 'redux'
 import KeyList                       from './key_list'
-import { Button, Input }             from '@poplocker/react-ui'
+import { Button }                    from '@poplocker/react-ui'
 import devices                       from 'assets/devices.svg'
 import { SmartLockerContract }       from 'lib/contracts'
 import { showSendTransactionToasts } from 'lib/helpers'
-import { selectAuthorizedKey }       from 'lib/store/actions'
+import { selectAuthorizedKey,
+         selectPendingKey,
+         updatePendingKeys }         from 'lib/store/actions'
+import ShhRpc                        from 'lib/whisper'
 
 import './management.css'
 
@@ -18,32 +21,51 @@ class ManagementSubview extends React.Component {
     const { smartLockerAddress } = this.props.locker;
 
     this.smartLocker = new SmartLockerContract(abi, smartLockerAddress);
-
-    // TODO: remove
-    this.state = { key: '', error: '' };
   }
 
-  keyList() {
-    if (this.props.locker.onlyKey) {
+  componentDidMount () {
+    this.subscribeToLinkRequests(this.queuePendingKey.bind(this));
+  }
+
+  subscribeToLinkRequests (callback) {
+    new ShhRpc(config.constants.SHH_URL, this.props.locker.smartLockerAddress.substr(0, 10))
+      .subscribe(callback);
+  }
+
+  queuePendingKey (key) {
+    const { pendingKeys } = this.props.keys;
+    this.props.updatePendingKeys([key, ...pendingKeys.filter(pendingKey => pendingKey.address != key.address)
+                                                     .slice(0, 99)]);
+  }
+
+  onlyKey () {
+    return this.props.locker.onlyKey && !this.props.keys.pendingKeys.length;
+  }
+
+  keyList () {
+    if (this.onlyKey()) {
       return this.onlyKeyWarning();
     } else {
       return (
-        // TODO: after removing auth form, push smartlocker down to keyList?
         <KeyList smartLocker={this.smartLocker}/>
       )
     }
   }
 
-  buttons() {
-    if (this.props.locker.onlyKey) {
+  buttons () {
+    if (this.onlyKey()) {
       return null;
-    } else if (this.props.selectedKey.pending) {
+    } else if (this.props.keys.selectedKey.pending) {
       return (        
         <div className="buttons--2row buttons">
-          <Button kind="reject" icon="close">
+          <Button kind="reject"
+                  icon="close"
+                  onClick={this.rejectPendingKey.bind(this)}>
             Reject Device
           </Button>
-          <Button kind="alt" icon="tick">
+          <Button kind="alt"
+                  icon="tick"
+                  onClick={this.authorizePendingKey.bind(this)}>
             Authorize Device
           </Button>
         </div>
@@ -53,8 +75,8 @@ class ManagementSubview extends React.Component {
         <div className="buttons--1row buttons">
           <Button kind="reject"
                   icon="close"
-                  disabled={!this.shouldRemoveBeEnabled()}
-                  onClick={this.removeKey.bind(this)}>
+                  disabled={!this.shouldRemoveAuthorizedBeEnabled()}
+                  onClick={this.removeAuthorizedKey.bind(this)}>
             Remove Device
           </Button>
         </div>
@@ -83,62 +105,39 @@ class ManagementSubview extends React.Component {
       <div className="subview management-subview">
         { this.keyList() }
         { this.buttons() }
-        <form className="todo-remove-me" onSubmit={this.handleAuth.bind(this)}>
-          <Input
-            autoComplete="off"
-            spellCheck="false"
-            label="Device Address:"
-            autoFocus={true}
-            onChange={this.handleKeyInput.bind(this)}
-            error={this.state.error}
-            value={this.state.key} />
-
-          <Button tabIndex={-1}
-                  type="button"
-                  icon="tick"
-                  disabled={!this.state.key}
-                  onClick={this.handleAuth.bind(this)}>
-            Authorize
-          </Button>
-        </form>
       </div>
     )
   }    
 
-  shouldRemoveBeEnabled() {
-    return this.props.selectedKey.authorized && this.props.selectedKey.authorized != this.props.locker.deviceAddress;
-  }
-
-  removeKey () {
-    this.smartLocker.removeKey(this.props.selectedKey.authorized);
-    this.props.selectAuthorizedKey(null);
+  authorizePendingKey () {
+    const key = this.props.keys.pendingKeys.find(pendingKey => pendingKey.address == this.props.keys.selectedKey.pending);
+    this.smartLocker.addKey(key.address, key.name);
+    this.props.selectPendingKey(null);
     showSendTransactionToasts(this.props.balance);
   }
 
-  // TODO: remove
-  handleKeyInput (e) {
-    this.setState({ error: '' });
-    this.setState({ key: e.target.value });
+  rejectPendingKey () {
+    this.props.updatePendingKeys(this.props.keys.pendingKeys.filter(key => key.address != this.props.keys.selectedKey.pending));
+    this.props.selectPendingKey(null);
   }
 
-  // TODO: remove
-  handleAuth (e) {
-    e.preventDefault();
-    this.smartLocker
-        .addKey(this.state.key, `Device-${this.state.key.slice(0,4)}`)
-    this.setState({ key: '', error: '' });
+  shouldRemoveAuthorizedBeEnabled () {
+    return this.props.keys.selectedKey.authorized && this.props.keys.selectedKey.authorized != this.props.locker.deviceAddress;
+  }
+
+  removeAuthorizedKey () {
+    this.smartLocker.removeKey(this.props.keys.selectedKey.authorized);
+    this.props.selectAuthorizedKey(null);
     showSendTransactionToasts(this.props.balance);
   }
 }
 
-const mapState = ({ locker, balance, keys }) => ({
-  locker,
-  balance,
-  selectedKey: keys.selectedKey
-});
+const mapState = ({ locker, balance, keys }) => ({ locker, balance, keys });
 
 const mapDispatch = dispatch => ({
   selectAuthorizedKey : bindActionCreators(selectAuthorizedKey, dispatch),
+  selectPendingKey : bindActionCreators(selectPendingKey, dispatch),
+  updatePendingKeys : bindActionCreators(updatePendingKeys, dispatch)
 });
 
 export default connect(mapState, mapDispatch)(ManagementSubview);

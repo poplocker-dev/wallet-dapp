@@ -6,6 +6,7 @@ import { RegistrarContract }                from 'lib/contracts'
 import { rpc }                              from 'lib/rpc_calls'
 import { flags, showSendTransactionToasts } from 'lib/helpers'
 import { addPendingTx }                     from 'lib/store/actions'
+import ShhRpc                               from 'lib/whisper'
 import { toast }                            from 'react-toastify'
 
 import './create_or_link.css'
@@ -89,6 +90,11 @@ class CreateOrLinkSubview extends React.Component {
     }
   }
 
+  postLinkRequest (smartLocker, address, name) {
+    return new ShhRpc(config.constants.SHH_URL, smartLocker.substr(0, 10))
+      .post({ smartLocker, address, name, timeStamp: Date.now() })
+  }
+
   // TODO: contract interaction is
   // local, but rpc.setLockerAddress
   // is not. Clean up this mixup
@@ -97,8 +103,10 @@ class CreateOrLinkSubview extends React.Component {
   handleLink (e) {
     e.preventDefault();
 
-    this.props.setLocker(this.state.address)
-        .then(this.props.updateLocker);
+    const smartLockerAddress = this.state.address;
+    this.postLinkRequest(smartLockerAddress, this.props.address, this.state.deviceName)
+      .then(this.props.setLocker(smartLockerAddress))
+      .then(this.props.updateLocker)
 
     if (!window.web3.utils.toBN(this.props.balance).isZero())
       toast.warning('While linked you will lose access to funds in your local account');
