@@ -66,6 +66,7 @@ class KeyList extends React.Component {
           <Key address={key.address}
                name={key.name}
                status={status == 'authorized' && key.address == this.props.locker.deviceAddress? 'device' : status}
+               timeStamp={key.timeStamp}
                key={index} />
         ))}
       </>
