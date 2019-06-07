@@ -7,9 +7,7 @@ import devices                       from 'assets/devices.svg'
 import { SmartLockerContract }       from 'lib/contracts'
 import { showSendTransactionToasts } from 'lib/helpers'
 import { selectAuthorizedKey,
-         selectPendingKey,
-         updatePendingKeys }         from 'lib/store/actions'
-import ShhRpc                        from 'lib/whisper'
+         selectPendingKey }          from 'lib/store/actions'
 
 import './management.css'
 
@@ -23,23 +21,13 @@ class ManagementSubview extends React.Component {
     this.smartLocker = new SmartLockerContract(abi, smartLockerAddress);
   }
 
-  componentDidMount () {
-    this.subscribeToLinkRequests(this.queuePendingKey.bind(this));
-  }
-
-  subscribeToLinkRequests (callback) {
-    new ShhRpc(config.constants.SHH_URL, this.props.locker.smartLockerAddress.substr(0, 10))
-      .subscribe(callback);
-  }
-
-  queuePendingKey (key) {
-    const { pendingKeys } = this.props.keys;
-    this.props.updatePendingKeys([key, ...pendingKeys.filter(pendingKey => pendingKey.address != key.address)
-                                                     .slice(0, 99)]);
-  }
-
   onlyKey () {
-    return this.props.locker.onlyKey && !this.props.keys.pendingKeys.length;
+    return this.props.locker.keys.length < 2 && !this.props.locker.requests.length;
+  }
+
+  pendingKeySelected () {
+    return this.props.selectedKey.pending &&
+           this.props.locker.requests.some(request => this.props.selectedKey.pending == request.address);
   }
 
   keyList () {
@@ -55,8 +43,8 @@ class ManagementSubview extends React.Component {
   buttons () {
     if (this.onlyKey()) {
       return null;
-    } else if (this.props.keys.selectedKey.pending) {
-      return (        
+    } else if (this.pendingKeySelected()) {
+      return (
         <div className="buttons--2row buttons">
           <Button kind="reject"
                   icon="close"
@@ -71,7 +59,7 @@ class ManagementSubview extends React.Component {
         </div>
       )
     } else {
-      return (        
+      return (
         <div className="buttons--1row buttons">
           <Button kind="reject"
                   icon="close"
@@ -110,34 +98,35 @@ class ManagementSubview extends React.Component {
   }    
 
   authorizePendingKey () {
-    const key = this.props.keys.pendingKeys.find(pendingKey => pendingKey.address == this.props.keys.selectedKey.pending);
+    const key = this.props.locker.requests.find(request => this.props.selectedKey.pending == request.address);
     this.smartLocker.addKey(key.address, key.name);
     this.props.selectPendingKey(null);
     showSendTransactionToasts(this.props.balance);
   }
 
   rejectPendingKey () {
-    this.props.updatePendingKeys(this.props.keys.pendingKeys.filter(key => key.address != this.props.keys.selectedKey.pending));
+    // TODO
     this.props.selectPendingKey(null);
   }
 
   shouldRemoveAuthorizedBeEnabled () {
-    return this.props.keys.selectedKey.authorized && this.props.keys.selectedKey.authorized != this.props.locker.deviceAddress;
+    return this.props.selectedKey.authorized &&
+           this.props.selectedKey.authorized != this.props.locker.deviceAddress &&
+           this.props.locker.keys.some(key => this.props.selectedKey.authorized == key.address);
   }
 
   removeAuthorizedKey () {
-    this.smartLocker.removeKey(this.props.keys.selectedKey.authorized);
+    this.smartLocker.removeKey(this.props.selectedKey.authorized);
     this.props.selectAuthorizedKey(null);
     showSendTransactionToasts(this.props.balance);
   }
 }
 
-const mapState = ({ locker, balance, keys }) => ({ locker, balance, keys });
+const mapState = ({ locker, balance, selectedKey }) => ({ locker, balance, selectedKey });
 
 const mapDispatch = dispatch => ({
   selectAuthorizedKey : bindActionCreators(selectAuthorizedKey, dispatch),
-  selectPendingKey : bindActionCreators(selectPendingKey, dispatch),
-  updatePendingKeys : bindActionCreators(updatePendingKeys, dispatch)
+  selectPendingKey : bindActionCreators(selectPendingKey, dispatch)
 });
 
 export default connect(mapState, mapDispatch)(ManagementSubview);

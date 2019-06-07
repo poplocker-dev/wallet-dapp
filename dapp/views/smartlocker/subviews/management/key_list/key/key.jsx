@@ -62,8 +62,8 @@ class Key extends React.Component {
   }
 }
 
-const mapState = ({ keys }, props) => ({
-  isSelected: props.address == (props.status == 'pending'? keys.selectedKey.pending : keys.selectedKey.authorized)
+const mapState = ({ selectedKey }, props) => ({
+  isSelected: props.address == (props.status == 'pending'? selectedKey.pending : selectedKey.authorized)
 });
 
 const mapDispatch = dispatch => ({
