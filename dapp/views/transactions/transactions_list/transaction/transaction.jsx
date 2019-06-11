@@ -9,7 +9,7 @@ import './transaction.css'
 class Transaction extends React.Component {
   constructor (props) {
     super(props);
-    this.state = { address: null };
+    this.state = { address: null, addressResolved: false };
   }
 
   componentDidMount() {
@@ -25,7 +25,7 @@ class Transaction extends React.Component {
     if (address && this.props.registrar) {
       address = await this.props.registrar.resolveName(address);
     }
-    if (address != this.state.address) this.setState({ address });
+    if (address != this.state.address) this.setState({ address, addressResolved: true });
   }
 
   render () {
@@ -36,7 +36,7 @@ class Transaction extends React.Component {
           <div className="info-top">
 
             <div className={`address ${this.isLongAddress(this.state.address)? 'address-expand' : ''}`}>
-              <Preloader value={this.state.address}>
+              <Preloader value={this.state.addressResolved}>
                 { this.state.address || "Contract Deployment" }
               </Preloader>
             </div>
@@ -97,7 +97,7 @@ class Transaction extends React.Component {
   handleCopy () {
     if (this.state.address) {
       copyToClipboard(this.state.address);
-      toast.info('Address copied to clipboard');
+      toast.info((this.isLongAddress(this.state.address)? 'Address' : 'Smart Locker name') + ' copied to clipboard');
     }
   }
 }
