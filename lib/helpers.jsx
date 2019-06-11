@@ -7,6 +7,23 @@ function fixedEth (wei) {
     .dividedBy('1e5').toFixed();
 }
 
+function copyToClipboard (text) {
+  const textarea = document.createElement("textarea");
+  textarea.value = text;
+
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand("copy");
+
+  document.body.removeChild(textarea);
+}
+
+function showSendTransactionToasts(balance, amount="1") {
+  toast.info('Now authorize the transaction in your browser');
+  if (window.web3.utils.toBN(balance).lt(window.web3.utils.toBN(amount)))
+    toast.warning('You need to add funds to your account', { delay: 1000 });
+}
+
 const flags = {
   set creatingLocker (val) {
     if (val)
@@ -19,12 +36,6 @@ const flags = {
   get creatingLocker () {
     return window.localStorage.getItem('creating_locker_contract');
   }
-}
-
-function showSendTransactionToasts(balance, amount="1") {
-  toast.info('Now authorize the transaction in your browser');
-  if (window.web3.utils.toBN(balance).lt(window.web3.utils.toBN(amount)))
-    toast.warning('You need to add funds to your account', { delay: 1000 });
 }
 
 function addressToEmoji(address) {
@@ -52,4 +63,4 @@ const emojis =
 128683,128703,128721,128722,128759,128760,129297,129309,129310,129312,129313,129314,129346,129354,129355,129360,
 129361,129371,129380,129382,129384,129408,129412,129413,129414,129415,129416,129417,129418,129427,129472,129489]
 
-export { fixedEth, flags, showSendTransactionToasts, addressToEmoji }
+export { fixedEth, copyToClipboard, showSendTransactionToasts, flags, addressToEmoji }
