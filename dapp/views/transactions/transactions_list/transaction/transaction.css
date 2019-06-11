@@ -17,10 +17,10 @@
     box-shadow: -1px 7px 19px 5px rgba(0,0,0,0.12);
     z-index: 2;
 
-    .address {
+    .address-expand {
       max-width: 100%;
     }
-    .value {
+    .value-contract {
       max-width: 0%;
     }
   }

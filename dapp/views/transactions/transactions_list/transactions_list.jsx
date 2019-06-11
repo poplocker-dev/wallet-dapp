@@ -63,7 +63,7 @@ class TransactionList extends React.Component {
     return (
       <>
         {txs.map((tx, index) => (
-          <Transaction tx={tx} address={this.state.listAddress} status={status} key={index} />
+          <Transaction tx={tx} referenceAddress={this.state.listAddress} status={status} key={index} />
         ))}
       </>
     )
