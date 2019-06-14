@@ -33,5 +33,9 @@
         padding-right: 48px;
       }
     }
+
+    .input-field--invalid {
+      margin-bottom: 9px;
+    }
   }
 }

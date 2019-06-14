@@ -21,7 +21,9 @@ class CreateOrLinkSubview extends React.Component {
     this.registrar = new RegistrarContract(abi, address);
     this.state = {
       lockerName: '',
+      lockerNameError: '',
       deviceName: '',
+      deviceNameError: '',
       badge: '',
       address: false
     };
@@ -44,7 +46,8 @@ class CreateOrLinkSubview extends React.Component {
             badge={this.state.badge}
             badgeType={this.badgeType(this.state.badge)}
             onChange={this.handleLockerName.bind(this)}
-            value={this.state.lockerName} />
+            value={this.state.lockerName}
+            error={this.state.lockerNameError} />
 
           <Input className="device"
             autoComplete="off"
@@ -52,17 +55,18 @@ class CreateOrLinkSubview extends React.Component {
             label="Device Name:"
             maxLength="32"
             onChange={this.handleDeviceName.bind(this)}
-            value={this.state.deviceName} />
+            value={this.state.deviceName}
+            error={this.state.deviceNameError} />
 
           <div className="buttons--2row">
             <Button kind="alt" icon="arrow"
                     type={this.disabledFor('link')? 'button' : 'submit'}
-                    disabled={this.disabledFor('link') || !this.state.deviceName}>
+                    disabled={this.shouldBeDisabled('link')}>
               Create Locker
             </Button>
             <Button icon="arrow-up"
                     type={this.disabledFor('create')? 'button' : 'submit'}
-                    disabled={this.disabledFor('create') || !this.state.deviceName}>
+                    disabled={this.shouldBeDisabled('create')}>
               Link Device
             </Button>
           </div>
@@ -88,6 +92,18 @@ class CreateOrLinkSubview extends React.Component {
       default:
         return 'loading'
     }
+  }
+
+  shouldBeDisabled(badgeName) {
+    return this.disabledFor(badgeName) ||
+           !this.state.lockerName ||
+           this.state.lockerNameError ||
+           !this.state.deviceName ||
+           this.state.deviceNameError;
+  }
+
+  validName(name) {
+    return window.web3.utils.utf8ToHex(name).length <= 66;
   }
 
   postLinkRequest (smartLocker, address, name) {
@@ -131,20 +147,29 @@ class CreateOrLinkSubview extends React.Component {
     const lockerName = e.target.value;
 
     if (lockerName) {
-      this.setState({ lockerName, badge: <Blipping/> }, () => {
-        this.registrar.getAddressDebounced(this.state.lockerName).then(address => {
-          const badge = (address) ? 'link' : 'create';
-          if (this.state.lockerName) this.setState({ badge, address });
+      if (this.validName(lockerName)) {
+        this.setState({ lockerName, lockerNameError: '', badge: <Blipping/> }, () => {
+          this.registrar.getAddressDebounced(this.state.lockerName).then(address => {
+            const badge = (address) ? 'link' : 'create';
+            if (this.state.lockerName) this.setState({ badge, address });
+          });
         });
-      });
-    }
-    else {
-      this.setState({ lockerName, badge: '' });
+      } else {
+        this.setState({ lockerName, lockerNameError: 'Invalid Smart Locker name', badge: '' });
+      }
+    } else {
+      this.setState({ lockerName, lockerNameError: '', badge: '' });
     }
   }
 
   handleDeviceName (e) {
-    this.setState({ deviceName: e.target.value });
+    const deviceName = e.target.value;
+
+    if (!deviceName || this.validName(deviceName)) {
+      this.setState({ deviceName, deviceNameError: '' });
+    } else {
+      this.setState({ deviceName, deviceNameError: 'Invalid device name' });
+    }
   }
 
   handleSubmit (e) {
