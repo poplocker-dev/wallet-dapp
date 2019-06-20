@@ -5,7 +5,6 @@ import { RegistrarContract }         from 'lib/contracts'
 import { rpc }                       from 'lib/rpc_calls'
 import { showSendTransactionToasts } from 'lib/helpers'
 import { Button, Input }             from '@poplocker/react-ui'
-import { CSSTransition }             from 'react-transition-group'
 
 import './send.css'
 
@@ -92,40 +91,38 @@ class Send extends React.Component {
 
   render () {
     return (
-      <CSSTransition timeout={500} classNames="showup" appear={true} in={true}>
-        <form className="send-panel" onSubmit={this.handleSubmit.bind(this)}>
-          <div>
-            <div className="send-title">Send ETH</div>
-            <Input className="send-to"
-                   autoComplete="off"
-                   spellCheck="false"
-                   name="to"
-                   label="To"
-                   onChange={this.handleTo.bind(this)}
-                   value={this.state.to}
-                   error={this.state.toError} />
+      <form className="send-panel" onSubmit={this.handleSubmit.bind(this)}>
+        <div>
+          <div className="send-title">Send ETH</div>
+          <Input className="send-to"
+                 autoComplete="off"
+                 spellCheck="false"
+                 name="to"
+                 label="To"
+                 onChange={this.handleTo.bind(this)}
+                 value={this.state.to}
+                 error={this.state.toError} />
 
-            <Input className="send-amount"
-                   autoComplete="off"
-                   spellCheck="false"
-                   name="amount"
-                   label="Amount"
-                   disabled={this.state.sendAll}
-                   onChange={this.handleAmount.bind(this)}
-                   value={this.state.amount}
-                   error={this.state.amountError} />
+          <Input className="send-amount"
+                 autoComplete="off"
+                 spellCheck="false"
+                 name="amount"
+                 label="Amount"
+                 disabled={this.state.sendAll}
+                 onChange={this.handleAmount.bind(this)}
+                 value={this.state.amount}
+                 error={this.state.amountError} />
 
-            <Checkbox className="send-all"
-                      label="Send All"
-                      onChange={this.handleSendAll.bind(this)}
-                      checked={this.state.sendAll} />
-          </div>
-          <div className="back-send">
-            <Button type="button" kind="light" icon="back" onClick={this.handleBack.bind(this)}>Back</Button>
-            <Button icon="arrow-up" disabled={!this.shouldBeEnabled()}>Send</Button>
-          </div>
-        </form>
-      </CSSTransition>
+          <Checkbox className="send-all"
+                    label="Send All"
+                    onChange={this.handleSendAll.bind(this)}
+                    checked={this.state.sendAll} />
+        </div>
+        <div className="back-send">
+          <Button type="button" kind="light" icon="back" onClick={this.handleBack.bind(this)}>Back</Button>
+          <Button icon="arrow-up" disabled={!this.shouldBeEnabled()}>Send</Button>
+        </div>
+      </form>
     )
   }
 }
