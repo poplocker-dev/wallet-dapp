@@ -1,6 +1,7 @@
-import React      from 'react'
-import { Button } from '@poplocker/react-ui'
-import { toast }  from 'react-toastify'
+import React               from 'react'
+import { copyToClipboard } from 'lib/helpers'
+import { Button }          from '@poplocker/react-ui'
+import { toast }           from 'react-toastify'
 
 class BackCopy extends React.Component {
   constructor(props) {
@@ -12,15 +13,7 @@ class BackCopy extends React.Component {
   }
 
   handleCopy() {
-    const text = document.createElement("textarea");
-    text.value = this.props.address;
-
-    document.body.appendChild(text);
-    text.select();
-    document.execCommand("copy");
-
-    document.body.removeChild(text);
-
+    copyToClipboard(this.props.address);
     toast.info('Address copied to clipboard');
   }
 

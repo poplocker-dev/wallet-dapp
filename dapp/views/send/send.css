@@ -5,7 +5,6 @@
   justify-content: space-between;
   background-color: var(--subview-bg);
   padding: 20px;
-  transition: all 500ms ease-out;
 
   .send-title {
     text-align: center;
@@ -38,13 +37,4 @@
       width: 47.5%;
     }
   }
-}
-
-.showup-appear {
-  opacity: 0.01;
-}
-
-.showup-appear-active {
-  opacity: 1;
-  transition: all 200ms ease-out;
 }
