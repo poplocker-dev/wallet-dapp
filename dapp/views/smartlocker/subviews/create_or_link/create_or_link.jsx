@@ -6,6 +6,7 @@ import { RegistrarContract }                from 'lib/contracts'
 import { rpc }                              from 'lib/rpc_calls'
 import { flags, showSendTransactionToasts } from 'lib/helpers'
 import { addPendingTx }                     from 'lib/store/actions'
+import ShhRpc                               from 'lib/whisper'
 import { toast }                            from 'react-toastify'
 
 import './create_or_link.css'
@@ -20,7 +21,9 @@ class CreateOrLinkSubview extends React.Component {
     this.registrar = new RegistrarContract(abi, address);
     this.state = {
       lockerName: '',
+      lockerNameError: '',
       deviceName: '',
+      deviceNameError: '',
       badge: '',
       address: false
     };
@@ -34,41 +37,40 @@ class CreateOrLinkSubview extends React.Component {
         </div>
         <form onSubmit={this.handleSubmit.bind(this)}>
 
-          <Input
+          <Input className="name"
             autoComplete="off"
             spellCheck="false"
-            name="smartlocker-name"
             label="Smart Locker Name:"
             autoFocus={true}
             maxLength="32"
             badge={this.state.badge}
             badgeType={this.badgeType(this.state.badge)}
             onChange={this.handleLockerName.bind(this)}
-            value={this.state.lockerName} />
+            value={this.state.lockerName}
+            error={this.state.lockerNameError} />
 
-          <Input
+          <Input className="device"
             autoComplete="off"
             spellCheck="false"
-            name="smartlocker-device"
             label="Device Name:"
             maxLength="32"
-            disabled={this.state.badge == 'link'}
             onChange={this.handleDeviceName.bind(this)}
-            value={this.state.deviceName} />
+            value={this.state.deviceName}
+            error={this.state.deviceNameError} />
 
+          <div className="buttons--2row">
+            <Button kind="alt" icon="arrow"
+                    type={this.disabledFor('link')? 'button' : 'submit'}
+                    disabled={this.shouldBeDisabled('link')}>
+              Create Locker
+            </Button>
+            <Button icon="arrow-up"
+                    type={this.disabledFor('create')? 'button' : 'submit'}
+                    disabled={this.shouldBeDisabled('create')}>
+              Link Device
+            </Button>
+          </div>
         </form>
-        <div className="buttons--2row">
-          <Button kind="alt" icon="arrow"
-                  onClick={this.handleCreate.bind(this)}
-                  disabled={this.disabledFor('link')}>
-            Create Locker
-          </Button>
-          <Button icon="arrow-up"
-                  onClick={this.handleLink.bind(this)}
-                  disabled={this.disabledFor('create')}>
-            Link Device
-          </Button>
-        </div>
       </div>
     );
   }
@@ -92,6 +94,23 @@ class CreateOrLinkSubview extends React.Component {
     }
   }
 
+  shouldBeDisabled(badgeName) {
+    return this.disabledFor(badgeName) ||
+           !this.state.lockerName ||
+           this.state.lockerNameError ||
+           !this.state.deviceName ||
+           this.state.deviceNameError;
+  }
+
+  validName(name) {
+    return window.web3.utils.utf8ToHex(name).length <= 66;
+  }
+
+  postLinkRequest (smartLocker, address, name) {
+    return new ShhRpc(config.constants.SHH_URL, smartLocker.substr(0, 10))
+      .post({ smartLocker, address, name, timeStamp: Date.now() })
+  }
+
   // TODO: contract interaction is
   // local, but rpc.setLockerAddress
   // is not. Clean up this mixup
@@ -100,8 +119,10 @@ class CreateOrLinkSubview extends React.Component {
   handleLink (e) {
     e.preventDefault();
 
-    this.props.setLocker(this.state.address)
-        .then(this.props.updateLocker);
+    const smartLockerAddress = this.state.address;
+    this.postLinkRequest(smartLockerAddress, this.props.address, this.state.deviceName)
+      .then(this.props.setLocker(smartLockerAddress))
+      .then(this.props.updateLocker)
 
     if (!window.web3.utils.toBN(this.props.balance).isZero())
       toast.warning('While linked you will lose access to funds in your local account');
@@ -126,20 +147,29 @@ class CreateOrLinkSubview extends React.Component {
     const lockerName = e.target.value;
 
     if (lockerName) {
-      this.setState({ lockerName, badge: <Blipping/> }, () => {
-        this.registrar.getAddressDebounced(this.state.lockerName).then(address => {
-          const badge = (address) ? 'link' : 'create';
-          if (this.state.lockerName) this.setState({ badge, address });
+      if (this.validName(lockerName)) {
+        this.setState({ lockerName, lockerNameError: '', badge: <Blipping/> }, () => {
+          this.registrar.getAddressDebounced(this.state.lockerName).then(address => {
+            const badge = (address) ? 'link' : 'create';
+            if (this.state.lockerName) this.setState({ badge, address });
+          });
         });
-      });
-    }
-    else {
-      this.setState({ lockerName, badge: '' });
+      } else {
+        this.setState({ lockerName, lockerNameError: 'Invalid Smart Locker name', badge: '' });
+      }
+    } else {
+      this.setState({ lockerName, lockerNameError: '', badge: '' });
     }
   }
 
   handleDeviceName (e) {
-    this.setState({ deviceName: e.target.value });
+    const deviceName = e.target.value;
+
+    if (!deviceName || this.validName(deviceName)) {
+      this.setState({ deviceName, deviceNameError: '' });
+    } else {
+      this.setState({ deviceName, deviceNameError: 'Invalid device name' });
+    }
   }
 
   handleSubmit (e) {

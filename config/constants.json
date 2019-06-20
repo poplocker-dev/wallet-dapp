@@ -3,5 +3,6 @@
   "CHAIN_ID": 3,
   "POPLOCKER_URL": "https://github.com/poplocker-dev/browser-extension/releases",
   "COINBASE_URL": "https://www.coinbase.com",
-  "SHAPESHIFT_URL": "https://shapeshift.io"
+  "SHAPESHIFT_URL": "https://shapeshift.io",
+  "SHH_URL": "ws://localhost:8546"
 }

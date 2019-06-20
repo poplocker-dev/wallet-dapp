@@ -1,21 +1,30 @@
 .waiting-subview {
   padding: 20px;
-  width: 100%;
   align-items: center;
   background: var(--subview-bg);
 
+  .emojis {
+    flex-grow: 1;
+    padding: 10px 0px 10px 12px;
+    text-align: center;
+    font-size: 36px;
+    letter-spacing: 12px;
+  }
+
   .message {
     flex-grow: 1;
-    padding-top: 50px;
     text-align: center;
+    width: 85%;
   }
 
   .spinning {
+    align-items: center;
     width: 45%;
     height: 45%;
   }
 
-  .btn {
-    width: 40%;
+  .button {
+    width: 100%;
+
   }
 }

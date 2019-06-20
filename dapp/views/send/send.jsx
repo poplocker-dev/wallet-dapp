@@ -38,12 +38,12 @@ class Send extends React.Component {
       if (!to || window.web3.utils.isAddress(to)) this.setState({ toError: '' });
       else this.setState({ toError: 'Invalid address or Smart Locker name' });
 
-      if (to && this.registrar) {
+      if (to && window.web3.utils.utf8ToHex(to).length <= 66 && this.registrar) {
         this.registrar.getAddressDebounced(to).then(lockerAddress => {
           if (lockerAddress) this.setState({ toError: '' });
           this.setState({ lockerAddress });
         });
-      }      
+      }
 
     })
   }
