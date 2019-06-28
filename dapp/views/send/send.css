@@ -30,13 +30,4 @@
     float: right;
     margin: -15px 5px 0px 0px;
   }
-
-  .back-send {
-    display: flex;
-    justify-content: space-between;
-
-    .btn {
-      width: 47.5%;
-    }
-  }
 }
