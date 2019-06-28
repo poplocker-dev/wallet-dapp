@@ -4,6 +4,7 @@ import { bindActionCreators }                    from 'redux'
 import { Icon }                                  from '@poplocker/react-ui'
 import { addressToEmoji }                        from 'lib/helpers'
 import { selectAuthorizedKey, selectPendingKey } from 'lib/store/actions'
+import { toast }                                 from 'react-toastify'
 
 import './key.css'
 
@@ -58,7 +59,12 @@ class Key extends React.Component {
   }
 
   handleSelect () {
-    this.props.status == 'pending'? this.props.selectPendingKey(this.props.address) : this.props.selectAuthorizedKey(this.props.address);
+    if (this.props.status == 'pending') {
+      this.props.selectPendingKey(this.props.address);
+      toast.warning('Only authorize if these symbols match on your other device!');
+    } else {
+      this.props.selectAuthorizedKey(this.props.address);
+    }
   }
 }
 
