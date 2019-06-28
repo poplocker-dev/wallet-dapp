@@ -6,6 +6,7 @@ import { Button }                    from '@poplocker/react-ui'
 import devices                       from 'assets/devices.svg'
 import { SmartLockerContract }       from 'lib/contracts'
 import { showSendTransactionToasts } from 'lib/helpers'
+import { rpc }                       from 'lib/rpc_calls'
 import { selectAuthorizedKey,
          selectPendingKey }          from 'lib/store/actions'
 
@@ -105,7 +106,8 @@ class ManagementSubview extends React.Component {
   }
 
   rejectPendingKey () {
-    // TODO
+    this.props.rejectPendingKey(this.props.selectedKey.pending)
+      .then(this.props.updateLocker);
     this.props.selectPendingKey(null);
   }
 
@@ -126,7 +128,9 @@ const mapState = ({ locker, balance, selectedKey }) => ({ locker, balance, selec
 
 const mapDispatch = dispatch => ({
   selectAuthorizedKey : bindActionCreators(selectAuthorizedKey, dispatch),
-  selectPendingKey : bindActionCreators(selectPendingKey, dispatch)
+  selectPendingKey : bindActionCreators(selectPendingKey, dispatch),
+  rejectPendingKey: bindActionCreators(rpc.removeKeyRequest, dispatch),
+  updateLocker: bindActionCreators(rpc.getSmartLockerState, dispatch)
 });
 
 export default connect(mapState, mapDispatch)(ManagementSubview);
