@@ -1,7 +1,7 @@
 .send-panel {
-  height: 100%;
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
   justify-content: space-between;
   background-color: var(--subview-bg);
   padding: 20px;
@@ -29,14 +29,5 @@
   .send-all {
     float: right;
     margin: -15px 5px 0px 0px;
-  }
-
-  .back-send {
-    display: flex;
-    justify-content: space-between;
-
-    .btn {
-      width: 47.5%;
-    }
   }
 }

@@ -118,7 +118,7 @@ class Send extends React.Component {
                     onChange={this.handleSendAll.bind(this)}
                     checked={this.state.sendAll} />
         </div>
-        <div className="back-send">
+        <div className="buttons--2row">
           <Button type="button" kind="light" icon="back" onClick={this.handleBack.bind(this)}>Back</Button>
           <Button icon="arrow-up" disabled={!this.shouldBeEnabled()}>Send</Button>
         </div>
