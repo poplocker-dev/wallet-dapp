@@ -19,11 +19,14 @@ class TransactionList extends React.Component {
 
   componentWillUnmount() {
     clearInterval(this.timer);
+    this.unmounted = true;
   }
 
   startPolling() {
-    this.pollForStatus();
-    this.timer = setInterval(() => this.pollForStatus(), 4000);
+    if (!this.unmounted) {
+      this.pollForStatus();
+      this.timer = setInterval(() => this.pollForStatus(), 4000);
+    }
   }
 
   pollForStatus() {
