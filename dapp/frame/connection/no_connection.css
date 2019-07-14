@@ -5,3 +5,10 @@
   font-size: 20px;
   font-weight: bold;
 }
+
+.not-unlocked {
+  .btn {
+    margin: 33% auto;
+    width: 65%;
+  }
+}

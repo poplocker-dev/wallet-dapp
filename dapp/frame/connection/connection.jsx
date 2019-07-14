@@ -1,8 +1,10 @@
-import React                      from 'react'
-import { connect }                from 'react-redux'
-import { rpc }                    from 'lib/rpc_calls'
-import { Bouncing }               from '@poplocker/react-ui'
-import { NoAddress, NoExtension } from './no_connection'
+import React           from 'react'
+import { connect }     from 'react-redux'
+import { rpc }         from 'lib/rpc_calls'
+import { Bouncing }    from '@poplocker/react-ui'
+import { NoAddress,
+         NoExtension,
+         NotUnlocked } from './no_connection'
 
 class Connection extends React.Component {
   componentDidMount() {
@@ -33,8 +35,13 @@ class Connection extends React.Component {
     if (!this.extensionInstalled())
       return <NoExtension/>
 
-    else if (!this.props.address)
+    else if (!this.props.accounts) {
       return <NoAddress/>
+    }
+
+    else if (this.props.accounts.length == 0) {
+      return <NotUnlocked onUnlock={this.unlock.bind(this)}/>
+    }
 
     else if (this.props.connection == -1)
       return <Bouncing/>
@@ -43,9 +50,17 @@ class Connection extends React.Component {
       return this.props.children;
   }
 
+  unlock () {
+    this.props.dispatch(rpc.unlockAccount());
+  }
+
   render () {
     return this.failOrWait();
   }
 }
 
-export default connect(({ address, connection }) => ({ address, connection }))(Connection);
+export default connect(({ address,
+                          accounts,
+                          connection }) => ({ address,
+                                              accounts,
+                                              connection }))(Connection);
