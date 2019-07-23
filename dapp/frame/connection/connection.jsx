@@ -3,8 +3,7 @@ import { connect }     from 'react-redux'
 import { rpc }         from 'lib/rpc_calls'
 import { Bouncing }    from '@poplocker/react-ui'
 import { NoAddress,
-         NoExtension,
-         NotUnlocked } from './no_connection'
+         NoExtension } from './no_connection'
 
 class Connection extends React.Component {
   componentDidMount() {
@@ -39,7 +38,8 @@ class Connection extends React.Component {
       return <NoAddress/>
 
     else if (this.props.accounts.length == 0) {
-      return <NotUnlocked onUnlock={this.unlock.bind(this)}/>
+      this.props.dispatch(rpc.unlockAccount());
+      return <NoAddress/>
     }
 
     else if (this.props.connection == -1)
@@ -47,10 +47,6 @@ class Connection extends React.Component {
 
     else
       return this.props.children;
-  }
-
-  unlock () {
-    this.props.dispatch(rpc.unlockAccount());
   }
 
   render () {

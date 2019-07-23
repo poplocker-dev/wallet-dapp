@@ -1,13 +1,12 @@
-import React      from 'react'
-import { Button } from '@poplocker/react-ui'
+import React from 'react'
 
 import './no_connection.css'
 
 const NoAddress = () => (
   <div className="no-connection no-address">
-    No account detected
+    No account detected or account is locked
     <br/><br/>
-    Please create an account
+    Please create an account or grant connection request
   </div>
 );
 
@@ -21,16 +20,4 @@ const NoExtension = () => (
   </div>
 );
 
-const NotUnlocked = ({ onUnlock }) => (
-  <div className="no-connection not-unlocked">
-    Account is locked
-    <br/><br/>
-    Unlock account and approve connection request
-
-    <Button icon="tick" onClick={onUnlock}>
-      Unlock Account
-    </Button>
-  </div>
-);
-
-export { NoAddress, NoExtension, NotUnlocked };
+export { NoAddress, NoExtension };
