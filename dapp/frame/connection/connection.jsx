@@ -35,7 +35,7 @@ class Connection extends React.Component {
     if (!this.extensionInstalled())
       return <NoExtension/>
 
-    else if (!this.props.accounts)
+    else if (!this.props.address)
       return <NoAddress/>
 
     else if (this.props.accounts.length == 0) {
