@@ -1,6 +1,5 @@
-import React from 'react'
+import React      from 'react'
 import { Button } from '@poplocker/react-ui'
-import { rpc }                              from 'lib/rpc_calls'
 
 import './no_connection.css'
 
