@@ -6,11 +6,8 @@ import { NoAddress, NoExtension } from './no_connection'
 
 class Connection extends React.Component {
   componentDidMount() {
-    if (this.extensionInstalled()) {
+    if (this.extensionInstalled())
       this.startPolling();
-      // legacy 1102 - for web3 browsers that don't support lazy connection requests
-      window.ethereum.enable();
-    }
   }
 
   componentWillUnmount() {
