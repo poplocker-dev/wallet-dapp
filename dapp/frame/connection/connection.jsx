@@ -9,7 +9,7 @@ class Connection extends React.Component {
     if (this.extensionInstalled()) {
       this.startPolling();
       // legacy 1102 - for web3 browsers that don't support lazy connection requests
-      window.ethereum.enable();
+      if (window.ethereum) window.ethereum.enable();
     }
   }
 
