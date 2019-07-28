@@ -1,7 +1,7 @@
 .send-panel {
-  height: 100%;
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
   justify-content: space-between;
   background-color: var(--subview-bg);
   padding: 20px;
@@ -12,8 +12,10 @@
     margin-bottom: 20px;
   }
 
-  .send-to {
-    font-size: 12px;
+  .input-field--condensed {
+    input {
+      font-size: 12px;
+    }
   }
 
   .input-field {

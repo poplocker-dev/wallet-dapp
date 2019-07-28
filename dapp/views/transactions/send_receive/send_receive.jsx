@@ -1,5 +1,5 @@
-import React      from 'react'
-import { Button } from '@poplocker/react-ui'
+import React       from 'react'
+import { Button }  from '@poplocker/react-ui'
 
 import './send_receive.css'
 

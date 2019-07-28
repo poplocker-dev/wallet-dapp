@@ -1,0 +1,41 @@
+.create-or-link-subview {
+  background: var(--subview-bg);
+  padding: 20px;
+
+  .title {
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-between;
+
+    .input-field .badge--loading {
+      top: 18px;
+    }
+
+    .input-field--condensed {
+      input {
+        font-size: 13px;
+      }
+    }
+
+    .input-field {
+      margin-bottom: 25.8px;
+    }
+
+    .input-field--with-badge  {
+      input {
+        padding-right: 48px;
+      }
+    }
+
+    .input-field--invalid {
+      margin-bottom: 9px;
+    }
+  }
+}

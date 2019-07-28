@@ -1,17 +1,31 @@
-import React               from 'react'
-import { fixedEth }        from 'lib/helpers'
-import { copyToClipboard } from 'lib/helpers'
-import { Indicator }       from '@poplocker/react-ui'
-import { toast }           from 'react-toastify'
+import React                    from 'react'
+import { fixedEth }             from 'lib/helpers'
+import { copyToClipboard }      from 'lib/helpers'
+import { Indicator, Preloader } from '@poplocker/react-ui'
+import { toast }                from 'react-toastify'
 
 import './transaction.css'
 
 class Transaction extends React.Component {
   constructor (props) {
     super(props);
+    this.state = { address: null, addressResolved: false };
+  }
 
-    const address = this.peer(this.props.tx, this.props.referenceAddress);
-    this.state = { address };
+  componentDidMount() {
+    this.resolveAddress();
+  }
+
+  componentDidUpdate() {
+    this.resolveAddress();
+  }
+
+  async resolveAddress() {
+    let address = this.peer(this.props.tx, this.props.referenceAddress);
+    if (address && this.props.registrar) {
+      address = await this.props.registrar.resolveName(address);
+    }
+    if (address != this.state.address) this.setState({ address, addressResolved: true });
   }
 
   render () {
@@ -22,7 +36,9 @@ class Transaction extends React.Component {
           <div className="info-top">
 
             <div className={`address ${this.isLongAddress(this.state.address)? 'address-expand' : ''}`}>
-              { this.state.address || "Contract Deployment" }
+              <Preloader value={this.state.addressResolved}>
+                { this.state.address || "Contract Deployment" }
+              </Preloader>
             </div>
             <div className={`value ${this.isLongAddress(this.state.address)? 'value-contract' : ''}`}>
               { this.props.tx.sendAll? 'All' : fixedEth(this.props.tx.value) } ETH
@@ -81,7 +97,7 @@ class Transaction extends React.Component {
   handleCopy () {
     if (this.state.address) {
       copyToClipboard(this.state.address);
-      toast.info('Address copied to clipboard');
+      toast.info((this.isLongAddress(this.state.address)? 'Address' : 'Smart Locker name') + ' copied to clipboard');
     }
   }
 }

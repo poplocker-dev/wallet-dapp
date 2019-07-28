@@ -1,14 +1,14 @@
 .header {
   z-index: 2;
 
-  .balance-info {
-    padding: 9px;
-  }
-
   .title {
     font-size: 12px;
     font-weight: 600;
     text-transform: uppercase;
     text-align: center;
+  }
+
+  .locker-button {
+     margin: 3px 0 6px 0;
   }
 }

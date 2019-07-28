@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@poplocker/react-ui": "https://github.com/poplocker-dev/react-ui",
+    "awesome-debounce-promise": "^2.1.0",
     "bignumber.js": "^8.0.2",
     "classnames": "^2.2.6",
     "history": "^4.7.2",

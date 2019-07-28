@@ -1,0 +1,5 @@
+.loading-subview {
+  background: var(--subview-bg);
+  padding: 20px;
+  flex-grow: 1;
+}
