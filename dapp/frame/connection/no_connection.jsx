@@ -6,7 +6,7 @@ const NoAddress = () => (
   <div className="no-connection no-address">
     No account detected
     <br/><br/>
-    Please create an account
+    Please create an account or authorize connection request in your browser
   </div>
 );
 
