@@ -22,7 +22,7 @@
     "bignumber.js": "^8.0.2",
     "classnames": "^2.2.6",
     "history": "^4.7.2",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "pro-router": "^4.3.2",
     "qrcode": "^1.3.2",
     "react": "^16.5.2",
